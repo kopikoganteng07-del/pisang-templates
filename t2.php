@@ -217,13 +217,27 @@ if ($isiArtikel !== '' && $namaSitus !== '') {
             continue;
         }
         if ($sudah || $dalamTautan) { continue; }
-        $pos = stripos($bagian, $namaSitus);
-        if ($pos === false) { continue; }
-        $asli = substr($bagian, $pos, strlen($namaSitus));
-        $potongan[$i] = substr($bagian, 0, $pos)
-            . '<a href="/" class="g-tautan-diri">' . e($asli) . '</a>'
-            . substr($bagian, $pos + strlen($namaSitus));
-        $sudah = true;
+        $panjangNama = strlen($namaSitus);
+        $dari = 0;
+        while (($pos = stripos($bagian, $namaSitus, $dari)) !== false) {
+            $akhir = $pos + $panjangNama;
+            $sebelum  = $pos > 0 ? $bagian[$pos - 1] : '';
+            $sesudah  = isset($bagian[$akhir]) ? $bagian[$akhir] : '';
+            $sesudah2 = isset($bagian[$akhir + 1]) ? $bagian[$akhir + 1] : '';
+            // Menempel huruf/angka di kiri atau kanan berarti ini bagian dari
+            // kata lain, bukan nama situs yang berdiri sendiri.
+            if ($sebelum !== '' && (ctype_alnum($sebelum) || $sebelum === '.' || $sebelum === '-' || $sebelum === '@')) { $dari = $akhir; continue; }
+            if ($sesudah !== '' && (ctype_alnum($sesudah) || $sesudah === '-')) { $dari = $akhir; continue; }
+            // Titik diikuti huruf berarti ini nama domain (mis. situs.com).
+            // Menautkannya akan memotong domain jadi <a>situs</a>.com.
+            if ($sesudah === '.' && $sesudah2 !== '' && ctype_alpha($sesudah2)) { $dari = $akhir; continue; }
+            $asli = substr($bagian, $pos, $panjangNama);
+            $potongan[$i] = substr($bagian, 0, $pos)
+                . '<a href="/" class="g-tautan-diri">' . e($asli) . '</a>'
+                . substr($bagian, $akhir);
+            $sudah = true;
+            break;
+        }
     }
     $isiArtikel = implode('', $potongan);
 }
@@ -255,13 +269,15 @@ $graph[] = ['@type' => 'BreadcrumbList', '@id' => $urlKanonik . '#remah', 'itemL
 if ($isBeranda) {
     $graph[] = ['@type' => 'WebSite', '@id' => $baseUrl . '/#situs', 'name' => $namaSitus, 'url' => $baseUrl . '/', 'inLanguage' => 'id-ID'];
 }
-$graph[] = [
-    '@type' => 'FAQPage',
-    '@id' => $urlKanonik . '#faq',
-    'mainEntity' => array_map(static function ($f) {
-        return ['@type' => 'Question', 'name' => $f[0], 'acceptedAnswer' => ['@type' => 'Answer', 'text' => $f[1]]];
-    }, $faq),
-];
+if ($isBeranda) {
+    $graph[] = [
+        '@type' => 'FAQPage',
+        '@id' => $urlKanonik . '#faq',
+        'mainEntity' => array_map(static function ($f) {
+            return ['@type' => 'Question', 'name' => $f[0], 'acceptedAnswer' => ['@type' => 'Answer', 'text' => $f[1]]];
+        }, $faq),
+    ];
+}
 $jsonLd = json_encode(['@context' => 'https://schema.org', '@graph' => $graph], JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE);
 ?><!DOCTYPE html>
 <html lang="id">
@@ -596,11 +612,12 @@ h1,h2,h3,h4{font-family:Outfit,Poppins,system-ui,sans-serif;letter-spacing:-.01e
 </section>
 
 <?php if (!$is404): ?>
-<section class="g-seksi" aria-label="Pertanyaan umum dan penilaian">
+<section class="g-seksi" aria-label="Informasi tambahan">
   <div class="g-bungkus">
     <div class="g-panel">
       <div class="g-panel-dalam">
 
+        <?php if ($isBeranda): ?>
         <h2>Pertanyaan Umum <?= e($namaSitus) ?></h2>
         <ul class="g-faq">
           <?php foreach ($faq as $i => $f): ?>
@@ -610,6 +627,7 @@ h1,h2,h3,h4{font-family:Outfit,Poppins,system-ui,sans-serif;letter-spacing:-.01e
           </li>
           <?php endforeach; ?>
         </ul>
+        <?php endif; ?>
         <p class="g-catat">Patuhi ketentuan dan batas usia yang berlaku di wilayah Anda, serta bermainlah secara bertanggung jawab.</p>
 
         <?php if ($isBeranda): ?>
