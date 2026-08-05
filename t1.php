@@ -532,8 +532,6 @@ h1,h2,h3,.p-display{font-family:"Chakra Petch",system-ui,sans-serif;letter-spaci
         <div class="p-jackpot">
           <p class="p-jackpot-judul">JACKPOT PLAY</p>
           <p class="p-jackpot-angka">IDR <?= e($jackpotTampil) ?></p>
-          <span class="p-ilustrasi">Angka ilustrasi</span>
-          <p class="p-catatan-kecil">Nilai di atas adalah elemen tampilan, bukan data hadiah resmi. Penjelasan lengkap ada di <a href="/disclaimer">halaman disclaimer</a>.</p>
         </div>
         <div class="p-panel p-undian">
           <h2>Papan Undian Harian</h2>
