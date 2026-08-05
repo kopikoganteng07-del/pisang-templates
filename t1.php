@@ -573,7 +573,7 @@ h1,h2,h3,.p-display{font-family:"Chakra Petch",system-ui,sans-serif;letter-spaci
     </section>
 
     <section class="p-blok" aria-label="Contoh daftar pemenang">
-      <span class="p-judulblok">Contoh Daftar Pemenang</span>
+      <span class="p-judulblok">Daftar Pemenang</span>
       <div class="p-panel">
         <ul class="p-menang">
           <?php foreach ($daftarPemenang as $m): ?>
