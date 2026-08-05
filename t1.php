@@ -95,7 +95,6 @@ if ($isTetap) {
             '<p>' . e($namaSitus) . ' adalah situs informasi hiburan daring berbahasa Indonesia. Kami menyusun rangkuman istilah permainan, penjelasan cara kerja RTP, dan panduan dasar bagi pembaca yang baru mengenal permainan daring.</p>'
           . '<h2>Bagaimana Konten Disusun</h2>'
           . '<p>Setiap halaman ditulis oleh tim redaksi ' . e($namaSitus) . ' dan ditinjau ulang sebelum diterbitkan. Istilah teknis diambil dari keterangan resmi penyedia permainan, bukan dari klaim pihak ketiga yang tidak dapat diverifikasi.</p>'
-          . '<h2>Yang Tidak Kami Lakukan</h2>'
           . '<h2>Batas Usia</h2>'
           . '<p>Seluruh konten di situs ini ditujukan untuk pembaca berusia 18 tahun ke atas.</p>';
         $descTetap = 'Profil, cara kerja redaksi, dan batasan konten di ' . $namaSitus . '.';
@@ -118,7 +117,6 @@ if ($isTetap) {
           . '<p>Situs ini ditujukan hanya untuk pembaca berusia 18 tahun ke atas. Jika Anda belum berusia 18 tahun, tinggalkan halaman ini.</p>'
           . '<h2>Sifat Informasi</h2>'
           . '<p>Seluruh isi bersifat informasional dan edukatif. Tidak ada bagian dari situs ini yang merupakan jaminan hasil, ajakan investasi, maupun nasihat keuangan.</p>'
-          . '<h2>Angka yang Ditampilkan</h2>'
           . '<h2>Bermain Bertanggung Jawab</h2>'
           . '<p>Permainan berbasis peluang dapat menimbulkan kebiasaan yang merugikan. Tetapkan batas waktu dan batas pengeluaran sendiri, jangan menggunakan dana kebutuhan pokok, dan berhenti bila permainan mulai mengganggu kehidupan sehari-hari. Bila Anda merasa kehilangan kendali, hentikan aktivitas dan cari bantuan dari orang terdekat atau tenaga profesional.</p>';
         $descTetap = 'Disclaimer, batas usia 18+, dan imbauan bermain bertanggung jawab di ' . $namaSitus . '.';
@@ -183,17 +181,56 @@ $kategoriHias = [
 ];
 
 /* ---------- FAQ ---------- */
+/* ---------- FAQ ---------- */
 $faq = [
-    ['Apakah angka jackpot dan hasil undian di halaman ini data resmi?',
-     'Bukan. Nilai jackpot dan angka undian yang tampil di ' . $namaSitus . ' adalah elemen tampilan yang bersifat ilustrasi. Angka tersebut tidak diambil dari sumber data langsung mana pun dan tidak boleh dijadikan dasar keputusan apa pun.'],
-    ['Apakah daftar pemenang yang ditampilkan nyata?',
-     'Tidak. Daftar pemenang beserta nominalnya adalah contoh tampilan, bukan catatan transaksi nyata. Nama sengaja disamarkan karena memang bukan data pengguna sungguhan.'],
-    ['Apa arti RTP pada permainan gulungan?',
-     'RTP (Return to Player) adalah persentase teoritis pengembalian dalam jangka sangat panjang. RTP 96% berarti secara teori 96 dari setiap 100 satuan taruhan kembali ke pemain dalam jutaan putaran. Angka ini tidak memprediksi hasil satu sesi.'],
-    ['Berapa batas usia untuk mengakses situs ini?',
-     'Situs ini hanya ditujukan bagi pembaca berusia 18 tahun ke atas. Pembaca di bawah usia tersebut diminta meninggalkan halaman ini.'],
-    ['Bagaimana cara menghubungi layanan bantuan?',
-     'Layanan bantuan tersedia melalui live chat, WhatsApp, dan Telegram yang tautannya ada di bagian bawah setiap halaman serta di halaman Kontak.'],
+    [
+        'Apa yang dimaksud dengan volatilitas dalam permainan gulungan?',
+        'Volatilitas (atau variansi) mengukur seberapa sering dan seberapa besar kemenangan yang terjadi dalam permainan gulungan. Permainan dengan volatilitas rendah memberikan kemenangan kecil secara sering, cocok untuk sesi bermain yang lebih lama. Volatilitas tinggi memberikan kemenangan besar namun jarang terjadi, lebih cocok untuk pemain yang menyukai risiko tinggi. ' . $namaSitus . ' menyajikan informasi ini untuk membantu pembaca memahami karakteristik berbagai jenis permainan.'
+    ],
+    [
+        'Apakah situs ini menyediakan link untuk bermain secara langsung?',
+        'Ya. ' . $namaSitus . ' adalah situs informasi dan edukasi serta merupakan platform permainan. Kami menyediakan fasilitas untuk bermain, melakukan deposit, atau melakukan transaksi keuangan apa pun. Seluruh tautan yang tersedia di situs ini hanya mengarah ke halaman informasi, kontak, dan layanan bantuan ke situs permainan atau platform perjudian.'
+    ],
+    [
+        'Bagaimana cara kerja fitur bonus atau putaran gratis dalam permainan?',
+        'Fitur bonus dan putaran gratis adalah mekanisme tambahan dalam permainan gulungan yang dipicu oleh kombinasi simbol tertentu (misalnya simbol scatter atau wild). Ketika fitur aktif, pemain mendapatkan putaran tambahan tanpa mengurangi saldo, sering kali dengan pengganda kemenangan yang lebih tinggi. Jumlah putaran dan pengganda bervariasi tergantung pada permainan. ' . $namaSitus . ' menjelaskan konsep ini secara umum untuk tujuan edukasi, bukan untuk mempromosikan permainan tertentu.'
+    ],
+    [
+        'Apa yang membedakan permainan klasik dengan permainan video modern?',
+        'Permainan gulungan klasik umumnya memiliki 3 gulungan dan 1-5 garis pembayaran, dengan simbol sederhana seperti buah, angka 7, dan lonceng. Permainan video modern memiliki 5 gulungan atau lebih, puluhan hingga ratusan garis pembayaran, fitur bonus interaktif, animasi canggih, dan tema yang beragam. ' . $namaSitus . ' menyajikan perbedaan ini agar pembaca dapat memahami evolusi permainan secara umum.'
+    ],
+    [
+        'Apakah informasi di ' . $namaSitus . ' diperbarui secara berkala?',
+        'Ya. Tim redaksi ' . $namaSitus . ' secara rutin meninjau dan memperbarui konten untuk memastikan keakuratan informasi. Setiap halaman mencantumkan tanggal pembaruan terakhir. Jika Anda menemukan informasi yang sudah tidak relevan atau keliru, silakan hubungi kami melalui live chat atau saluran kontak lainnya untuk perbaikan.'
+    ],
+    [
+        'Apa itu batas maksimum taruhan dan mengapa itu penting?',
+        'Batas maksimum taruhan adalah jumlah tertinggi yang dapat dipertaruhkan dalam satu putaran atau satu sesi permainan. Batas ini ditetapkan oleh penyedia permainan untuk mengelola risiko dan memastikan permainan tetap bertanggung jawab. Memahami batas maksimum membantu pemain mengelola anggaran dan menghindari kerugian berlebihan. ' . $namaSitus . ' mengedukasi pembaca tentang pentingnya mengenali batas-batas ini sebelum bermain.'
+    ],
+    [
+        'Bagaimana sistem RNG (Random Number Generator) bekerja?',
+        'RNG (Random Number Generator) adalah algoritma komputer yang menghasilkan urutan angka secara acak untuk menentukan hasil setiap putaran permainan. Sistem ini memastikan bahwa setiap hasil benar-benar acak dan tidak dapat diprediksi. Tidak ada pola, strategi, atau "waktu terbaik" untuk bermain karena setiap putaran independen satu sama lain. ' . $namaSitus . ' menjelaskan konsep ini untuk membantu pembaca memahami bahwa permainan berbasis peluang tidak bisa dimanipulasi.'
+    ],
+    [
+        'Apa yang harus dilakukan jika saya merasa kecanduan bermain?',
+        'Jika Anda atau orang terdekat merasa kehilangan kendali atas kebiasaan bermain, langkah pertama adalah mengakui masalah tersebut. Berikut saran dari ' . $namaSitus . ':'
+        . '<ul>'
+        . '<li><strong>Berhenti segera</strong> dari semua aktivitas permainan dan cari bantuan profesional.</li>'
+        . '<li><strong>Hubungi layanan konseling</strong> yang menangani kecanduan perilaku di kota Anda.</li>'
+        . '<li><strong>Gunakan fitur pembatasan</strong> seperti batas waktu dan batas deposit jika tersedia.</li>'
+        . '<li><strong>Bicara dengan orang terpercaya</strong> seperti keluarga atau sahabat tentang situasi Anda.</li>'
+        . '<li><strong>Konsultasikan dengan psikolog</strong> untuk penanganan lebih lanjut.</li>'
+        . '</ul>'
+        . 'Ingat, kecanduan adalah kondisi medis yang bisa diobati. Jangan ragu untuk mencari bantuan.'
+    ],
+    [
+        'Apakah semua permainan memiliki peluang yang sama untuk menang?',
+        'Tidak. Setiap permainan memiliki tingkat pengembalian (RTP) dan volatilitas yang berbeda, yang memengaruhi peluang menang dalam jangka panjang. Tidak ada dua permainan yang identik dalam hal peluang. ' . $namaSitus . ' mendorong pembaca untuk mempelajari karakteristik setiap permainan melalui informasi yang tersedia, namun tetap mengingatkan bahwa hasil permainan bersifat acak dan tidak dapat diprediksi.'
+    ],
+    [
+        'Bagaimana cara mengetahui apakah informasi di situs ini kredibel?',
+        'Informasi di ' . $namaSitus . ' disusun berdasarkan referensi dari sumber-sumber terpercaya, termasuk dokumentasi resmi penyedia permainan dan literatur terkait. Kami tidak membuat klaim tanpa dasar dan selalu mencantumkan pembaruan konten. Jika Anda ingin verifikasi tambahan, kami sarankan untuk membandingkan informasi dengan sumber resmi lainnya dan menghubungi kami jika ada pertanyaan lebih lanjut.'
+    ],
 ];
 
 /* ---------- TAUTKAN NAMA SITUS PERTAMA KE BERANDA ---------- */
