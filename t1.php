@@ -538,8 +538,6 @@ h1,h2,h3,.p-display{font-family:"Chakra Petch",system-ui,sans-serif;letter-spaci
           <div class="p-digit" aria-label="Angka ilustrasi <?= e($angkaUndian) ?>">
             <?php foreach (str_split($angkaUndian) as $d): ?><span><?= e($d) ?></span><?php endforeach; ?>
           </div>
-          <span class="p-ilustrasi">Angka ilustrasi</span>
-          <p class="p-catatan-kecil">Diperbarui otomatis tiap hari sebagai contoh tampilan. Bukan hasil undian sungguhan.</p>
         </div>
       </div>
     </section>
@@ -582,7 +580,6 @@ h1,h2,h3,.p-display{font-family:"Chakra Petch",system-ui,sans-serif;letter-spaci
           </li>
           <?php endforeach; ?>
         </ul>
-        <p class="p-catatan-kecil" style="padding:0 14px 14px"><span class="p-ilustrasi">Ilustrasi</span> Daftar ini bukan catatan transaksi nyata dan tidak merujuk pada pengguna mana pun.</p>
       </div>
     </section>
     <?php endif; ?>
@@ -625,7 +622,7 @@ h1,h2,h3,.p-display{font-family:"Chakra Petch",system-ui,sans-serif;letter-spaci
       <div>
         <span class="p-usia">18+</span>
         <p><strong><?= e($namaSitus) ?></strong> adalah situs informasi hiburan daring berbahasa Indonesia. Seluruh isi bersifat informasional dan edukatif, bukan jaminan hasil maupun nasihat keuangan.</p>
-        <p>Angka jackpot, hasil undian, dan daftar pemenang yang tampil di situs ini adalah elemen tampilan yang bersifat ilustrasi. Permainan berbasis peluang dapat menimbulkan kebiasaan yang merugikan &mdash; tetapkan batas waktu dan pengeluaran, dan berhenti bila mulai mengganggu kehidupan sehari-hari.</p>
+        <p>Permainan berbasis peluang dapat menimbulkan kebiasaan yang merugikan &mdash; tetapkan batas waktu dan pengeluaran, dan berhenti bila mulai mengganggu kehidupan sehari-hari.</p>
         <p>&copy; <?= e(date('Y')) ?> <?= e($namaSitus) ?>. Konten terakhir diperbarui <time datetime="<?= e($lastmodTgl) ?>"><?= e($lastmodTampil) ?></time>.</p>
       </div>
       <div>
