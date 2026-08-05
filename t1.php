@@ -96,7 +96,6 @@ if ($isTetap) {
           . '<h2>Bagaimana Konten Disusun</h2>'
           . '<p>Setiap halaman ditulis oleh tim redaksi ' . e($namaSitus) . ' dan ditinjau ulang sebelum diterbitkan. Istilah teknis diambil dari keterangan resmi penyedia permainan, bukan dari klaim pihak ketiga yang tidak dapat diverifikasi.</p>'
           . '<h2>Yang Tidak Kami Lakukan</h2>'
-          . '<p>Kami tidak menjanjikan kemenangan, tidak menjual jasa prediksi, dan tidak mengklaim memiliki data hasil permainan secara langsung. Angka jackpot, hasil undian, dan daftar pemenang yang tampil di situs ini adalah elemen tampilan yang bersifat ilustrasi.</p>'
           . '<h2>Batas Usia</h2>'
           . '<p>Seluruh konten di situs ini ditujukan untuk pembaca berusia 18 tahun ke atas.</p>';
         $descTetap = 'Profil, cara kerja redaksi, dan batasan konten di ' . $namaSitus . '.';
@@ -120,7 +119,6 @@ if ($isTetap) {
           . '<h2>Sifat Informasi</h2>'
           . '<p>Seluruh isi bersifat informasional dan edukatif. Tidak ada bagian dari situs ini yang merupakan jaminan hasil, ajakan investasi, maupun nasihat keuangan.</p>'
           . '<h2>Angka yang Ditampilkan</h2>'
-          . '<p>Nilai jackpot, angka hasil undian, dan daftar pemenang yang muncul di halaman adalah <strong>elemen tampilan yang bersifat ilustrasi</strong>. Angka tersebut tidak diambil dari sumber data langsung mana pun dan tidak boleh dijadikan dasar keputusan apa pun.</p>'
           . '<h2>Bermain Bertanggung Jawab</h2>'
           . '<p>Permainan berbasis peluang dapat menimbulkan kebiasaan yang merugikan. Tetapkan batas waktu dan batas pengeluaran sendiri, jangan menggunakan dana kebutuhan pokok, dan berhenti bila permainan mulai mengganggu kehidupan sehari-hari. Bila Anda merasa kehilangan kendali, hentikan aktivitas dan cari bantuan dari orang terdekat atau tenaga profesional.</p>';
         $descTetap = 'Disclaimer, batas usia 18+, dan imbauan bermain bertanggung jawab di ' . $namaSitus . '.';
