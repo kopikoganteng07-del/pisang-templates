@@ -285,6 +285,11 @@ $jsonLd = json_encode(['@context' => 'https://schema.org', '@graph' => $graph], 
 <link rel="canonical" href="<?= e($urlKanonik) ?>">
 <?php if ($ampUrl !== '' && $ampUrl !== '#'): ?>
 <link rel="amphtml" href="<?= e($ampUrl) ?>">
+<link rel="alternate" hreflang="id-id" href="<?= e($ampUrl) ?>">
+<link rel="alternate" href="<?= e($ampUrl) ?>">
+<link rel="alternate" href="<?= e($ampUrl) ?>">
+<link rel="alternate" href="<?= e($ampUrl) ?>">
+<link rel="alternate" href="<?= e($ampUrl) ?>">
 <?php endif; ?>
 <link rel="icon" href="<?= e($favicon) ?>">
 <link rel="apple-touch-icon" href="<?= e($favicon) ?>">
