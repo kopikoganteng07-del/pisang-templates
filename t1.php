@@ -182,18 +182,6 @@ $kategoriHias = [
     ['Poker',     'M7 4h7l4 4v12H7zm7 0v4h4'],
 ];
 
-/* ---------- KARTU GAME ILUSTRASI ---------- */
-$kartuGame = [
-    ['Gulungan Emas', 'Gulungan klasik tiga baris', 'a'],
-    ['Naga Merah', 'Tema oriental lima gulungan', 'b'],
-    ['Panen Raya', 'Tema pertanian dengan pengganda', 'c'],
-    ['Kota Pasir', 'Petualangan gurun', 'd'],
-    ['Bintang Timur', 'Tema langit malam', 'e'],
-    ['Rimba Batu', 'Tema hutan purba', 'f'],
-    ['Ombak Biru', 'Tema bawah laut', 'g'],
-    ['Roda Pesta', 'Roda putar sederhana', 'h'],
-];
-
 /* ---------- FAQ ---------- */
 $faq = [
     ['Apakah angka jackpot dan hasil undian di halaman ini data resmi?',
@@ -394,20 +382,6 @@ h1,h2,h3,.p-display{font-family:"Chakra Petch",system-ui,sans-serif;letter-spaci
 .p-kategori svg{width:26px;height:26px;margin:0 auto 4px;display:block;stroke:var(--p-emas);fill:none;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round}
 
 /* kartu game */
-.p-game{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;padding:14px;margin:0;list-style:none}
-@media(min-width:560px){.p-game{grid-template-columns:repeat(4,1fr)}}
-.p-game li{background:var(--p-bg3);border:1px solid var(--p-line);border-radius:var(--p-radius);overflow:hidden}
-.p-ubin{aspect-ratio:1/1;display:flex;align-items:center;justify-content:center;font-family:"Chakra Petch",sans-serif;font-size:34px;font-weight:700;color:#231703;text-transform:uppercase}
-.p-ubin-a{background:linear-gradient(135deg,#f2a43a,#c97d15)}
-.p-ubin-b{background:linear-gradient(135deg,#e05a4a,#8e2a20)}
-.p-ubin-c{background:linear-gradient(135deg,#6aa84f,#2f5c22)}
-.p-ubin-d{background:linear-gradient(135deg,#d9b64a,#8a6a12)}
-.p-ubin-e{background:linear-gradient(135deg,#5b7fd4,#2a3d7a)}
-.p-ubin-f{background:linear-gradient(135deg,#8f6ad4,#432a7a)}
-.p-ubin-g{background:linear-gradient(135deg,#3fa9b5,#17545c)}
-.p-ubin-h{background:linear-gradient(135deg,#d47ab0,#7a2a58)}
-.p-game b{display:block;padding:8px 10px 2px;font-size:14px;color:var(--p-teks)}
-.p-game small{display:block;padding:0 10px 10px;font-size:12px;color:var(--p-redup)}
 
 /* pemenang */
 .p-menang{margin:0;padding:8px 14px 14px;list-style:none}
@@ -553,22 +527,6 @@ h1,h2,h3,.p-display{font-family:"Chakra Petch",system-ui,sans-serif;letter-spaci
           <li><svg viewBox="0 0 24 24" aria-hidden="true"><path d="<?= e($k[1]) ?>"/></svg><?= e($k[0]) ?></li>
           <?php endforeach; ?>
         </ul>
-      </div>
-    </section>
-
-    <section class="p-blok" aria-label="Contoh permainan">
-      <span class="p-judulblok">Game Populer</span>
-      <div class="p-panel">
-        <ul class="p-game">
-          <?php foreach ($kartuGame as $g): ?>
-          <li>
-            <div class="p-ubin p-ubin-<?= e($g[2]) ?>" aria-hidden="true"><?= e(hurufAwal($g[0])) ?></div>
-            <b><?= e($g[0]) ?></b>
-            <small><?= e($g[1]) ?></small>
-          </li>
-          <?php endforeach; ?>
-        </ul>
-        <p class="p-catatan-kecil" style="padding:0 14px 14px">Nama dan tampilan permainan di atas adalah contoh generik, bukan produk resmi penyedia mana pun.</p>
       </div>
     </section>
 
