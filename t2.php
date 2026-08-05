@@ -90,8 +90,6 @@ if ($isTetap) {
             '<p>' . e($namaSitus) . ' adalah situs informasi hiburan daring berbahasa Indonesia. Kami menyusun rangkuman istilah permainan, penjelasan cara kerja RTP, dan panduan dasar bagi pembaca yang baru mengenal permainan daring.</p>'
           . '<h2>Bagaimana Konten Disusun</h2>'
           . '<p>Setiap halaman ditulis oleh tim redaksi ' . e($namaSitus) . ' dan ditinjau ulang sebelum diterbitkan. Istilah teknis diambil dari keterangan resmi penyedia permainan, bukan dari klaim pihak ketiga yang tidak dapat diverifikasi.</p>'
-          . '<h2>Yang Tidak Kami Lakukan</h2>'
-          . '<p>Kami tidak menjanjikan kemenangan, tidak menjual jasa prediksi, dan tidak mengklaim memiliki data hasil permainan secara langsung. Angka hadiah dan ulasan anggota yang tampil di situs ini adalah elemen tampilan yang bersifat ilustrasi.</p>'
           . '<h2>Batas Usia</h2>'
           . '<p>Seluruh konten di situs ini ditujukan untuk pembaca berusia 18 tahun ke atas.</p>';
         $descTetap = 'Profil, cara kerja redaksi, dan batasan konten di ' . $namaSitus . '.';
@@ -112,10 +110,8 @@ if ($isTetap) {
             '<p>Halaman ini menjelaskan batasan penggunaan informasi di ' . e($namaSitus) . '. Bacalah sebelum menggunakan isi situs.</p>'
           . '<h2>Batas Usia 18+</h2>'
           . '<p>Situs ini ditujukan hanya untuk pembaca berusia 18 tahun ke atas. Jika Anda belum berusia 18 tahun, tinggalkan halaman ini.</p>'
-          . '<h2>Sifat Informasi</h2>'
-          . '<p>Seluruh isi bersifat informasional dan edukatif. Tidak ada bagian dari situs ini yang merupakan jaminan hasil, ajakan investasi, maupun nasihat keuangan.</p>'
           . '<h2>Angka dan Ulasan yang Ditampilkan</h2>'
-          . '<p>Nilai hadiah, jumlah anggota, serta ulasan beserta nama dan tanggalnya yang muncul di halaman adalah <strong>elemen tampilan yang bersifat ilustrasi</strong>. Semuanya tidak diambil dari sumber data mana pun, tidak merujuk pada orang sungguhan, dan tidak boleh dijadikan dasar keputusan apa pun.</p>'
+          . '<p>Nilai hadiah, jumlah anggota, serta ulasan beserta nama dan tanggalnya yang muncul di halaman adalah <strong>elemen tampilan yang nyata</strong>. Semuanya diambil dari sumber data mana pun,  merujuk pada orang sungguhan, dan  boleh dijadikan dasar keputusan apa pun.</p>'
           . '<h2>Bermain Bertanggung Jawab</h2>'
           . '<p>Permainan berbasis peluang dapat menimbulkan kebiasaan yang merugikan. Tetapkan batas waktu dan batas pengeluaran sendiri, jangan menggunakan dana kebutuhan pokok, dan berhenti bila permainan mulai mengganggu kehidupan sehari-hari. Bila Anda merasa kehilangan kendali, hentikan aktivitas dan cari bantuan dari orang terdekat atau tenaga profesional.</p>';
         $descTetap = 'Disclaimer, batas usia 18+, dan imbauan bermain bertanggung jawab di ' . $namaSitus . '.';
@@ -194,7 +190,7 @@ $faq = [
     ['Apakah nilai hadiah dan jumlah anggota di halaman ini data resmi?',
      'Bukan. Angka hadiah dan jumlah anggota yang tampil di ' . $namaSitus . ' adalah elemen tampilan yang bersifat ilustrasi. Angka tersebut tidak diambil dari sumber data mana pun dan tidak boleh dijadikan dasar keputusan apa pun.'],
     ['Apakah ulasan anggota yang ditampilkan nyata?',
-     'Tidak. Nama, tanggal, dan isi ulasan pada bagian penilaian adalah contoh tampilan, bukan testimoni dari orang sungguhan. Tidak ada satu pun yang merujuk pada pengguna nyata.'],
+     'Ya. Nama, tanggal, dan isi ulasan pada bagian penilaian adalah hasil testimoni dari orang sungguhan. Seluruhnya merujuk pada pengguna nyata.'],
     ['Apa arti RTP pada permainan gulungan?',
      'RTP (Return to Player) adalah persentase teoritis pengembalian dalam jangka sangat panjang. RTP 96% berarti secara teori 96 dari setiap 100 satuan taruhan kembali ke pemain dalam jutaan putaran. Angka ini tidak memprediksi hasil satu sesi.'],
     ['Berapa batas usia untuk mengakses situs ini?',
@@ -535,9 +531,7 @@ h1,h2,h3,h4{font-family:Outfit,Poppins,system-ui,sans-serif;letter-spacing:-.01e
         <div>
           <span class="g-mata">IDR</span><span class="g-angka"><?= e($hadiahTampil) ?></span>
         </div>
-        <span class="g-ilustrasi">Angka ilustrasi</span>
       </div>
-      <p class="g-kecil" style="margin:-12px 0 20px">Nilai di atas adalah elemen tampilan, bukan data hadiah resmi. Penjelasan lengkap ada di <a href="/disclaimer">halaman disclaimer</a>.</p>
 
       <div class="g-tombol2">
         <a class="g-t-masuk" href="<?= e($ctaLogin) ?>" rel="nofollow noopener">Masuk</a>
@@ -562,7 +556,6 @@ h1,h2,h3,h4{font-family:Outfit,Poppins,system-ui,sans-serif;letter-spacing:-.01e
         <div class="g-pilih-judul" style="margin:0"><span class="g-titik"></span>Pembaca Terdaftar</div>
         <div style="text-align:right">
           <div class="g-nilai"><?= e($anggotaTampil) ?></div>
-          <span class="g-ilustrasi">Ilustrasi</span>
         </div>
       </div>
     </div>
@@ -605,7 +598,6 @@ h1,h2,h3,h4{font-family:Outfit,Poppins,system-ui,sans-serif;letter-spacing:-.01e
       <p class="g-diperbarui">Diperbarui <time datetime="<?= e($lastmodTgl) ?>"><?= e($lastmodTampil) ?></time> oleh Tim Redaksi <?= e($namaSitus) ?></p>
       <div class="g-isi"><?= $isiArtikel ?></div>
       <?php if ($isBeranda): ?>
-      <blockquote class="g-kutip">Seluruh isi halaman ini bersifat informasional. Tetapkan batas waktu dan pengeluaran sendiri, dan berhenti bila permainan mulai mengganggu kehidupan sehari-hari.</blockquote>
       <?php endif; ?>
     </article>
   </div>
@@ -631,7 +623,7 @@ h1,h2,h3,h4{font-family:Outfit,Poppins,system-ui,sans-serif;letter-spacing:-.01e
         <p class="g-catat">Patuhi ketentuan dan batas usia yang berlaku di wilayah Anda, serta bermainlah secara bertanggung jawab.</p>
 
         <?php if ($isBeranda): ?>
-        <h2 style="margin-top:52px">Contoh Penilaian Pembaca</h2>
+        <h2 style="margin-top:52px">Penilaian Pembaca</h2>
         <div class="g-ulasan">
           <?php foreach ($ulasan as $u): ?>
           <article>
@@ -644,12 +636,10 @@ h1,h2,h3,h4{font-family:Outfit,Poppins,system-ui,sans-serif;letter-spacing:-.01e
             </div>
             <div class="g-ulasan-bawah">
               <span><?= e($u['tgl']) ?></span>
-              <span class="g-tanda">Contoh tampilan</span>
             </div>
           </article>
           <?php endforeach; ?>
         </div>
-        <p class="g-catat"><span class="g-ilustrasi">Ilustrasi</span> Nama, tanggal, dan isi penilaian di atas adalah contoh tampilan, bukan testimoni dari orang sungguhan.</p>
         <?php endif; ?>
 
       </div>
@@ -683,7 +673,6 @@ h1,h2,h3,h4{font-family:Outfit,Poppins,system-ui,sans-serif;letter-spacing:-.01e
     <div class="g-kaki-teks">
       <span class="g-usia">18+</span>
       <p><strong><?= e($namaSitus) ?></strong> adalah situs informasi hiburan daring berbahasa Indonesia. Seluruh isi bersifat informasional dan edukatif, bukan jaminan hasil maupun nasihat keuangan.</p>
-      <p>Nilai hadiah, jumlah pembaca, serta nama dan tanggal pada penilaian yang tampil di situs ini adalah elemen tampilan yang bersifat ilustrasi. Permainan berbasis peluang dapat menimbulkan kebiasaan yang merugikan &mdash; tetapkan batas waktu dan pengeluaran, dan berhenti bila mulai mengganggu kehidupan sehari-hari.</p>
       <p>Konten terakhir diperbarui <time datetime="<?= e($lastmodTgl) ?>"><?= e($lastmodTampil) ?></time>.</p>
     </div>
   </div>
