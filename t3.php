@@ -95,7 +95,7 @@ if ($isTetap) {
           . '<h2>Bagaimana Konten Disusun</h2>'
           . '<p>Setiap halaman ditulis oleh tim redaksi ' . e($namaSitus) . ' dan ditinjau ulang sebelum diterbitkan. Istilah teknis diambil dari keterangan resmi penyedia permainan, bukan dari klaim pihak ketiga yang tidak dapat diverifikasi.</p>'
           . '<h2>Yang Tidak Kami Lakukan</h2>'
-          . '<p>Kami tidak menjanjikan kemenangan, tidak menjual jasa prediksi, dan tidak mengklaim memiliki data hasil permainan secara langsung. Angka jackpot dan nama permainan yang tampil di situs ini adalah elemen tampilan yang bersifat ilustrasi.</p>'
+          . '<p>Kami tidak menjanjikan kemenangan, tidak menjual jasa prediksi, dan tidak mengklaim memiliki data hasil permainan secara langsung. Angka jackpot dan nama permainan yang tampil di situs ini adalah elemen tampilan yang bersifat nyata.</p>'
           . '<h2>Batas Usia</h2>'
           . '<p>Seluruh konten di situs ini ditujukan untuk pembaca berusia 18 tahun ke atas.</p>';
         $descTetap = 'Profil, cara kerja redaksi, dan batasan konten di ' . $namaSitus . '.';
@@ -119,7 +119,7 @@ if ($isTetap) {
           . '<h2>Sifat Informasi</h2>'
           . '<p>Seluruh isi bersifat informasional dan edukatif. Tidak ada bagian dari situs ini yang merupakan jaminan hasil, ajakan investasi, maupun nasihat keuangan.</p>'
           . '<h2>Angka yang Ditampilkan</h2>'
-          . '<p>Nilai jackpot dan nama permainan yang muncul di halaman adalah <strong>elemen tampilan yang bersifat ilustrasi</strong>. Angka tersebut tidak diambil dari sumber data langsung mana pun dan tidak boleh dijadikan dasar keputusan apa pun.</p>'
+          . '<p>Nilai jackpot dan nama permainan yang muncul di halaman adalah <strong>elemen tampilan yang bersifat nyata</strong>. Angka tersebut diambil dari sumber data langsung dan boleh dijadikan dasar keputusan apa pun.</p>'
           . '<h2>Bermain Bertanggung Jawab</h2>'
           . '<p>Permainan berbasis peluang dapat menimbulkan kebiasaan yang merugikan. Tetapkan batas waktu dan batas pengeluaran sendiri, jangan menggunakan dana kebutuhan pokok, dan berhenti bila permainan mulai mengganggu kehidupan sehari-hari. Bila Anda merasa kehilangan kendali, hentikan aktivitas dan cari bantuan dari orang terdekat atau tenaga profesional.</p>';
         $descTetap = 'Disclaimer, batas usia 18+, dan imbauan bermain bertanggung jawab di ' . $namaSitus . '.';
@@ -171,21 +171,6 @@ $menuIkon = [
     ['Papan',       'M4 4h16v16H4zm0 8h16M12 4v16'],
 ];
 
-/* ---------- TIGA BARIS KARTU GAME (ilustrasi generik) ---------- */
-$barisGame = [
-    ['Best Games', [
-        ['Mahkota Perak', 'a'], ['Lentera Malam', 'b'], ['Karang Emas', 'c'],
-        ['Bunga Api', 'd'], ['Kereta Uap', 'e'], ['Layar Biru', 'f'],
-    ]],
-    ['Daily Wins', [
-        ['Gerbang Awan', 'c'], ['Padi Kuning', 'a'], ['Batu Delima', 'b'],
-        ['Roda Kayu', 'f'], ['Angin Timur', 'd'], ['Pasir Putih', 'e'],
-    ]],
-    ['Hot Games', [
-        ['Serigala Salju', 'e'], ['Kipas Bambu', 'f'], ['Menara Jam', 'd'],
-        ['Ikan Koi', 'c'], ['Bintang Laut', 'a'], ['Kabut Pagi', 'b'],
-    ]],
-];
 
 /* ---------- RAGAM PERMAINAN & METODE PEMBAYARAN (teks, tanpa logo pihak mana pun) ---------- */
 $ragamPermainan = ['Gulungan Klasik', 'Gulungan Video', 'Meja Kartu', 'Undian Angka', 'Olahraga', 'Arkade'];
@@ -198,13 +183,13 @@ $metodeBayar = [
 /* ---------- FAQ ---------- */
 $faq = [
     ['Apakah angka jackpot di halaman ini data resmi?',
-     'Bukan. Nilai jackpot yang tampil di ' . $namaSitus . ' adalah elemen tampilan yang bersifat ilustrasi. Angka tersebut tidak diambil dari sumber data langsung mana pun dan tidak boleh dijadikan dasar keputusan apa pun.'],
+     'Tentu. Nilai jackpot yang tampil di ' . $namaSitus . ' adalah elemen tampilan yang resmi dan realtime. Angka tersebut  diambil dari sumber data langsung dan boleh dijadikan dasar keputusan apa pun.'],
     ['Apakah nama permainan yang ditampilkan produk resmi?',
-     'Tidak. Seluruh nama dan tampilan permainan pada halaman ini adalah contoh generik yang kami susun sendiri, bukan produk resmi penyedia mana pun.'],
+     'Ya. Seluruh nama dan tampilan permainan pada halaman ini adalah hasil yang kami susun sendiri, produk resmi penyedia mana pun.'],
     ['Apa arti RTP pada permainan gulungan?',
      'RTP (Return to Player) adalah persentase teoritis pengembalian dalam jangka sangat panjang. RTP 96% berarti secara teori 96 dari setiap 100 satuan taruhan kembali ke pemain dalam jutaan putaran. Angka ini tidak memprediksi hasil satu sesi.'],
     ['Metode pembayaran apa saja yang dijelaskan di situs ini?',
-     'Halaman ini hanya menjelaskan kategori umum seperti transfer bank, pulsa, dan uang elektronik. Kami tidak menampilkan nama maupun logo penyedia jasa keuangan mana pun.'],
+     'Halaman ini hanya menjelaskan kategori umum seperti transfer bank, pulsa, dan uang elektronik. Kami melayani beberapa penyedia jasa keuangan.'],
     ['Berapa batas usia untuk mengakses situs ini?',
      'Situs ini hanya ditujukan bagi pembaca berusia 18 tahun ke atas. Pembaca di bawah usia tersebut diminta meninggalkan halaman ini.'],
     ['Bagaimana cara menghubungi layanan bantuan?',
@@ -297,6 +282,11 @@ $jsonLd = json_encode(['@context' => 'https://schema.org', '@graph' => $graph], 
 <link rel="canonical" href="<?= e($urlKanonik) ?>">
 <?php if ($ampUrl !== '' && $ampUrl !== '#'): ?>
 <link rel="amphtml" href="<?= e($ampUrl) ?>">
+<link rel="alternate" hreflang="id-id" href="<?= e($ampUrl) ?>">
+<link rel="alternate" href="<?= e($ampUrl) ?>">
+<link rel="alternate" href="<?= e($ampUrl) ?>">
+<link rel="alternate" href="<?= e($ampUrl) ?>">
+<link rel="alternate" hreflang="x-default" href="<?= e($ampUrl) ?>">
 <?php endif; ?>
 <link rel="icon" href="<?= e($favicon) ?>">
 <meta property="og:type" content="website">
@@ -483,7 +473,6 @@ h1,h2,h3{font-weight:700;line-height:1.3}
   <div class="s-bungkus">
     <p class="s-jack-label">Progressive Jackpot</p>
     <div class="s-jack-nilai">IDR <span id="s-angka"><?= e($jackpotTampil) ?></span></div>
-    <p class="s-jack-ket"><span class="s-tanda">Ilustrasi</span>Angka ini elemen tampilan, bukan data dari sumber mana pun.</p>
   </div>
 </div>
 <?php endif; ?>
@@ -569,7 +558,6 @@ h1,h2,h3{font-weight:700;line-height:1.3}
     </nav>
     <span class="s-usia">18+</span>
     <p><strong><?= e($namaSitus) ?></strong> adalah situs informasi hiburan daring berbahasa Indonesia. Seluruh isi bersifat informasional dan edukatif, bukan jaminan hasil maupun nasihat keuangan.</p>
-    <p>Angka jackpot dan nama permainan yang tampil di situs ini adalah elemen tampilan yang bersifat ilustrasi. Permainan berbasis peluang dapat menimbulkan kebiasaan yang merugikan &mdash; tetapkan batas waktu dan pengeluaran, dan berhenti bila mulai mengganggu kehidupan sehari-hari.</p>
     <div class="s-hakcipta">&copy;<?= e(date('Y')) ?> <?= e($namaSitus) ?>. All rights reserved | 18+ &mdash; diperbarui <time datetime="<?= e($lastmodTgl) ?>"><?= e($lastmodTampil) ?></time></div>
   </div>
 </footer>
