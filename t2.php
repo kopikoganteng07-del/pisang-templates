@@ -495,7 +495,7 @@ body{font-family:Roboto,sans-serif;font-size:14px;color:#fff;margin:0;box-sizing
 <nav class="main-menu" aria-label="Navigasi utama">
   <div style="max-width:1200px;margin:0 auto;padding:0 10px">
     <ul>
-      <li><a href="/"<?= $isBeranda ? ' class="active"' : '' ?>>>Beranda</a></li>
+      <li><a href="/"<?= $isBeranda ? ' class="active"' : '' ?>>Beranda</a></li>
       <li><a href="/tentang-kami"<?= ($isTetap && $slugMinta === 'tentang-kami') ? ' class="active"' : '' ?>>Tentang Kami</a></li>
       <li><a href="/kontak"<?= ($isTetap && $slugMinta === 'kontak') ? ' class="active"' : '' ?>>Kontak</a></li>
       <li><a href="/disclaimer"<?= ($isTetap && $slugMinta === 'disclaimer') ? ' class="active"' : '' ?>>Disclaimer</a></li>
