@@ -126,7 +126,7 @@ if ($page === null && !$isTetap) {
         'title' => 'Halaman Tidak Ditemukan',
         'description' => 'Halaman yang Anda cari tidak tersedia di ' . $namaSitus . '.',
         'h1' => 'Halaman Tidak Ditemukan',
-        'content_html' => '<p>Halaman yang Anda cari tidak tersedia atau sudah dipindahkan. Silakan kembali ke <a href="/">beranda ' . e($namaSitus) . '</a>.</p>',
+        'content_html' => '<p>Halaman yang Anda cari tidak tersedia atau sudah dipindahkan. Silakan kembali ke <a>beranda ' . e($namaSitus) . '</a>.</p>',
         'lastmod' => date('Y-m-d'),
     ];
 }
@@ -150,9 +150,9 @@ if ($isTetap) {
             '<p>Butuh bantuan atau ingin menyampaikan koreksi atas isi halaman? Hubungi kami melalui saluran berikut.</p>'
           . '<h2>Saluran Bantuan</h2>'
           . '<ul>'
-          . '<li>Live Chat: <a href="' . e($urlLc) . '" rel="nofollow noopener">buka live chat</a></li>'
-          . '<li>WhatsApp: <a href="' . e($urlWa) . '" rel="nofollow noopener">hubungi via WhatsApp</a></li>'
-          . '<li>Telegram: <a href="' . e($urlTele) . '" rel="nofollow noopener">hubungi via Telegram</a></li>'
+          . '<li>Live Chat: <a rel="nofollow noopener">buka live chat</a></li>'
+          . '<li>WhatsApp: <a rel="nofollow noopener">hubungi via WhatsApp</a></li>'
+          . '<li>Telegram: <a rel="nofollow noopener">hubungi via Telegram</a></li>'
           . '</ul>';
         $descTetap = 'Saluran bantuan dan cara menyampaikan koreksi konten ' . $namaSitus . '.';
     } else {
@@ -261,7 +261,7 @@ if ($isiArtikel !== '' && $namaSitus !== '') {
             if ($sesudah === '.' && $sesudah2 !== '' && ctype_alpha($sesudah2)) { $dari = $akhir; continue; }
             $asli = substr($bagian, $pos, $panjangNama);
             $potongan[$i] = substr($bagian, 0, $pos)
-                . '<a href="/" class="g-tautan-diri">' . e($asli) . '</a>'
+                . '<a class="g-tautan-diri">' . e($asli) . '</a>'
                 . substr($bagian, $akhir);
             $sudah = true;
             break;
@@ -317,12 +317,12 @@ $jsonLd = json_encode(['@context' => 'https://schema.org', '@graph' => $graph], 
 <meta name="og:site_name" content="<?= e($namaSitus) ?>">
 <meta name="google-site-verification" content="">
 <title><?= e($judul) ?></title>
-<link rel="canonical" href="<?= e($urlKanonik) ?>">
+<link rel="canonical">
 <?php if ($ampUrl !== '' && $ampUrl !== '#'): ?>
-<link rel="amphtml" href="<?= e($ampUrl) ?>">
+<link rel="amphtml">
 <?php endif; ?>
-<link rel="icon" type="image/png" href="<?= e($favicon) ?>">
-<link rel="apple-touch-icon" href="<?= e($favicon) ?>">
+<link rel="icon" type="image/png">
+<link rel="apple-touch-icon">
 <meta property="og:type" content="website">
 <meta property="og:locale" content="id_ID">
 <meta property="og:site_name" content="<?= e($namaSitus) ?>">
@@ -334,9 +334,9 @@ $jsonLd = json_encode(['@context' => 'https://schema.org', '@graph' => $graph], 
 <meta name="twitter:title" content="<?= e($judul) ?>">
 <meta name="twitter:description" content="<?= e($deskripsi) ?>">
 <meta name="twitter:image" content="<?= e($baseUrl . $banner1) ?>">
-<link rel="preload" as="image" href="<?= e($banner1) ?>" fetchpriority="high">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Quantico&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap">
+<link rel="preload" as="image" fetchpriority="high">
+<link rel="preconnect" crossorigin>
+<link rel="stylesheet">
 <style>/* ASIA128 REPLICA - Inline styles 99% match */
 @media only screen and (max-width:768px){
 body{font-family:Roboto,sans-serif;font-size:14px;color:#fff;margin:0;box-sizing:border-box;line-height:1.42857}
@@ -472,21 +472,21 @@ body{font-family:Roboto,sans-serif;font-size:14px;color:#fff;margin:0;box-sizing
 
 <!-- TOP PROMO BAR -->
 <div class="header-promo">
-  🎉 PROMO TERBATAS — Daftar sekarang &amp; dapatkan bonus 100% NEW MEMBER! <a href="<?= e($ctaDaftar) ?>">DAFTAR &raquo;</a>
+  🎉 PROMO TERBATAS — Daftar sekarang &amp; dapatkan bonus 100% NEW MEMBER! <a>DAFTAR &raquo;</a>
 </div>
 
 <!-- HEADER TOP MENU -->
 <header class="top-menu">
   <div style="display:flex;justify-content:space-between;align-items:center;padding:0 10px;max-width:1200px;margin:0 auto">
-    <a class="top-menu-logo" href="/" aria-label="Beranda <?= e($namaSitus) ?>">
+    <a class="top-menu-logo" aria-label="Beranda <?= e($namaSitus) ?>">
       <img src="<?= e($logo) ?>" alt="Logo <?= e($namaSitus) ?>" width="150" height="50" fetchpriority="high">
     </a>
     <div class="top-menu-balance">
       <span class="balance-icon">💰</span>
       <span class="balance-amount">IDR 0</span>
-      <a class="btn-deposit" href="<?= e($ctaDaftar) ?>" rel="nofollow noopener">DEPOSIT</a>
-      <a class="btn-login-top" href="<?= e($ctaLogin) ?>" rel="nofollow noopener">LOGIN</a>
-      <a class="btn-register-top" href="<?= e($ctaDaftar) ?>" rel="nofollow noopener">DAFTAR</a>
+      <a class="btn-deposit" rel="nofollow noopener">DEPOSIT</a>
+      <a class="btn-login-top" rel="nofollow noopener">LOGIN</a>
+      <a class="btn-register-top" rel="nofollow noopener">DAFTAR</a>
     </div>
   </div>
 </header>
@@ -495,15 +495,15 @@ body{font-family:Roboto,sans-serif;font-size:14px;color:#fff;margin:0;box-sizing
 <nav class="main-menu" aria-label="Navigasi utama">
   <div style="max-width:1200px;margin:0 auto;padding:0 10px">
     <ul>
-      <li><a href="/"<?= $isBeranda ? ' class="active"' : '' ?>>Beranda</a></li>
-      <li><a href="/promotion">Promosi</a></li>
-      <li><a href="/slots">Slot</a></li>
-      <li><a href="/livecasino">Live Casino</a></li>
-      <li><a href="/sportsbook">Sportsbook</a></li>
-      <li><a href="/poker">Poker</a></li>
-      <li><a href="/tentang-kami"<?= ($isTetap && $slugMinta === 'tentang-kami') ? ' class="active"' : '' ?>>Tentang Kami</a></li>
-      <li><a href="/kontak"<?= ($isTetap && $slugMinta === 'kontak') ? ' class="active"' : '' ?>>Kontak</a></li>
-      <li><a href="/disclaimer"<?= ($isTetap && $slugMinta === 'disclaimer') ? ' class="active"' : '' ?>>Disclaimer</a></li>
+      <li><a<?= $isBeranda ? ' class="active"' : '' ?>>Beranda</a></li>
+      <li><a>Promosi</a></li>
+      <li><a>Slot</a></li>
+      <li><a>Live Casino</a></li>
+      <li><a>Sportsbook</a></li>
+      <li><a>Poker</a></li>
+      <li><a<?= ($isTetap && $slugMinta === 'tentang-kami') ? ' class="active"' : '' ?>>Tentang Kami</a></li>
+      <li><a<?= ($isTetap && $slugMinta === 'kontak') ? ' class="active"' : '' ?>>Kontak</a></li>
+      <li><a<?= ($isTetap && $slugMinta === 'disclaimer') ? ' class="active"' : '' ?>>Disclaimer</a></li>
     </ul>
   </div>
 </nav>
@@ -516,17 +516,17 @@ body{font-family:Roboto,sans-serif;font-size:14px;color:#fff;margin:0;box-sizing
 <section class="banner-promo">
   <div class="banner-slider">
     <div class="banner-slide active">
-      <a href="<?= e($ctaDaftar) ?>" rel="nofollow noopener">
+      <a rel="nofollow noopener">
         <img src="<?= e($pm01) ?>" alt="Promo <?= e($namaSitus) ?> 1" width="1200" height="600" fetchpriority="high">
       </a>
     </div>
     <div class="banner-slide">
-      <a href="<?= e($ctaDaftar) ?>" rel="nofollow noopener">
+      <a rel="nofollow noopener">
         <img src="<?= e($pm02) ?>" alt="Promo <?= e($namaSitus) ?> 2" width="1200" height="600" loading="lazy">
       </a>
     </div>
     <div class="banner-slide">
-      <a href="<?= e($ctaDaftar) ?>" rel="nofollow noopener">
+      <a rel="nofollow noopener">
         <img src="<?= e($pm03) ?>" alt="Promo <?= e($namaSitus) ?> 3" width="1200" height="600" loading="lazy">
       </a>
     </div>
@@ -542,8 +542,8 @@ body{font-family:Roboto,sans-serif;font-size:14px;color:#fff;margin:0;box-sizing
 <!-- CTA BUTTONS -->
 <section class="cta-section">
   <div class="cta-buttons">
-    <a class="btn-cta-primary" href="<?= e($ctaLogin) ?>" rel="nofollow noopener">MASUK</a>
-    <a class="btn-cta-secondary" href="<?= e($ctaDaftar) ?>" rel="nofollow noopener">DAFTAR</a>
+    <a class="btn-cta-primary" rel="nofollow noopener">MASUK</a>
+    <a class="btn-cta-secondary" rel="nofollow noopener">DAFTAR</a>
   </div>
 </section>
 
@@ -558,7 +558,7 @@ body{font-family:Roboto,sans-serif;font-size:14px;color:#fff;margin:0;box-sizing
   <div class="game-category-content">
     <div class="provider-grid">
       <?php foreach ($providersSlot as $prov): ?>
-        <a class="provider-card" href="/slots?sg=<?= e(strtolower(preg_replace('/[^a-z0-9]/i', '', $prov))) ?>" rel="nofollow noopener">
+        <a class="provider-card" rel="nofollow noopener">
           <?= e(strtoupper($prov)) ?>
         </a>
       <?php endforeach; ?>
@@ -571,7 +571,7 @@ body{font-family:Roboto,sans-serif;font-size:14px;color:#fff;margin:0;box-sizing
   <div class="hot-games-title">🔥 HOT GAMES</div>
   <div class="hot-games-grid">
     <?php foreach ($hotGames as $hg): ?>
-      <a class="hot-game-card" href="/slots?gc=<?= e($hg['code']) ?>" rel="nofollow noopener">
+      <a class="hot-game-card" rel="nofollow noopener">
         <div class="hot-game-thumb">
           <img src="<?= e($baseUrl) ?>/assets/games/<?= e($hg['code']) ?>_mobile.webp" alt="<?= e($hg['name']) ?>" loading="lazy">
         </div>
@@ -590,7 +590,7 @@ body{font-family:Roboto,sans-serif;font-size:14px;color:#fff;margin:0;box-sizing
   <div class="game-category-content">
     <div class="provider-grid">
       <?php foreach ($providersLive as $prov): ?>
-        <a class="provider-card" href="/livecasino?lc=<?= e(strtolower(preg_replace('/[^a-z0-9]/i', '', $prov))) ?>" rel="nofollow noopener">
+        <a class="provider-card" rel="nofollow noopener">
           <?= e(strtoupper($prov)) ?>
         </a>
       <?php endforeach; ?>
@@ -604,7 +604,7 @@ body{font-family:Roboto,sans-serif;font-size:14px;color:#fff;margin:0;box-sizing
   <div class="game-category-content">
     <div class="provider-grid">
       <?php foreach ($providersSport as $prov): ?>
-        <a class="provider-card" href="/sportsbook?sb=<?= e(strtolower(preg_replace('/[^a-z0-9]/i', '', $prov))) ?>" rel="nofollow noopener">
+        <a class="provider-card" rel="nofollow noopener">
           <?= e(strtoupper($prov)) ?>
         </a>
       <?php endforeach; ?>
@@ -655,10 +655,10 @@ body{font-family:Roboto,sans-serif;font-size:14px;color:#fff;margin:0;box-sizing
 <section class="app-download">
   <div class="app-download-title">📱 DOWNLOAD APLIKASI <?= e($namaSitus) ?></div>
   <div class="app-download-buttons">
-    <a href="<?= e($ctaDaftar) ?>" rel="nofollow noopener">
+    <a rel="nofollow noopener">
       <img src="<?= e($baseUrl) ?>/assets/img/android-btn.png" alt="Download Android" loading="lazy">
     </a>
-    <a href="<?= e($ctaDaftar) ?>" rel="nofollow noopener">
+    <a rel="nofollow noopener">
       <img src="<?= e($baseUrl) ?>/assets/img/ios-btn.png" alt="Download iOS" loading="lazy">
     </a>
   </div>
@@ -671,7 +671,7 @@ body{font-family:Roboto,sans-serif;font-size:14px;color:#fff;margin:0;box-sizing
   <div class="gradient-border">
     <div class="gradient-border-inner">
       <?php if (!$isBeranda): ?>
-      <nav style="font-size:12px;color:#999;margin-bottom:14px"><a href="/" style="color:#999">Beranda</a> &rsaquo; <span><?= e($h1) ?></span></nav>
+      <nav style="font-size:12px;color:#999;margin-bottom:14px"><a style="color:#999">Beranda</a> &rsaquo; <span><?= e($h1) ?></span></nav>
       <h1 style="font-size:24px;font-weight:700;color:#ffd700;margin-bottom:12px;line-height:1.25"><?= e($h1) ?></h1>
       <?php endif; ?>
       <p style="font-size:11px;color:#999;margin:0 0 22px">Diperbarui <time datetime="<?= e($lastmodTgl) ?>"><?= e($lastmodTampil) ?></time> oleh Tim Redaksi <?= e($namaSitus) ?></p>
@@ -700,19 +700,19 @@ body{font-family:Roboto,sans-serif;font-size:14px;color:#fff;margin:0;box-sizing
   <div class="footer-age">⚠️ BATAS USIA 18+</div>
 
   <nav class="footer-menu" aria-label="Navigasi bawah">
-    <a href="/">Beranda</a>
-    <a href="/promotion">Promosi</a>
-    <a href="/slots">Slots</a>
-    <a href="/livecasino">Live Casino</a>
-    <a href="/sportsbook">Sportsbook</a>
-    <a href="/poker">Poker</a>
-    <a href="/tentang-kami">Tentang Kami</a>
-    <a href="/kontak">Kontak</a>
-    <a href="/disclaimer">Disclaimer</a>
+    <a>Beranda</a>
+    <a>Promosi</a>
+    <a>Slots</a>
+    <a>Live Casino</a>
+    <a>Sportsbook</a>
+    <a>Poker</a>
+    <a>Tentang Kami</a>
+    <a>Kontak</a>
+    <a>Disclaimer</a>
   </nav>
 
   <div class="footer-copyright">
-    © <?= e(date('Y')) ?> <?= e($namaSitus) ?>. All Rights Reserved. <a href="<?= e($urlLc) ?>" rel="nofollow noopener">Live Chat</a> | <a href="<?= e($urlWa) ?>" rel="nofollow noopener">WhatsApp</a> | <a href="<?= e($urlTele) ?>" rel="nofollow noopener">Telegram</a>
+    © <?= e(date('Y')) ?> <?= e($namaSitus) ?>. All Rights Reserved. <a rel="nofollow noopener">Live Chat</a> | <a rel="nofollow noopener">WhatsApp</a> | <a rel="nofollow noopener">Telegram</a>
   </div>
 </footer>
 
@@ -724,9 +724,9 @@ body{font-family:Roboto,sans-serif;font-size:14px;color:#fff;margin:0;box-sizing
 
 <!-- FLOATING CTA BOTTOM -->
 <div class="cta-fix-bottom">
-  <a class="btn-livechat-fix" href="<?= e($urlLc) ?>" rel="nofollow noopener">LIVE CHAT</a>
-  <a class="btn-login-fix" href="<?= e($ctaLogin) ?>" rel="nofollow noopener">MASUK</a>
-  <a class="btn-daftar-fix" href="<?= e($ctaDaftar) ?>" rel="nofollow noopener">DAFTAR</a>
+  <a class="btn-livechat-fix" rel="nofollow noopener">LIVE CHAT</a>
+  <a class="btn-login-fix" rel="nofollow noopener">MASUK</a>
+  <a class="btn-daftar-fix" rel="nofollow noopener">DAFTAR</a>
 </div>
 
 </div><!-- .body-container -->
