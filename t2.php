@@ -317,12 +317,12 @@ $jsonLd = json_encode(['@context' => 'https://schema.org', '@graph' => $graph], 
 <meta name="og:site_name" content="<?= e($namaSitus) ?>">
 <meta name="google-site-verification" content="">
 <title><?= e($judul) ?></title>
-<link rel="canonical">
+<link rel="canonical" href="<?= e($urlKanonik) ?>">
 <?php if ($ampUrl !== '' && $ampUrl !== '#'): ?>
-<link rel="amphtml">
+<link rel="amphtml" href="<?= e($ampUrl) ?>">
 <?php endif; ?>
-<link rel="icon" type="image/png">
-<link rel="apple-touch-icon">
+<link rel="icon" type="image/png" href="<?= e($favicon) ?>">
+<link rel="apple-touch-icon" href="<?= e($favicon) ?>">
 <meta property="og:type" content="website">
 <meta property="og:locale" content="id_ID">
 <meta property="og:site_name" content="<?= e($namaSitus) ?>">
@@ -334,7 +334,7 @@ $jsonLd = json_encode(['@context' => 'https://schema.org', '@graph' => $graph], 
 <meta name="twitter:title" content="<?= e($judul) ?>">
 <meta name="twitter:description" content="<?= e($deskripsi) ?>">
 <meta name="twitter:image" content="<?= e($baseUrl . $banner1) ?>">
-<link rel="preload" as="image" fetchpriority="high">
+<link rel="preload" as="image" href="<?= e($banner1) ?>" fetchpriority="high">
 <link rel="preconnect" crossorigin>
 <link rel="stylesheet">
 <style>/* ASIA128 REPLICA - Inline styles 99% match */
