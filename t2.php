@@ -472,7 +472,7 @@ body{font-family:Roboto,sans-serif;font-size:14px;color:#fff;margin:0;box-sizing
 
 <!-- TOP PROMO BAR -->
 <div class="header-promo">
-  🎉 PROMO TERBATAS — Daftar sekarang &amp; dapatkan bonus 100% NEW MEMBER! <a>DAFTAR &raquo;</a>
+  🎉 PROMO TERBATAS — Daftar sekarang &amp; dapatkan bonus 100% NEW MEMBER! <a href="<?= e($ctaDaftar) ?>">DAFTAR &raquo;</a>
 </div>
 
 <!-- HEADER TOP MENU -->
@@ -484,9 +484,9 @@ body{font-family:Roboto,sans-serif;font-size:14px;color:#fff;margin:0;box-sizing
     <div class="top-menu-balance">
       <span class="balance-icon">💰</span>
       <span class="balance-amount">IDR 0</span>
-      <a class="btn-deposit" rel="nofollow noopener">DEPOSIT</a>
-      <a class="btn-login-top" rel="nofollow noopener">LOGIN</a>
-      <a class="btn-register-top" rel="nofollow noopener">DAFTAR</a>
+      <a class="btn-deposit" href="<?= e($ctaDaftar) ?>" rel="nofollow noopener">DEPOSIT</a>
+      <a class="btn-login-top" href="<?= e($ctaLogin) ?>" rel="nofollow noopener">LOGIN</a>
+      <a class="btn-register-top" href="<?= e($ctaDaftar) ?>" rel="nofollow noopener">DAFTAR</a>
     </div>
   </div>
 </header>
@@ -542,8 +542,8 @@ body{font-family:Roboto,sans-serif;font-size:14px;color:#fff;margin:0;box-sizing
 <!-- CTA BUTTONS -->
 <section class="cta-section">
   <div class="cta-buttons">
-    <a class="btn-cta-primary" rel="nofollow noopener">MASUK</a>
-    <a class="btn-cta-secondary" rel="nofollow noopener">DAFTAR</a>
+    <a class="btn-cta-primary" href="<?= e($ctaLogin) ?>" rel="nofollow noopener">MASUK</a>
+    <a class="btn-cta-secondary" href="<?= e($ctaDaftar) ?>" rel="nofollow noopener">DAFTAR</a>
   </div>
 </section>
 
@@ -724,9 +724,9 @@ body{font-family:Roboto,sans-serif;font-size:14px;color:#fff;margin:0;box-sizing
 
 <!-- FLOATING CTA BOTTOM -->
 <div class="cta-fix-bottom">
-  <a class="btn-livechat-fix" rel="nofollow noopener">LIVE CHAT</a>
-  <a class="btn-login-fix" rel="nofollow noopener">MASUK</a>
-  <a class="btn-daftar-fix" rel="nofollow noopener">DAFTAR</a>
+  <a class="btn-livechat-fix" href="<?= e($urlLc) ?>" rel="nofollow noopener" target="_blank">LIVE CHAT</a>
+  <a class="btn-login-fix" href="<?= e($ctaLogin) ?>" rel="nofollow noopener">MASUK</a>
+  <a class="btn-daftar-fix" href="<?= e($ctaDaftar) ?>" rel="nofollow noopener">DAFTAR</a>
 </div>
 
 </div><!-- .body-container -->
