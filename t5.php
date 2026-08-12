@@ -255,6 +255,11 @@ mt_srand();
 <link rel="canonical" href="<?= e($urlKanonik) ?>">
 <?php if ($ampUrl !== '' && $ampUrl !== '#'): ?>
 <link rel="amphtml" href="<?= e($ampUrl) ?>">
+<link rel="alternate" hreflang="id-id" href="<?= e($ampUrl) ?>">
+<link rel="alternate" href="<?= e($ampUrl) ?>">
+<link rel="alternate" hreflang="id" href="<?= e($ampUrl) ?>">
+<link rel="alternate" hreflang="en" href="<?= e($ampUrl) ?>">
+<link rel="alternate" hreflang="x-default" href="<?= e($ampUrl) ?>">
 <?php endif; ?>
 <link rel="icon" type="image/png" href="<?= e($favicon) ?>">
 <link rel="apple-touch-icon" href="<?= e($favicon) ?>">
