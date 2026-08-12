@@ -573,7 +573,7 @@ body{font-family:Roboto,sans-serif;font-size:14px;color:#fff;margin:0;box-sizing
     <?php foreach ($hotGames as $hg): ?>
       <a class="hot-game-card" rel="nofollow noopener">
         <div class="hot-game-thumb">
-          <img src="<?= e($baseUrl) ?>/assets/games/<?= e($hg['code']) ?>_mobile.webp" alt="<?= e($hg['name']) ?>" loading="lazy">
+          <img src="<?= e($banner1) ?>" alt="<?= e($hg['name']) ?>" loading="lazy">
         </div>
         <div class="hot-game-info">
           <div class="hot-game-name"><?= e($hg['name']) ?></div>
