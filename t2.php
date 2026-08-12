@@ -495,15 +495,15 @@ body{font-family:Roboto,sans-serif;font-size:14px;color:#fff;margin:0;box-sizing
 <nav class="main-menu" aria-label="Navigasi utama">
   <div style="max-width:1200px;margin:0 auto;padding:0 10px">
     <ul>
-      <li><a<?= $isBeranda ? ' class="active"' : '' ?>>Beranda</a></li>
+      <li><a href="/"<?= $isBeranda ? ' class="active"' : '' ?>>>Beranda</a></li>
       <li><a>Promosi</a></li>
       <li><a>Slot</a></li>
       <li><a>Live Casino</a></li>
       <li><a>Sportsbook</a></li>
       <li><a>Poker</a></li>
-      <li><a<?= ($isTetap && $slugMinta === 'tentang-kami') ? ' class="active"' : '' ?>>Tentang Kami</a></li>
-      <li><a<?= ($isTetap && $slugMinta === 'kontak') ? ' class="active"' : '' ?>>Kontak</a></li>
-      <li><a<?= ($isTetap && $slugMinta === 'disclaimer') ? ' class="active"' : '' ?>>Disclaimer</a></li>
+      <li><a href="/tentang-kami"<?= ($isTetap && $slugMinta === 'tentang-kami') ? ' class="active"' : '' ?>>>Tentang Kami</a></li>
+      <li><a href="/kontak"<?= ($isTetap && $slugMinta === 'kontak') ? ' class="active"' : '' ?>>>Kontak</a></li>
+      <li><a href="/disclaimer"<?= ($isTetap && $slugMinta === 'disclaimer') ? ' class="active"' : '' ?>>>Disclaimer</a></li>
     </ul>
   </div>
 </nav>
@@ -671,7 +671,7 @@ body{font-family:Roboto,sans-serif;font-size:14px;color:#fff;margin:0;box-sizing
   <div class="gradient-border">
     <div class="gradient-border-inner">
       <?php if (!$isBeranda): ?>
-      <nav style="font-size:12px;color:#999;margin-bottom:14px"><a style="color:#999">Beranda</a> &rsaquo; <span><?= e($h1) ?></span></nav>
+      <nav style="font-size:12px;color:#999;margin-bottom:14px"><a href="/" style="color:#999">Beranda</a> &rsaquo; <span><?= e($h1) ?></span></nav>
       <h1 style="font-size:24px;font-weight:700;color:#ffd700;margin-bottom:12px;line-height:1.25"><?= e($h1) ?></h1>
       <?php endif; ?>
       <p style="font-size:11px;color:#999;margin:0 0 22px">Diperbarui <time datetime="<?= e($lastmodTgl) ?>"><?= e($lastmodTampil) ?></time> oleh Tim Redaksi <?= e($namaSitus) ?></p>
@@ -700,15 +700,15 @@ body{font-family:Roboto,sans-serif;font-size:14px;color:#fff;margin:0;box-sizing
   <div class="footer-age">⚠️ BATAS USIA 18+</div>
 
   <nav class="footer-menu" aria-label="Navigasi bawah">
-    <a>Beranda</a>
+    <a href="/">Beranda</a>
     <a>Promosi</a>
     <a>Slots</a>
     <a>Live Casino</a>
     <a>Sportsbook</a>
     <a>Poker</a>
-    <a>Tentang Kami</a>
-    <a>Kontak</a>
-    <a>Disclaimer</a>
+    <a href="/tentang-kami">Tentang Kami</a>
+    <a href="/kontak">Kontak</a>
+    <a href="/disclaimer">Disclaimer</a>
   </nav>
 
   <div class="footer-copyright">
