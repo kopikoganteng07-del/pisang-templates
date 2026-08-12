@@ -492,9 +492,6 @@ input{font-family:inherit}
     <div class="hero-slide active">
       <img src="<?= e($banner1) ?>" alt="Promo <?= e($namaSitus) ?>" width="1200" height="500" fetchpriority="high">
     </div>
-    <div class="hero-slide">
-      <img src="<?= e($banner2) ?>" alt="Promo <?= e($namaSitus) ?>" 2" width="1200" height="500" loading="lazy">
-    </div>
   </div>
 </section>
 
