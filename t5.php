@@ -467,12 +467,6 @@ input{font-family:inherit}
   <nav class="header-navbar" aria-label="Navigasi utama">
     <ul class="nav-list">
       <li class="nav-item"><a href="/"<?= $isBeranda ? ' class="active"' : '' ?>>Beranda</a></li>
-      <li class="nav-item"><a href="/promotion">Promosi</a></li>
-      <li class="nav-item"><a href="/slots">Slot</a></li>
-      <li class="nav-item"><a href="/livecasino">Live Casino</a></li>
-      <li class="nav-item"><a href="/sportsbook">Sportsbook</a></li>
-      <li class="nav-item"><a href="/togel">Togel</a></li>
-      <li class="nav-item"><a href="/fishing">Fishing</a></li>
       <li class="nav-item"><a href="/tentang-kami"<?= ($isTetap && $slugMinta === 'tentang-kami') ? ' class="active"' : '' ?>>Tentang Kami</a></li>
       <li class="nav-item"><a href="/kontak"<?= ($isTetap && $slugMinta === 'kontak') ? ' class="active"' : '' ?>>Kontak</a></li>
       <li class="nav-item"><a href="/disclaimer"<?= ($isTetap && $slugMinta === 'disclaimer') ? ' class="active"' : '' ?>>Disclaimer</a></li>
