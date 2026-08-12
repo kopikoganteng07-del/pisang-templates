@@ -520,16 +520,6 @@ body{font-family:Roboto,sans-serif;font-size:14px;color:#fff;margin:0;box-sizing
         <img src="<?= e($pm01) ?>" alt="Promo <?= e($namaSitus) ?> 1" width="1200" height="600" fetchpriority="high">
       </a>
     </div>
-    <div class="banner-slide">
-      <a rel="nofollow noopener">
-        <img src="<?= e($pm02) ?>" alt="Promo <?= e($namaSitus) ?> 2" width="1200" height="600" loading="lazy">
-      </a>
-    </div>
-    <div class="banner-slide">
-      <a rel="nofollow noopener">
-        <img src="<?= e($pm03) ?>" alt="Promo <?= e($namaSitus) ?> 3" width="1200" height="600" loading="lazy">
-      </a>
-    </div>
   </div>
 </section>
 
