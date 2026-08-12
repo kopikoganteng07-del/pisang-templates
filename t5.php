@@ -41,14 +41,6 @@ $ampUrl     = v($site, 'amp_url', '');
 
 /* ---------- BURUNG303 SPECIFIC VARIABLES ---------- */
 // Alt domains (multi-domain strategy)
-$altDomains = $site['alt_domains'] ?? [
-    'https://burung303.com/',
-    'https://burung303.org/',
-    'https://303burung.com/',
-    'https://303burung.net/',
-    'https://linkburung303.com/',
-    'https://ampburung303.com/',
-];
 
 // Bank list (with online/offline status)
 $bankList = $site['banks'] ?? [
@@ -278,7 +270,7 @@ mt_srand();
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700;900&display=swap">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-<style>/* BURUNG303 REPLICA - main inline styles */
+<style>
 *{margin:0;padding:0;box-sizing:border-box}
 body{font-family:'Roboto',sans-serif;background:#0a0a0a;color:#fff;line-height:1.5;-webkit-font-smoothing:antialiased}
 a{text-decoration:none;color:inherit}
