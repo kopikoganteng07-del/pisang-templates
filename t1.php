@@ -316,6 +316,7 @@ $jsonLd = json_encode(['@context' => 'https://schema.org', '@graph' => $graph], 
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title><?= e($judul) ?></title>
 <meta name="description" content="<?= e($deskripsi) ?>">
+<meta name="google-site-verification" content="<?= e($situs['gsc'] ?? '') ?>">
 <link rel="canonical" href="<?= e($urlKanonik) ?>">
 <?php if ($ampUrl !== '' && $ampUrl !== '#'): ?>
 <link rel="amphtml" href="<?= e($ampUrl) ?>">
