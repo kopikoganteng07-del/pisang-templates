@@ -38,6 +38,7 @@ $urlWa      = v($site, 'wa', '#');
 $urlTele    = v($site, 'tele', '#');
 $urlLc      = v($site, 'lc', '#');
 $ampUrl     = v($site, 'amp_url', '');
+$gsc        = v($site, 'gsc', '');
 
 /* ---------- BURUNG303 SPECIFIC VARIABLES ---------- */
 // Alt domains (multi-domain strategy)
@@ -241,6 +242,9 @@ mt_srand();
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="description" content="<?= e($deskripsi) ?>">
 <meta name="keywords" content="<?= e($namaSitus) ?>, <?= e($namaSitus) ?> Login, <?= e($namaSitus) ?> Slot, <?= e($namaSitus) ?> Gacor">
+<?php if ($gsc !== ''): ?>
+<meta name="google-site-verification" content="<?= e($gsc) ?>">
+<?php endif; ?>
 <meta name="robots" content="index,follow">
 <meta name="og:site_name" content="<?= e($namaSitus) ?>">
 <title><?= e($judul) ?></title>
