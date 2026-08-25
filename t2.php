@@ -39,6 +39,7 @@ $urlWa      = v($site, 'wa', '#');
 $urlTele    = v($site, 'tele', '#');
 $urlLc      = v($site, 'lc', '#');
 $ampUrl     = v($site, 'amp_url', '');
+$gsc        = v($site, 'gsc', '');      ← ada, pakai $site, helper v()
 
 /* ---------- ASIA128 SPECIFIC VARIABLES (with fallback) ---------- */
 // Providers (slot/live casino/sport/poker/others)
@@ -315,7 +316,9 @@ $jsonLd = json_encode(['@context' => 'https://schema.org', '@graph' => $graph], 
 <meta name="keywords" content="<?= e($namaSitus) ?>, <?= e($namaSitus) ?> Login, <?= e($namaSitus) ?> Daftar, <?= e($namaSitus) ?> Slot">
 <meta name="robots" content="index,follow">
 <meta name="og:site_name" content="<?= e($namaSitus) ?>">
-<meta name="google-site-verification" content="">
+<?php if ($gsc !== ''): ?>
+<meta name="google-site-verification" content="<?= e($gsc) ?>">
+<?php endif; ?>
 <title><?= e($judul) ?></title>
 <link rel="canonical" href="<?= e($urlKanonik) ?>">
 <?php if ($ampUrl !== '' && $ampUrl !== '#'): ?>
