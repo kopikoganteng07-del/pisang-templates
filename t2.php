@@ -39,7 +39,7 @@ $urlWa      = v($site, 'wa', '#');
 $urlTele    = v($site, 'tele', '#');
 $urlLc      = v($site, 'lc', '#');
 $ampUrl     = v($site, 'amp_url', '');
-$gsc        = v($site, 'gsc', '');      ← ada, pakai $site, helper v()
+$gsc        = v($site, 'gsc', '');
 
 /* ---------- ASIA128 SPECIFIC VARIABLES (with fallback) ---------- */
 // Providers (slot/live casino/sport/poker/others)
