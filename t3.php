@@ -452,11 +452,24 @@ h1,h2,h3{font-weight:700;line-height:1.3}
   <div class="s-bilah">
     <div class="s-bungkus">
       <a class="s-logo" href="/"><img src="<?= e($logo) ?>" alt="Logo <?= e($namaSitus) ?>" width="180" height="46"></a>
+      <?php
+/* MENU JENIS PERMAINAN (revisi 17/9): Slot/Sportsbook/Casino/Togel.
+   Hanya tampil bila halamannya benar-benar ada di data.json - tidak pernah
+   tautan mati walau domain belum diretrofit. */
+$menuMainan = ['slot' => 'Slot', 'sportsbook' => 'Sportsbook', 'casino' => 'Casino', 'togel' => 'Togel'];
+$menuMainanAda = [];
+foreach ($menuMainan as $ms => $ml) {
+    foreach ($site['pages'] as $mp) {
+        if (($mp['category'] ?? '') === 'homepage') { continue; }
+        if (trim((string)($mp['slug'] ?? ''), '/') === $ms) { $menuMainanAda[$ms] = $ml; break; }
+    }
+}
+?>
       <nav class="s-menu" aria-label="Navigasi utama">
         <a href="/"<?= $isBeranda ? ' aria-current="page"' : '' ?>>Beranda</a>
-        <a href="/tentang-kami"<?= ($isTetap && $slugMinta === 'tentang-kami') ? ' aria-current="page"' : '' ?>>Tentang Kami</a>
-        <a href="/kontak"<?= ($isTetap && $slugMinta === 'kontak') ? ' aria-current="page"' : '' ?>>Kontak</a>
-        <a href="/disclaimer"<?= ($isTetap && $slugMinta === 'disclaimer') ? ' aria-current="page"' : '' ?>>Disclaimer</a>
+        <?php foreach ($menuMainanAda as $ms => $ml): ?>
+        <a href="/<?= e($ms) ?>"<?= trim((string)($page['slug'] ?? ''), '/') === $ms ? ' aria-current="page"' : '' ?>><?= e($ml) ?></a>
+        <?php endforeach; ?>
       </nav>
     </div>
   </div>
