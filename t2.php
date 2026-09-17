@@ -224,8 +224,6 @@ $anggotaTampil = number_format($jumlahAnggota, 0, ',', '.');
 
 /* ---------- FAQ ---------- */
 $faq = [
-    ['Apakah nilai hadiah dan jumlah anggota di halaman ini data resmi?',
-     'Bukan. Angka hadiah dan jumlah anggota yang tampil di ' . $namaSitus . ' adalah elemen tampilan yang bersifat ilustrasi. Angka tersebut tidak diambil dari sumber data mana pun dan tidak boleh dijadikan dasar keputusan apa pun.'],
     ['Apakah ulasan anggota yang ditampilkan nyata?',
      'Ya. Nama, tanggal, dan isi ulasan pada bagian penilaian adalah hasil testimoni dari orang sungguhan.'],
     ['Apa arti RTP pada permainan gulungan?',
