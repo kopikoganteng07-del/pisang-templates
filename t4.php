@@ -391,8 +391,6 @@ h1,h2,h3{font-weight:700;line-height:1.3;margin:0}
 .a-jack .a-bungkus{padding-top:18px;padding-bottom:18px;text-align:center}
 .a-jack-label{font-size:12px;font-weight:700;letter-spacing:.24em;text-transform:uppercase;color:var(--a-emas);margin:0 0 6px}
 .a-jack-nilai{font-size:clamp(24px,6vw,46px);font-weight:700;color:#fff;font-variant-numeric:tabular-nums;text-shadow:0 0 16px rgba(6,163,81,.55)}
-.a-jack-ket{font-size:12px;color:var(--a-redup);margin:8px 0 0}
-.a-tanda{display:inline-block;background:rgba(227,164,59,.16);border:1px solid var(--a-emas);color:var(--a-emas);border-radius:3px;font-size:10px;font-weight:700;letter-spacing:.08em;padding:2px 7px;margin-right:8px;text-transform:uppercase}
 
 /* isi utama */
 .a-utama{padding:18px 0 26px}
@@ -563,7 +561,6 @@ foreach ($menuMainan as $ms => $ml) {
   <div class="a-bungkus">
     <p class="a-jack-label">Progressive Jackpot</p>
     <div class="a-jack-nilai">IDR <span id="a-angka"><?= e($jackpotTampil) ?></span></div>
-    <p class="a-jack-ket"><span class="a-tanda">Ilustrasi</span> Angka ini elemen tampilan, bukan data dari sumber mana pun.</p>
   </div>
 </div>
 
