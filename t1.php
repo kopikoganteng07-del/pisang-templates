@@ -408,7 +408,6 @@ h1,h2,h3,.p-display{font-family:"Chakra Petch",system-ui,sans-serif;letter-spaci
 .p-jackpot{border:2px solid var(--p-emas-gelap);border-radius:14px;background:linear-gradient(180deg,#3a2a10,#1a1206);padding:16px;text-align:center}
 .p-jackpot-judul{font-weight:700;font-size:18px;letter-spacing:.06em;color:var(--p-emas2)}
 .p-jackpot-angka{margin:10px 0 6px;font-family:"Chakra Petch",monospace;font-size:clamp(22px,5.4vw,40px);font-weight:700;color:var(--p-putih);background:#0d0a04;border:2px solid var(--p-emas-gelap);border-radius:30px;padding:8px 10px;letter-spacing:.06em;word-break:break-all}
-.p-ilustrasi{display:inline-block;font-size:12px;font-weight:700;letter-spacing:.05em;color:#231703;background:var(--p-emas2);border-radius:4px;padding:3px 9px;text-transform:uppercase}
 .p-catatan-kecil{font-size:13px;color:var(--p-redup);margin:8px 0 0}
 
 .p-undian{padding:14px;text-align:center}
@@ -549,7 +548,7 @@ foreach ($menuMainan as $ms => $ml) {
 <div class="p-kabar">
   <div class="p-wrap">
     <span class="p-kabar-label">Pemberitahuan</span>
-    <span class="p-kabar-isi"><span>Selamat datang di <?= e($namaSitus) ?>. Seluruh konten bersifat informasional dan ditujukan untuk pembaca 18 tahun ke atas. Angka jackpot, hasil undian, dan daftar pemenang yang tampil di halaman ini adalah ilustrasi tampilan, bukan data resmi.</span></span>
+    <span class="p-kabar-isi"><span>Selamat datang di <?= e($namaSitus) ?>. Seluruh konten bersifat informasional dan ditujukan untuk pembaca 18 tahun ke atas. Seluruh konten bersifat informasional dan ditujukan untuk pembaca 18 tahun ke atas.</span></span>
     <time datetime="<?= e(date('Y-m-d')) ?>"><?= e(date('d-m-Y')) ?> WIB</time>
   </div>
 </div>
@@ -558,7 +557,7 @@ foreach ($menuMainan as $ms => $ml) {
   <div class="p-wrap">
 
     <?php if ($isBeranda): ?>
-    <section class="p-blok" aria-label="Panel ilustrasi">
+    <section class="p-blok" aria-label="Panel angka">
       <div class="p-baris">
         <div class="p-jackpot">
           <p class="p-jackpot-judul">JACKPOT PLAY</p>
@@ -566,7 +565,7 @@ foreach ($menuMainan as $ms => $ml) {
         </div>
         <div class="p-panel p-undian">
           <h2>Papan Undian Harian</h2>
-          <div class="p-digit" aria-label="Angka ilustrasi <?= e($angkaUndian) ?>">
+          <div class="p-digit" aria-label="Papan undian <?= e($angkaUndian) ?>">
             <?php foreach (str_split($angkaUndian) as $d): ?><span><?= e($d) ?></span><?php endforeach; ?>
           </div>
         </div>
