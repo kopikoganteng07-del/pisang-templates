@@ -500,13 +500,26 @@ body{font-family:Roboto,sans-serif;font-size:14px;color:#fff;margin:0;box-sizing
 </header>
 
 <!-- MAIN NAVIGATION -->
+<?php
+/* MENU JENIS PERMAINAN (revisi 17/9): Slot/Sportsbook/Casino/Togel.
+   Hanya tampil bila halamannya benar-benar ada di data.json - tidak pernah
+   tautan mati walau domain belum diretrofit. */
+$menuMainan = ['slot' => 'Slot', 'sportsbook' => 'Sportsbook', 'casino' => 'Casino', 'togel' => 'Togel'];
+$menuMainanAda = [];
+foreach ($menuMainan as $ms => $ml) {
+    foreach ($site['pages'] as $mp) {
+        if (($mp['category'] ?? '') === 'homepage') { continue; }
+        if (trim((string)($mp['slug'] ?? ''), '/') === $ms) { $menuMainanAda[$ms] = $ml; break; }
+    }
+}
+?>
 <nav class="main-menu" aria-label="Navigasi utama">
   <div style="max-width:1200px;margin:0 auto;padding:0 10px">
     <ul>
       <li><a href="/"<?= $isBeranda ? ' class="active"' : '' ?>>Beranda</a></li>
-      <li><a href="/tentang-kami"<?= ($isTetap && $slugMinta === 'tentang-kami') ? ' class="active"' : '' ?>>Tentang Kami</a></li>
-      <li><a href="/kontak"<?= ($isTetap && $slugMinta === 'kontak') ? ' class="active"' : '' ?>>Kontak</a></li>
-      <li><a href="/disclaimer"<?= ($isTetap && $slugMinta === 'disclaimer') ? ' class="active"' : '' ?>>Disclaimer</a></li>
+      <?php foreach ($menuMainanAda as $ms => $ml): ?>
+      <li><a href="/<?= e($ms) ?>"<?= ($isTetap === false && trim((string)($page['slug'] ?? ''), '/') === $ms) ? ' class="active"' : '' ?>><?= e($ml) ?></a></li>
+      <?php endforeach; ?>
     </ul>
   </div>
 </nav>
@@ -694,11 +707,9 @@ body{font-family:Roboto,sans-serif;font-size:14px;color:#fff;margin:0;box-sizing
 
   <nav class="footer-menu" aria-label="Navigasi bawah">
     <a href="/">Beranda</a>
-    <a>Promosi</a>
-    <a>Slots</a>
-    <a>Live Casino</a>
-    <a>Sportsbook</a>
-    <a>Poker</a>
+    <?php foreach ($menuMainanAda as $ms => $ml): ?>
+    <a href="/<?= e($ms) ?>"><?= e($ml) ?></a>
+    <?php endforeach; ?>
     <a href="/tentang-kami">Tentang Kami</a>
     <a href="/kontak">Kontak</a>
     <a href="/disclaimer">Disclaimer</a>
