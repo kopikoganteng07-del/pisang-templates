@@ -103,7 +103,7 @@ if ($isTetap) {
     $descTetap = '';
     if ($slugMinta === 'tentang-kami') {
         $isiTetap = '<p>' . e($namaSitus) . ' adalah situs informasi hiburan daring berbahasa Indonesia. Kami menyusun ulasan, penjelasan istilah, dan panduan singkat seputar permainan berbasis peluang agar pembaca punya gambaran yang jelas sebelum mengambil keputusan apa pun.</p>'
-          . '<p>Seluruh isi bersifat informasional dan edukatif. Kami tidak menjanjikan kemenangan, tidak menjual jasa prediksi, dan tidak mengklaim memiliki data hasil permainan secara langsung. Angka jackpot yang tampil di situs ini adalah elemen tampilan yang bersifat ilustrasi.</p>'
+          . '<p>Seluruh isi bersifat informasional dan edukatif. Kami tidak menjanjikan kemenangan, tidak menjual jasa prediksi, dan tidak mengklaim memiliki data hasil permainan secara langsung. Angka jackpot yang tampil di situs ini hanya informasi umum.</p>'
           . '<p>Nama permainan dan penyedia yang disebut di halaman ini dipakai sebagai rujukan informasi. Kami tidak berafiliasi dengan pihak mana pun yang namanya disebutkan, dan tidak menampilkan logo maupun materi visual milik mereka.</p>'
           . '<p>Situs ini ditujukan bagi pembaca berusia 18 tahun ke atas. Bila Anda belum memenuhi batas usia tersebut, silakan tinggalkan halaman ini.</p>';
         $descTetap = 'Tentang ' . $namaSitus . ', situs informasi hiburan daring berbahasa Indonesia untuk pembaca 18 tahun ke atas.';
@@ -114,7 +114,7 @@ if ($isTetap) {
         $descTetap = 'Cara menghubungi tim ' . $namaSitus . ' lewat live chat, WhatsApp, dan Telegram.';
     } else {
         $isiTetap = '<p><strong>Batas usia.</strong> Situs ini hanya ditujukan bagi pembaca berusia 18 tahun ke atas.</p>'
-          . '<p><strong>Sifat konten.</strong> Seluruh isi ' . e($namaSitus) . ' bersifat informasional dan edukatif, bukan nasihat keuangan maupun jaminan hasil. Nilai jackpot yang muncul di halaman adalah <strong>elemen tampilan yang bersifat ilustrasi</strong>. Angka tersebut tidak diambil dari sumber data langsung mana pun dan tidak boleh dijadikan dasar keputusan apa pun.</p>'
+          . '<p><strong>Sifat konten.</strong> Seluruh isi ' . e($namaSitus) . ' bersifat informasional dan edukatif, bukan nasihat keuangan maupun jaminan hasil. Nilai jackpot yang muncul di halaman hanya informasi umum dan bukan angka resmi.</p>'
           . '<p><strong>Nama pihak ketiga.</strong> Nama penyedia permainan yang disebut di situs ini dipakai sebagai rujukan informasi semata. Kami tidak berafiliasi dengan mereka dan tidak menampilkan logo, artwork, maupun materi visual milik mereka.</p>'
           . '<p><strong>Bermain bertanggung jawab.</strong> Permainan berbasis peluang dapat menimbulkan kebiasaan yang merugikan. Tetapkan batas waktu dan batas pengeluaran sendiri, jangan menggunakan dana kebutuhan pokok, dan berhenti bila permainan mulai mengganggu kehidupan sehari-hari. Bila Anda merasa kehilangan kendali, hentikan aktivitas dan cari bantuan dari orang terdekat atau tenaga profesional.</p>';
         $descTetap = 'Disclaimer, batas usia 18+, dan imbauan bermain bertanggung jawab di ' . $namaSitus . '.';
@@ -204,8 +204,6 @@ $kolomKaki = [
 
 /* ---------- FAQ ---------- */
 $faq = [
-    ['Apakah angka jackpot di halaman ini data resmi?',
-     'Bukan. Nilai jackpot yang tampil di ' . $namaSitus . ' adalah elemen tampilan yang bersifat ilustrasi. Angka tersebut tidak diambil dari sumber data langsung mana pun dan tidak boleh dijadikan dasar keputusan apa pun.'],
     ['Apakah nama permainan yang ditampilkan produk resmi?',
      'Tidak. Seluruh nama dan tampilan permainan pada halaman ini adalah contoh generik yang kami susun sendiri, bukan produk resmi penyedia mana pun.'],
     ['Kenapa nama penyedia ditulis sebagai teks, bukan logo?',
@@ -547,7 +545,7 @@ foreach ($menuMainan as $ms => $ml) {
 <div class="a-kabar">
   <div class="a-bungkus">
     <span class="a-kabar-ikon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M3 11v2a1 1 0 0 0 1 1h3l5 4V6L7 10H4a1 1 0 0 0-1 1zM17 9a4 4 0 0 1 0 6"/></svg></span>
-    <span class="a-kabar-isi"><span>Selamat datang di <?= e($namaSitus) ?>. Seluruh konten bersifat informasional dan ditujukan untuk pembaca 18 tahun ke atas. Angka jackpot yang tampil di halaman ini adalah ilustrasi tampilan, bukan data resmi.</span></span>
+    <span class="a-kabar-isi"><span>Selamat datang di <?= e($namaSitus) ?>. Seluruh konten bersifat informasional dan ditujukan untuk pembaca 18 tahun ke atas.</span></span>
   </div>
 </div>
 
@@ -663,7 +661,7 @@ foreach ($menuMainan as $ms => $ml) {
 
     <span class="a-usia">18+</span>
     <p><strong><?= e($namaSitus) ?></strong> adalah situs informasi hiburan daring berbahasa Indonesia. Seluruh isi bersifat informasional dan edukatif, bukan jaminan hasil maupun nasihat keuangan.</p>
-    <p>Angka jackpot dan nama permainan yang tampil di situs ini adalah elemen tampilan yang bersifat ilustrasi. Permainan berbasis peluang dapat menimbulkan kebiasaan yang merugikan &mdash; tetapkan batas waktu dan pengeluaran, dan berhenti bila mulai mengganggu kehidupan sehari-hari.</p>
+    <p>Angka jackpot dan nama permainan yang tampil di situs ini hanya informasi umum. Permainan berbasis peluang dapat menimbulkan kebiasaan yang merugikan &mdash; tetapkan batas waktu dan pengeluaran, dan berhenti bila mulai mengganggu kehidupan sehari-hari.</p>
     <div class="a-hakcipta">&copy;<?= e(date('Y', $tsLastmod)) ?> <?= e($namaSitus) ?>. All rights reserved | 18+ &mdash; diperbarui <time datetime="<?= e($lastmodTgl) ?>"><?= e($lastmodTampil) ?></time></div>
   </div>
 </footer>
