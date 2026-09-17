@@ -468,12 +468,25 @@ input{font-family:inherit}
   </div>
 
   <!-- MAIN NAVIGATION -->
+  <?php
+/* MENU JENIS PERMAINAN (revisi 17/9): Slot/Sportsbook/Casino/Togel.
+   Hanya tampil bila halamannya benar-benar ada di data.json - tidak pernah
+   tautan mati walau domain belum diretrofit. */
+$menuMainan = ['slot' => 'Slot', 'sportsbook' => 'Sportsbook', 'casino' => 'Casino', 'togel' => 'Togel'];
+$menuMainanAda = [];
+foreach ($menuMainan as $ms => $ml) {
+    foreach ($site['pages'] as $mp) {
+        if (($mp['category'] ?? '') === 'homepage') { continue; }
+        if (trim((string)($mp['slug'] ?? ''), '/') === $ms) { $menuMainanAda[$ms] = $ml; break; }
+    }
+}
+?>
   <nav class="header-navbar" aria-label="Navigasi utama">
     <ul class="nav-list">
       <li class="nav-item"><a href="/"<?= $isBeranda ? ' class="active"' : '' ?>>Beranda</a></li>
-      <li class="nav-item"><a href="/tentang-kami"<?= ($isTetap && $slugMinta === 'tentang-kami') ? ' class="active"' : '' ?>>Tentang Kami</a></li>
-      <li class="nav-item"><a href="/kontak"<?= ($isTetap && $slugMinta === 'kontak') ? ' class="active"' : '' ?>>Kontak</a></li>
-      <li class="nav-item"><a href="/disclaimer"<?= ($isTetap && $slugMinta === 'disclaimer') ? ' class="active"' : '' ?>>Disclaimer</a></li>
+      <?php foreach ($menuMainanAda as $ms => $ml): ?>
+      <li class="nav-item"><a href="/<?= e($ms) ?>"<?= ($isTetap === false && trim((string)($page['slug'] ?? ''), '/') === $ms) ? ' class="active"' : '' ?>><?= e($ml) ?></a></li>
+      <?php endforeach; ?>
     </ul>
   </nav>
 </header>
