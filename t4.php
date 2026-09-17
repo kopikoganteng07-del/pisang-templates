@@ -513,11 +513,24 @@ h1,h2,h3{font-weight:700;line-height:1.3;margin:0}
   </div>
 </header>
 
+<?php
+/* MENU JENIS PERMAINAN (revisi 17/9): Slot/Sportsbook/Casino/Togel.
+   Hanya tampil bila halamannya benar-benar ada di data.json - tidak pernah
+   tautan mati walau domain belum diretrofit. */
+$menuMainan = ['slot' => 'Slot', 'sportsbook' => 'Sportsbook', 'casino' => 'Casino', 'togel' => 'Togel'];
+$menuMainanAda = [];
+foreach ($menuMainan as $ms => $ml) {
+    foreach ($site['pages'] as $mp) {
+        if (($mp['category'] ?? '') === 'homepage') { continue; }
+        if (trim((string)($mp['slug'] ?? ''), '/') === $ms) { $menuMainanAda[$ms] = $ml; break; }
+    }
+}
+?>
 <nav class="a-menu" aria-label="Navigasi utama">
   <div class="a-bungkus">
     <a href="/"<?= $isBeranda ? ' aria-current="page"' : '' ?>>Beranda</a>
-    <?php foreach ($halamanTetap as $s => $t): ?>
-    <a href="/<?= e($s) ?>"<?= ($isTetap && $slugMinta === $s) ? ' aria-current="page"' : '' ?>><?= e($t) ?></a>
+    <?php foreach ($menuMainanAda as $ms => $ml): ?>
+    <a href="/<?= e($ms) ?>"<?= trim((string)($page['slug'] ?? ''), '/') === $ms ? ' aria-current="page"' : '' ?>><?= e($ml) ?></a>
     <?php endforeach; ?>
   </div>
 </nav>
