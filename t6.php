@@ -8,9 +8,8 @@
  * Ganti template = ganti file ini, TIDAK perlu sentuh data.json.
  * Nambah/edit artikel = update data.json lewat sheet, TIDAK perlu sentuh file ini.
  *
- * Gambar grid 5 game generik (asset-game-1.jpg s/d asset-game-5.jpg) di-upload
- * KE SETIAP DOMAIN SENDIRI-SENDIRI (bukan nebeng 1 domain pusat) - keputusan
- * user supaya tidak ada single point of failure antar domain.
+ * Grid visual memakai banner1/banner2 milik masing-masing domain yang dikelola pipeline,
+ * tanpa dependency asset-game tambahan.
  *
  * Grid provider berisi NAMA provider software slot yang memang beroperasi
  * di industri ini (bukan logo/gambar bermerek) - dipakai sebagai referensi
@@ -429,7 +428,7 @@ tailwind.config = {
           <div class="grid grid-cols-5 gap-1.5 md:gap-2">
             <?php foreach ($genericGames as $i => $g): ?>
             <a href="<?= h($ctaDaftarUrl) ?>" target="_blank" rel="noopener" class="aspect-square rounded-md md:rounded-lg overflow-hidden border border-border bg-bg-surface group cursor-pointer shadow-soft relative">
-              <img src="/img/asset-game-<?= $i+1 ?>.jpg" alt="<?= h($g) ?>" width="320" height="320" loading="lazy" decoding="async" class="w-full h-full object-cover group-hover:scale-105 transition-transform">
+              <img src="<?= h(($i % 2 === 0) ? $bannerSrc : ($site['banner2'] ?? '/img/banner2.jpg')) ?>" alt="<?= h($g) ?>" width="320" height="320" loading="lazy" decoding="async" class="w-full h-full object-cover group-hover:scale-105 transition-transform">
               <span class="absolute bottom-0 left-0 right-0 bg-black/60 text-white text-[8px] md:text-[9px] font-bold text-center py-1 px-0.5 leading-tight"><?= h($g) ?></span>
             </a>
             <?php endforeach; ?>
