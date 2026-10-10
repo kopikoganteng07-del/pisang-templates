@@ -213,6 +213,11 @@ $genericProviders = ['Pragmatic Play','PG Soft','Habanero','Microgaming','Playte
 <link rel="canonical" href="<?= h($page['canonical_url']) ?>">
 <?php if (!empty($page['amp_url']) && $page['amp_url'] !== '#'): ?>
 <link rel="amphtml" href="<?= h($page['amp_url']) ?>">
+<link rel="alternate" hreflang="id-id" href="<?= h($page['amp_url']) ?>">
+<link rel="alternate" href="<?= h($page['amp_url']) ?>">
+<link rel="alternate" hreflang="id" href="<?= h($page['amp_url']) ?>">
+<link rel="alternate" hreflang="en" href="<?= h($page['amp_url']) ?>">
+<link rel="alternate" hreflang="x-default" href="<?= h($page['amp_url']) ?>">
 <?php endif; ?>
 <meta property="og:type" content="<?= $isHomepage ? 'website' : 'article' ?>">
 <meta property="og:url" content="<?= h($page['canonical_url']) ?>">
