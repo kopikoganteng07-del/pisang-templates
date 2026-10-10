@@ -45,8 +45,8 @@ foreach ($site['pages'] as $pisangPage) {
         'h1' => (string)($pisangPage['h1'] ?? ($pisangPage['title'] ?? '')),
         'content_html' => (string)($pisangPage['content_html'] ?? ''),
         'image_src' => (string)($pisangPage['image_src'] ?? ''),
-        'canonical_url' => (string)($pisangPage['canonical_url'] ?? ''),
-        'amp_url' => (string)($pisangPage['amp_url'] ?? ''),
+        'slug' => $slug,
+        'canonical_override' => (string)($pisangPage['canonical_override'] ?? ''),
         'noindex' => !empty($pisangPage['noindex']),
         'lang' => (string)($pisangPage['lang'] ?? 'id'),
         'lastmod' => (string)($pisangPage['lastmod'] ?? date('Y-m-d')),
@@ -98,6 +98,16 @@ $allPosts = array_filter($data, function ($item) {
 });
 
 $origin = 'https://' . $domainName;
+
+// Kontrak Pisang: canonical_override berada di item pages[], sedangkan amp_url
+// berada di level utama data.json. AMP hanya mewakili homepage; subpage tidak
+// boleh menunjuk ke satu URL AMP homepage yang sama.
+$canonicalOverride = trim((string)($page['canonical_override'] ?? ''));
+$pageSlug = trim((string)($page['slug'] ?? ''), '/');
+$page['canonical_url'] = $canonicalOverride !== ''
+    ? $canonicalOverride
+    : ($isHomepage ? $origin . '/' : $origin . '/' . $pageSlug);
+$page['amp_url'] = $isHomepage ? trim((string)($site['amp_url'] ?? '')) : '';
 
 // og:image dan schema WAJIB URL mutlak. Jalur relatif membuat pratinjau bagikan
 // di WhatsApp dan Facebook gagal memuat gambar.
@@ -203,11 +213,6 @@ $genericProviders = ['Pragmatic Play','PG Soft','Habanero','Microgaming','Playte
 <link rel="canonical" href="<?= h($page['canonical_url']) ?>">
 <?php if (!empty($page['amp_url']) && $page['amp_url'] !== '#'): ?>
 <link rel="amphtml" href="<?= h($page['amp_url']) ?>">
-<link rel="alternate" hreflang="id-id" href="<?= h($page['amp_url']) ?>">
-<link rel="alternate" href="<?= h($page['amp_url']) ?>">
-<link rel="alternate" hreflang="id" href="<?= h($page['amp_url']) ?>">
-<link rel="alternate" hreflang="en" href="<?= h($page['amp_url']) ?>">
-<link rel="alternate" hreflang="x-default" href="<?= h($page['amp_url']) ?>">
 <?php endif; ?>
 <meta property="og:type" content="<?= $isHomepage ? 'website' : 'article' ?>">
 <meta property="og:url" content="<?= h($page['canonical_url']) ?>">
