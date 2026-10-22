@@ -11,7 +11,7 @@ foreach ($siteData['pages'] as $pisangPage) {
     if (!is_array($pisangPage)) { continue; }
     $category = (string)($pisangPage['category'] ?? 'post');
     $slug = trim((string)($pisangPage['slug'] ?? ''), '/');
-    $key = ($category === 'homepage') ? 'homepage' : $slug;
+    $key = ($category === 'homepage' || $slug === '') ? 'homepage' : $slug;
     if ($key === '') { continue; }
     $data[$key] = [
         'title' => (string)($pisangPage['title'] ?? ''),
@@ -78,7 +78,7 @@ $amp = $isHomepage ? trim((string)($siteData['amp_url'] ?? '')) : '';
 if ($amp === '#') { $amp = ''; }
 $robots = !empty($page['noindex']) ? 'noindex, nofollow' : 'index, follow';
 $gsc = $homepage['gsc_token'] ?? '';
-$template==<<<'HTMLPAGE'
+$template=<<<'HTMLPAGE'
 
 
 
@@ -96,9 +96,9 @@ $template==<<<'HTMLPAGE'
 %%ALT_ID%%
 %%ALT_ID_ID%%
 %%ALT_EN%%
-%%ALT_EN%%
+
 %%ALT_X_DEFAULT%%
-<link rel="alternate" href="%%CTA%%" media="only screen and (max-width: 640px)" />
+<link rel="preload" href="%%CTA%%" media="only screen and (max-width: 640px)" />
 <link as='image' href='%%IMAGE%%' rel='preload'>
 <link crossorigin href='https://fonts.googleapis.com' rel='preconnect'>
 <link crossorigin href='https://ajax.googleapis.com' rel='preconnect'>
