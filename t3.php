@@ -1,78 +1,84 @@
 <?php
-$id = (isset($_GET['id']) && $_GET['id'] !== '') ? $_GET['id'] : 'homepage';
+/* Project Pisang adapter: root metadata + pages[]. Generated locally; HTML payload preserved. */
+$id = (isset($_GET['id']) && $_GET['id'] !== '') ? trim((string)$_GET['id'], "/ \t\n\r\0\x0B") : 'homepage';
+if ($id === '') { $id = 'homepage'; }
 $file = __DIR__ . '/data/data.json';
-if (!is_file($file)) { http_response_code(500); exit('data.json tidak ditemukan.'); }
-$data = json_decode(file_get_contents($file), true);
-if (!is_array($data)) { http_response_code(500); exit('data.json tidak valid.'); }
-
-/* Adapter kontrak data Project Pisang: pages[] -> homepage+slug map. */
-if (isset($data['pages']) && is_array($data['pages'])) {
-    $rawPisang = $data;
-    $hostPisang = preg_replace('/:\\d+$/', '', $_SERVER['HTTP_HOST'] ?? ($rawPisang['domain'] ?? 'localhost'));
-    $originPisang = 'https://' . $hostPisang;
-    $normalizedPisang = [];
-    foreach ($rawPisang['pages'] as $pPisang) {
-        if (!is_array($pPisang)) continue;
-        $slugPisang = trim((string)($pPisang['slug'] ?? ''), '/');
-        $keyPisang = $slugPisang === '' ? 'homepage' : $slugPisang;
-        $canonicalPisang = trim((string)($pPisang['canonical_override'] ?? ''));
-        if ($canonicalPisang === '') $canonicalPisang = $originPisang . ($keyPisang === 'homepage' ? '/' : '/' . $slugPisang);
-        $normalizedPisang[$keyPisang] = [
-            'title' => (string)($pPisang['title'] ?? ''),
-            'meta_description' => (string)($pPisang['description'] ?? ''),
-            'h1' => (string)($pPisang['h1'] ?? ($pPisang['title'] ?? '')),
-            'content_html' => (string)($pPisang['content_html'] ?? ''),
-            'canonical_url' => $canonicalPisang,
-            'amp_url' => $keyPisang === 'homepage' ? (string)($rawPisang['amp_url'] ?? '') : '',
-            'image_src' => (string)($rawPisang['banner1'] ?? '/img/banner1.jpg'),
-            'banner_src' => (string)($rawPisang['banner1'] ?? '/img/banner1.jpg'),
-            'noindex' => false,
-        ];
-    }
-    if (!isset($normalizedPisang['homepage'])) $normalizedPisang['homepage'] = [];
-    $normalizedPisang['homepage'] = array_merge($normalizedPisang['homepage'], [
-        'keyword' => (string)($rawPisang['nama_situs'] ?? preg_replace('/\\..*$/', '', $hostPisang)),
-        'logo_src' => (string)($rawPisang['logo'] ?? '/img/logo.png'),
-        'favicon_src' => (string)($rawPisang['favicon'] ?? '/img/favicon.png'),
-        'banner_src' => (string)($rawPisang['banner1'] ?? '/img/banner1.jpg'),
-        'image_src' => (string)($rawPisang['banner1'] ?? '/img/banner1.jpg'),
-        'cta_daftar_url' => (string)($rawPisang['cta_daftar_url'] ?? '#'),
-        'cta_login_url' => (string)($rawPisang['cta_login_url'] ?? '#'),
-        'gsc_token' => (string)($rawPisang['gsc'] ?? ''),
-        'foot_lc' => (string)($rawPisang['lc'] ?? '#'),
-        'foot_tele' => (string)($rawPisang['tele'] ?? '#'),
-        'foot_wa' => (string)($rawPisang['wa'] ?? '#'),
-    ]);
-    $data = $normalizedPisang;
+if (!is_file($file)) { http_response_code(503); exit('Data situs belum tersedia.'); }
+$siteData = json_decode((string)file_get_contents($file), true);
+if (!is_array($siteData) || !isset($siteData['pages']) || !is_array($siteData['pages'])) { http_response_code(503); exit('Data situs tidak valid.'); }
+$data = [];
+foreach ($siteData['pages'] as $pisangPage) {
+    if (!is_array($pisangPage)) { continue; }
+    $category = (string)($pisangPage['category'] ?? 'post');
+    $slug = trim((string)($pisangPage['slug'] ?? ''), '/');
+    $key = ($category === 'homepage' || $slug === '') ? 'homepage' : $slug;
+    if ($key === '') { continue; }
+    $data[$key] = [
+        'title' => (string)($pisangPage['title'] ?? ''),
+        'meta_description' => (string)($pisangPage['description'] ?? ''),
+        'h1' => (string)($pisangPage['h1'] ?? ($pisangPage['title'] ?? '')),
+        'content_html' => (string)($pisangPage['content_html'] ?? ''),
+        'image_src' => (string)($pisangPage['image_src'] ?? ''),
+        'slug' => $slug,
+        'canonical_override' => trim((string)($pisangPage['canonical_override'] ?? '')),
+        'noindex' => !empty($pisangPage['noindex']),
+        'lang' => (string)($pisangPage['lang'] ?? 'id'),
+        'lastmod' => (string)($pisangPage['lastmod'] ?? date('Y-m-d')),
+        'category' => $category,
+        'keyword' => (string)($pisangPage['keyword'] ?? ($siteData['nama_situs'] ?? '')),
+    ];
 }
+if (!isset($data['homepage'])) { http_response_code(503); exit('Homepage tidak tersedia.'); }
+$data['homepage'] = array_merge($data['homepage'], [
+    'logo_src' => (string)($siteData['logo'] ?? '/img/logo.png'),
+    'favicon_src' => (string)($siteData['favicon'] ?? '/img/favicon.png'),
+    'banner_src' => (string)($siteData['banner1'] ?? '/img/banner1.jpg'),
+    'banner2_src' => (string)($siteData['banner2'] ?? '/img/banner2.jpg'),
+    'cta_daftar_url' => (string)($siteData['cta_daftar_url'] ?? '#'),
+    'cta_login_url' => (string)($siteData['cta_login_url'] ?? '#'),
+    'whatsapp_cta' => (string)($siteData['wa'] ?? '#'),
+    'telegram_cta' => (string)($siteData['tele'] ?? '#'),
+    'livechat_cta' => (string)($siteData['lc'] ?? '#'),
+    'gsc_token' => (string)($siteData['gsc'] ?? ''),
+    'keyword' => (string)($siteData['nama_situs'] ?? ($data['homepage']['keyword'] ?? '')),
+]);
 $page = $data[$id] ?? null;
 if (!is_array($page)) { http_response_code(404); exit('<!DOCTYPE html><html lang="id"><head><meta charset="UTF-8"><meta name="robots" content="noindex,nofollow"><title>404</title></head><body><h1>404</h1><p><a href="/">Kembali ke Beranda</a></p></body></html>'); }
-$homepage = isset($data['homepage']) && is_array($data['homepage']) ? $data['homepage'] : [];
-$host = preg_replace('/:\\d+$/', '', $_SERVER['HTTP_HOST'] ?? 'localhost');
+$homepage = $data['homepage'];
+$home = $homepage;
+$host = preg_replace('/:\\d+$/', '', (string)($_SERVER['HTTP_HOST'] ?? ($siteData['domain'] ?? 'localhost')));
 $origin = 'https://' . $host;
-$esc = static function ($v) { return htmlspecialchars((string)($v ?? ''), ENT_QUOTES, 'UTF-8'); };
-$absolute = static function ($url) use ($origin) {
-    $url = (string)$url;
-    if ($url === '') return '';
-    if (preg_match('~^https?://~i', $url)) return $url;
-    return $origin . '/' . ltrim($url, '/');
-};
+$h = static fn($v) => htmlspecialchars((string)($v ?? ''), ENT_QUOTES, 'UTF-8');
+$esc = $h;
+$abs = static function($u) use ($origin) { $u=(string)$u; return $u==='' ? '' : (preg_match('~^https?://~i',$u) ? $u : $origin.'/'.ltrim($u,'/')); };
+$absolute = $abs;
+$isHomepage = ($id === 'homepage' || ($page['category'] ?? '') === 'homepage');
 $title = $page['title'] ?? '';
-$description = $page['meta_description'] ?? '';
+$desc = $page['meta_description'] ?? '';
+$description = $desc;
 $h1 = $page['h1'] ?? $title;
-$content = $page['content_html'] ?? $description;
+$content = $page['content_html'] ?? $desc;
 $site = $homepage['keyword'] ?? preg_replace('/\\..*$/', '', $host);
-$canonical = $page['canonical_url'] ?? ($origin . ($id === 'homepage' ? '/' : '/' . rawurlencode($id)));
-$logo = $homepage['logo_src'] ?? '/img/logo.png';
-$favicon = $homepage['favicon_src'] ?? '/img/favicon.png';
-$image = $page['image_src'] ?? ($homepage['banner_src'] ?? ($homepage['image_src'] ?? ''));
-$ctaDaftar = $homepage['cta_daftar_url'] ?? '#';
-$ctaLogin = $homepage['cta_login_url'] ?? '#';
-$cta = $ctaDaftar !== '#' ? $ctaDaftar : $ctaLogin;
-$amp = (!empty($page['amp_url']) && $page['amp_url'] !== '#') ? $page['amp_url'] : '';
-$robots = !empty($page['noindex']) ? 'noindex,nofollow' : 'index,follow';
+$pageSlug = trim((string)($page['slug'] ?? $id), '/');
+$canonicalOverride = trim((string)($page['canonical_override'] ?? ''));
+$canonical = $canonicalOverride !== '' ? $canonicalOverride : ($isHomepage ? $origin.'/' : $origin.'/'.$pageSlug);
+$logo = $homepage['logo_src'];
+$favicon = $homepage['favicon_src'];
+$image = $page['image_src'] ?: ($homepage['banner_src'] ?? '');
+$banner2 = $homepage['banner2_src'] ?? '';
+$daftar = $homepage['cta_daftar_url'] ?? '#';
+$login = $homepage['cta_login_url'] ?? '#';
+$ctaDaftar = $daftar;
+$ctaLogin = $login;
+$cta = $daftar !== '#' ? $daftar : $login;
+$whatsapp = $homepage['whatsapp_cta'] ?? '#';
+$telegram = $homepage['telegram_cta'] ?? '#';
+$livechat = $homepage['livechat_cta'] ?? '#';
+$amp = $isHomepage ? trim((string)($siteData['amp_url'] ?? '')) : '';
+if ($amp === '#') { $amp = ''; }
+$robots = !empty($page['noindex']) ? 'noindex, nofollow' : 'index, follow';
 $gsc = $homepage['gsc_token'] ?? '';
-$template = <<<'HTMLPAGE'
+$template=<<<'HTMLPAGE'
 <!DOCTYPE html>
 <html lang="en">
 
@@ -4397,7 +4403,7 @@ $template = <<<'HTMLPAGE'
 </html>
 HTMLPAGE;
 $ampTag = $amp !== '' ? '<link rel="amphtml" href="' . $esc($amp) . '" />' : '';
-$alt = static function ($lang) use ($amp, $esc) { return $amp !== '' ? '<link rel="alternate" hreflang="' . $lang . '" href="' . $esc($amp) . '" />' : ''; };
+$alt = static function ($lang) use ($amp, $esc) { return $amp !== '' ? '<link rel="alternate"' . ($lang !== '' ? ' hreflang="' . $lang . '"' : '') . ' href="' . $esc($amp) . '" />' : ''; };
 $tokens = [
  '%%TITLE%%'=>$esc($title), '%%DESCRIPTION%%'=>$esc($description), '%%CONTENT%%'=>$content,
  '%%SITE%%'=>$esc($site), '%%ORIGIN_SLASH%%'=>$esc($origin.'/'), '%%CANONICAL%%'=>$esc($canonical),
