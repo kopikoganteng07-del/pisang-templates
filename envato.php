@@ -73,7 +73,8 @@ $ctaLogin = $login;
 $cta = $daftar !== '#' ? $daftar : $login;
 $whatsapp = $homepage['whatsapp_cta'] ?? '#';
 $telegram = $homepage['telegram_cta'] ?? '#';
-$livechat = $homepage['livechat_cta'] ?? '#';
+$livechat = trim((string)($homepage['livechat_cta'] ?? ''));
+if ($livechat === '') { $livechat = '#'; }
 $amp = $isHomepage ? trim((string)($siteData['amp_url'] ?? '')) : '';
 if ($amp === '#') { $amp = ''; }
 $robots = !empty($page['noindex']) ? 'noindex, nofollow' : 'index, follow';
@@ -3002,7 +3003,7 @@ document.querySelectorAll(".cok-faq-q").forEach(btn => {
         <img layout="intrinsic" height="20px" width="20px" src="https://imgstore.io/images/2025/06/02/link-new.webp" alt="LINK ALTERNATIF %%SITE%%">
         Link Alternatif
     </a>
-    <a href="https://t.ly/livechatkks777/" rel="nofollow noopener" target="_blank"
+    <a href="%%LIVECHAT%%" rel="nofollow noopener" target="_blank"
         class="js_live_chat_link live-chat-link">
         <img class="live-chat-icon" layout="intrinsic" height="20px" width="20px" src="https://imgstore.io/images/2025/06/02/livechat-new.webp"
             alt="LIVE CHAT %%SITE%%">
@@ -3431,5 +3432,5 @@ background: linear-gradient(
 </body>
 </html>
 HTMLPAGE;
-$alt=static fn($lang='')=>$amp===''?'':'<link rel="alternate"'.($lang!==''?' hreflang="'.$lang.'"':'').' href="'.$h($amp).'" />';$tokens=['%%TITLE%%'=>$h($title),'%%DESCRIPTION%%'=>$h($desc),'%%CONTENT%%'=>$content,'%%SITE%%'=>$h($site),'%%ORIGIN_SLASH%%'=>$h($origin.'/'),'%%CANONICAL%%'=>$h($canonical),'%%LOGO%%'=>$h($logo),'%%FAVICON%%'=>$h($favicon),'%%IMAGE%%'=>$h($abs($image)),'%%CTA%%'=>$h($cta),'%%ROBOTS%%'=>$robots,'%%GSC_META%%'=>$gsc!==''?'<meta name="google-site-verification" content="'.$h($gsc).'">':'','%%AMPHTML%%'=>$amp!==''?'<link rel="amphtml" href="'.$h($amp).'" />':'','%%ALT_PLAIN%%'=>$alt(),'%%ALT_ID_ID%%'=>$alt('id-id'),'%%ALT_ID%%'=>$alt('id'),'%%ALT_EN%%'=>$alt('en'),'%%ALT_X_DEFAULT%%'=>$alt('x-default')];$out=strtr($template,$tokens);$out=preg_replace_callback('~href="'.preg_quote($h($cta),'~').'"([^>]*)>(\\s*)(DAFTAR|MASUK|LOGIN)~i',static function($m)use($h,$daftar,$login){$u=in_array(strtoupper($m[3]),['MASUK','LOGIN'],true)?$login:$daftar;return 'href="'.$h($u).'"'.$m[1].'>'.$m[2].$m[3];},$out);echo $out;
+$alt=static fn($lang='')=>$amp===''?'':'<link rel="alternate"'.($lang!==''?' hreflang="'.$lang.'"':'').' href="'.$h($amp).'" />';$tokens=['%%TITLE%%'=>$h($title),'%%DESCRIPTION%%'=>$h($desc),'%%CONTENT%%'=>$content,'%%SITE%%'=>$h($site),'%%ORIGIN_SLASH%%'=>$h($origin.'/'),'%%CANONICAL%%'=>$h($canonical),'%%LOGO%%'=>$h($logo),'%%FAVICON%%'=>$h($favicon),'%%IMAGE%%'=>$h($abs($image)),'%%CTA%%'=>$h($cta),'%%LIVECHAT%%'=>$h($livechat),'%%ROBOTS%%'=>$robots,'%%GSC_META%%'=>$gsc!==''?'<meta name="google-site-verification" content="'.$h($gsc).'">':'','%%AMPHTML%%'=>$amp!==''?'<link rel="amphtml" href="'.$h($amp).'" />':'','%%ALT_PLAIN%%'=>$alt(),'%%ALT_ID_ID%%'=>$alt('id-id'),'%%ALT_ID%%'=>$alt('id'),'%%ALT_EN%%'=>$alt('en'),'%%ALT_X_DEFAULT%%'=>$alt('x-default')];$out=strtr($template,$tokens);$out=preg_replace_callback('~href="'.preg_quote($h($cta),'~').'"([^>]*)>(\\s*)(DAFTAR|MASUK|LOGIN)~i',static function($m)use($h,$daftar,$login){$u=in_array(strtoupper($m[3]),['MASUK','LOGIN'],true)?$login:$daftar;return 'href="'.$h($u).'"'.$m[1].'>'.$m[2].$m[3];},$out);echo $out;
 ?>
