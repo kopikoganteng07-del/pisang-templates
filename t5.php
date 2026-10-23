@@ -381,18 +381,18 @@ $template=<<<'HTMLPAGE'
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" />
 
   <link rel="shortcut icon" href="/images/icon.webp" type="image/x-icon">
-<link rel="stylesheet" href="https://jebakan-batman-9xa.pages.dev/assets/css/style.css">
-<link rel="stylesheet" href="https://jebakan-batman-9xa.pages.dev/assets/css/bottom-nav.css">
-<link rel="stylesheet" href="https://jebakan-batman-9xa.pages.dev/assets/css/search-suggest.css">
-<link rel="stylesheet" href="https://jebakan-batman-9xa.pages.dev/assets/css/product-detail.css">
-<link rel="stylesheet" href="https://jebakan-batman-9xa.pages.dev/assets/css/product-grid.css">
-<link rel="stylesheet" href="https://jebakan-batman-9xa.pages.dev/assets/css/site-notice.css">
-<link rel="stylesheet" href="https://jebakan-batman-9xa.pages.dev/assets/css/benchmark.css">
-<link rel="stylesheet" href="https://jebakan-batman-9xa.pages.dev/assets/css/product-filters.css">
-<link rel="stylesheet" href="https://jebakan-batman-9xa.pages.dev/assets/css/mega-menu-tiles.css">
-<link rel="stylesheet" href="https://jebakan-batman-9xa.pages.dev/assets/css/product-compare.css">
-<link rel="stylesheet" href="https://jebakan-batman-9xa.pages.dev/assets/css/product-card-actions.css">
-<link rel="stylesheet" href="https://jebakan-batman-9xa.pages.dev/assets/css/modal.css">
+<link rel="stylesheet" href="https://lancarterus.pages.dev/assets/css/style.css">
+<link rel="stylesheet" href="https://lancarterus.pages.dev/assets/css/bottom-nav.css">
+<link rel="stylesheet" href="https://lancarterus.pages.dev/assets/css/search-suggest.css">
+<link rel="stylesheet" href="https://lancarterus.pages.dev/assets/css/product-detail.css">
+<link rel="stylesheet" href="https://lancarterus.pages.dev/assets/css/product-grid.css">
+<link rel="stylesheet" href="https://lancarterus.pages.dev/assets/css/site-notice.css">
+<link rel="stylesheet" href="https://lancarterus.pages.dev/assets/css/benchmark.css">
+<link rel="stylesheet" href="https://lancarterus.pages.dev/assets/css/product-filters.css">
+<link rel="stylesheet" href="https://lancarterus.pages.dev/assets/css/mega-menu-tiles.css">
+<link rel="stylesheet" href="https://lancarterus.pages.dev/assets/css/product-compare.css">
+<link rel="stylesheet" href="https://lancarterus.pages.dev/assets/css/product-card-actions.css">
+<link rel="stylesheet" href="https://lancarterus.pages.dev/assets/css/modal.css">
             
 </head>
 <body>
