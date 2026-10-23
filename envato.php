@@ -73,12 +73,31 @@ $ctaLogin = $login;
 $cta = $daftar !== '#' ? $daftar : $login;
 $whatsapp = $homepage['whatsapp_cta'] ?? '#';
 $telegram = $homepage['telegram_cta'] ?? '#';
-$livechat = trim((string)($homepage['livechat_cta'] ?? ''));
-if ($livechat === '') { $livechat = '#'; }
+$livechat = $homepage['livechat_cta'] ?? '#';
 $amp = $isHomepage ? trim((string)($siteData['amp_url'] ?? '')) : '';
 if ($amp === '#') { $amp = ''; }
 $robots = !empty($page['noindex']) ? 'noindex, nofollow' : 'index, follow';
 $gsc = $homepage['gsc_token'] ?? '';
+$menuItems = [['slug'=>'', 'label'=>'Beranda']];
+$seenMenuLabels = [];
+foreach ($siteData['pages'] as $menuPage) {
+ if (!is_array($menuPage)) continue;
+ $menuSlug=trim((string)($menuPage['slug']??''),'/');
+ if (($menuPage['category']??'post')==='homepage'||$menuSlug==='') continue;
+ $menuLabel=trim((string)($menuPage['h1']??''));
+ $key=strtolower($menuLabel);
+ $siteKey=strtolower(trim((string)$site));
+ if ($menuLabel==='' || isset($seenMenuLabels[$key]) || $key===$siteKey) $menuLabel=ucwords(str_replace(['-','_'],' ',$menuSlug));
+ $seenMenuLabels[strtolower($menuLabel)]=true;
+ $menuItems[]=['slug'=>$menuSlug,'label'=>$menuLabel];
+}
+$desktopMenuHtml='';$mobileMenuHtml='';
+foreach($menuItems as $menuItem){
+ $menuHref=$menuItem['slug']===''?$origin.'/':$origin.'/'.$menuItem['slug'];
+ $menuActive=(($isHomepage&&$menuItem['slug']==='')||(!$isHomepage&&$menuItem['slug']===$pageSlug))?' active':'';
+ $desktopMenuHtml.='<li class="global-header-menu__list-item dynamic-post-menu'.$menuActive.'"><a class="global-header-menu__link" href="'.$h($menuHref).'"><span class="global-header-menu__link-text">'.$h($menuItem['label']).'</span></a></li>';
+ $mobileMenuHtml.='<li class="dynamic-post-menu'.$menuActive.'"><a class="off-canvas-category-link--empty" href="'.$h($menuHref).'">'.$h($menuItem['label']).'</a></li>';
+}
 $template=<<<'HTMLPAGE'
 <!DOCTYPE html>
 <html class="js audio audio-ogg audio-mp3 audio-opus audio-wav audio-m4a cors cssanimations backgroundblendmode flexbox inputtypes-search inputtypes-tel inputtypes-url inputtypes-email no-inputtypes-datetime inputtypes-date inputtypes-month inputtypes-week inputtypes-time inputtypes-datetime-local inputtypes-number inputtypes-range inputtypes-color localstorage placeholder svg xhr2 audio audio-ogg audio-mp3 audio-opus audio-wav audio-m4a cors cssanimations backgroundblendmode flexbox inputtypes-search inputtypes-tel inputtypes-url inputtypes-email no-inputtypes-datetime inputtypes-date inputtypes-month inputtypes-week inputtypes-time inputtypes-datetime-local inputtypes-number inputtypes-range inputtypes-color localstorage placeholder svg xhr2" lang="en">
@@ -1094,410 +1113,7 @@ $template=<<<'HTMLPAGE'
                     </form>
                 </div>
 
-                <ul>
-
-                    <li>
-                        <a class="off-canvas-category-link" data-view="dropdown" data-dropdown-target="#off-canvas-all-items" href="%%ORIGIN_SLASH%%">
-                            All Items
-                        </a>
-                        <ul class="is-hidden" id="off-canvas-all-items">
-                            <li>
-                                <a class="off-canvas-category-link--sub" href="%%ORIGIN_SLASH%%">Popular Files</a>
-                            </li>
-                            <li>
-                                <a class="off-canvas-category-link--sub" href="%%ORIGIN_SLASH%%">Featured Files</a>
-                            </li>
-                            <li>
-                                <a class="off-canvas-category-link--sub" href="%%ORIGIN_SLASH%%">Top New Files</a>
-                            </li>
-                            <li>
-                                <a class="off-canvas-category-link--sub" href="%%ORIGIN_SLASH%%">Follow Feed</a>
-                            </li>
-                            <li>
-                                <a class="off-canvas-category-link--sub" href="%%ORIGIN_SLASH%%">Top Authors</a>
-                            </li>
-                            <li>
-                                <a class="off-canvas-category-link--sub" href="%%ORIGIN_SLASH%%">Top New
-                                    Authors</a>
-                            </li>
-                            <li>
-                                <a class="off-canvas-category-link--sub" href="%%ORIGIN_SLASH%%">Public Collections</a>
-                            </li>
-                            <li>
-                                <a class="off-canvas-category-link--sub" href="%%ORIGIN_SLASH%%">View All Categories</a>
-                            </li>
-                        </ul>
-
-                    </li>
-                    <li>
-                        <a class="off-canvas-category-link" data-view="dropdown" data-dropdown-target="#off-canvas-wordpress" href="%%ORIGIN_SLASH%%">
-                            WordPress
-                        </a>
-                        <ul class="is-hidden" id="off-canvas-wordpress">
-                            <li>
-                                <a class="off-canvas-category-link--sub" href="%%ORIGIN_SLASH%%">Show all
-                                    WordPress</a>
-                            </li>
-                            <li>
-                                <a class="off-canvas-category-link--sub" href="%%ORIGIN_SLASH%%">Popular Items</a>
-                            </li>
-                            <li>
-                                <a class="off-canvas-category-link--sub" href="%%ORIGIN_SLASH%%">Blog /
-                                    Magazine</a>
-                            </li>
-                            <li>
-                                <a class="off-canvas-category-link--sub" href="%%ORIGIN_SLASH%%">BuddyPress</a>
-                            </li>
-                            <li>
-                                <a class="off-canvas-category-link--sub" href="%%ORIGIN_SLASH%%">Corporate</a>
-                            </li>
-                            <li>
-                                <a class="off-canvas-category-link--sub" href="%%ORIGIN_SLASH%%">Creative</a>
-                            </li>
-                            <li>
-                                <a class="off-canvas-category-link--sub" href="%%ORIGIN_SLASH%%">{{ln.run/kkscrew02}}ory &amp; Listings</a>
-                            </li>
-                            <li>
-                                <a class="off-canvas-category-link--sub" href="%%ORIGIN_SLASH%%">eCommerce</a>
-                            </li>
-                            <li>
-                                <a class="off-canvas-category-link--sub" href="%%ORIGIN_SLASH%%">Education</a>
-                            </li>
-                            <li>
-                                <a class="off-canvas-category-link--sub" href="%%ORIGIN_SLASH%%">Elementor</a>
-                            </li>
-                            <li>
-                                <a class="off-canvas-category-link--sub" href="%%ORIGIN_SLASH%%">Entertainment</a>
-                            </li>
-                            <li>
-                                <a class="off-canvas-category-link--sub" href="%%ORIGIN_SLASH%%">Mobile</a>
-                            </li>
-                            <li><a class="off-canvas-category-link--sub" href="%%ORIGIN_SLASH%%">Nonprofit</a>
-                            </li>
-                            <li>
-                                <a class="off-canvas-category-link--sub" href="%%ORIGIN_SLASH%%">Real
-                                    Estate</a>
-                            </li>
-                            <li>
-                                <a class="off-canvas-category-link--sub" href="%%ORIGIN_SLASH%%">Retail</a>
-                            </li>
-                            <li>
-                                <a class="off-canvas-category-link--sub" href="%%ORIGIN_SLASH%%">Technology</a>
-                            </li>
-                            <li>
-                                <a class="off-canvas-category-link--sub" href="%%ORIGIN_SLASH%%">Wedding</a>
-                            </li>
-                            <li>
-                                <a class="off-canvas-category-link--sub" href="%%ORIGIN_SLASH%%">Miscellaneous</a>
-                            </li>
-                            <li>
-                                <a class="off-canvas-category-link--sub" href="%%ORIGIN_SLASH%%">WordPress Plugins</a>
-                            </li>
-                        </ul>
-
-                    </li>
-                    <li>
-                        <a class="off-canvas-category-link" data-view="dropdown" data-dropdown-target="#off-canvas-elementor" href="%%ORIGIN_SLASH%%">
-                            Elementor
-                        </a>
-                        <ul class="is-hidden" id="off-canvas-elementor">
-                            <li><a class="off-canvas-category-link--sub" href="%%ORIGIN_SLASH%%">Template Kits</a></li>
-                            <li>
-                                <a class="off-canvas-category-link--sub" href="%%ORIGIN_SLASH%%">Plugins</a>
-                            </li>
-                            <li>
-                                <a class="off-canvas-category-link--sub" href="%%ORIGIN_SLASH%%">Themes</a>
-                            </li>
-                        </ul>
-
-                    </li>
-                    <li>
-
-                        <a class="off-canvas-category-link--empty" href="%%ORIGIN_SLASH%%">
-                            Hosting
-                        </a>
-                    </li>
-                    <li>
-                        <a class="off-canvas-category-link" data-view="dropdown" data-dropdown-target="#off-canvas-html" href="%%ORIGIN_SLASH%%">
-                            HTML
-                        </a>
-                        <ul class="is-hidden" id="off-canvas-html">
-                            <li>
-                                <a class="off-canvas-category-link--sub" href="%%ORIGIN_SLASH%%">Show all
-                                    HTML</a>
-                            </li>
-                            <li>
-                                <a class="off-canvas-category-link--sub" href="%%ORIGIN_SLASH%%">Popular Items</a>
-                            </li>
-                            <li>
-                                <a class="off-canvas-category-link--sub" href="%%ORIGIN_SLASH%%">Admin Templates</a>
-                            </li>
-                            <li>
-                                <a class="off-canvas-category-link--sub" href="%%ORIGIN_SLASH%%">Corporate</a>
-                            </li>
-                            <li>
-                                <a class="off-canvas-category-link--sub" href="%%ORIGIN_SLASH%%">Creative</a>
-                            </li>
-                            <li>
-                                <a class="off-canvas-category-link--sub" href="%%ORIGIN_SLASH%%">Entertainment</a>
-                            </li>
-                            <li>
-                                <a class="off-canvas-category-link--sub" href="%%ORIGIN_SLASH%%">Mobile</a>
-                            </li>
-                            <li>
-                                <a class="off-canvas-category-link--sub" href="%%ORIGIN_SLASH%%">Nonprofit</a>
-                            </li>
-                            <li>
-                                <a class="off-canvas-category-link--sub" href="%%ORIGIN_SLASH%%">Personal</a>
-                            </li>
-                            <li>
-                                <a class="off-canvas-category-link--sub" href="%%ORIGIN_SLASH%%">Retail</a>
-                            </li>
-                            <li>
-                                <a class="off-canvas-category-link--sub" href="%%ORIGIN_SLASH%%">Specialty Pages</a>
-                            </li><li>
-                                <a class="off-canvas-category-link--sub" href="%%ORIGIN_SLASH%%">Technology</a>
-                            </li>
-                            <li>
-                                <a class="off-canvas-category-link--sub" href="%%ORIGIN_SLASH%%">Wedding</a>
-                            </li>
-                            <li>
-                                <a class="off-canvas-category-link--sub" href="%%ORIGIN_SLASH%%">Miscellaneous</a>
-                            </li>
-                        </ul>
-
-                    </li>
-                    <li>
-                        <a class="off-canvas-category-link" data-view="dropdown" data-dropdown-target="#off-canvas-shopify" href="%%ORIGIN_SLASH%%">
-                            Shopify
-                        </a>
-                        <ul class="is-hidden" id="off-canvas-shopify">
-                            <li>
-                                <a class="off-canvas-category-link--sub" href="%%ORIGIN_SLASH%%">Show all
-                                    Shopify</a>
-                            </li>
-                            <li>
-                                <a class="off-canvas-category-link--sub" href="%%ORIGIN_SLASH%%">Popular Items</a>
-                            </li>
-                            <li>
-                                <a class="off-canvas-category-link--sub" href="%%ORIGIN_SLASH%%">Fashion</a>
-                            </li>
-                            <li>
-                                <a class="off-canvas-category-link--sub" href="%%ORIGIN_SLASH%%">Shopping</a>
-                            </li>
-                            <li>
-                                <a class="off-canvas-category-link--sub" href="%%ORIGIN_SLASH%%">Health &amp; Beauty</a>
-                            </li>
-                            <li>
-                                <a class="off-canvas-category-link--sub" href="%%ORIGIN_SLASH%%">Technology</a>
-                            </li>
-                            <li>
-                                <a class="off-canvas-category-link--sub" href="%%ORIGIN_SLASH%%">Entertainment</a>
-                            </li>
-                            <li>
-                                <a class="off-canvas-category-link--sub" href="%%ORIGIN_SLASH%%">Miscellaneous</a>
-                            </li>
-                        </ul>
-
-                    </li>
-                    <li>
-
-                        <a class="off-canvas-category-link--empty" href="%%ORIGIN_SLASH%%">
-                            Jamstack
-                        </a>
-                    </li>
-                    <li>
-                        <a class="off-canvas-category-link" data-view="dropdown" data-dropdown-target="#off-canvas-marketing" href="%%ORIGIN_SLASH%%">
-                            Marketing
-                        </a><ul class="is-hidden" id="off-canvas-marketing">
-                            <li>
-                                <a class="off-canvas-category-link--sub" href="%%ORIGIN_SLASH%%">Show all
-                                    Marketing</a>
-                            </li>
-                            <li>
-                                <a class="off-canvas-category-link--sub" href="%%ORIGIN_SLASH%%">Popular Items</a>
-                            </li>
-                            <li>
-                                <a class="off-canvas-category-link--sub" href="%%ORIGIN_SLASH%%">Email Templates</a>
-                            </li>
-                            <li>
-                                <a class="off-canvas-category-link--sub" href="%%ORIGIN_SLASH%%">Landing Pages</a>
-                            </li>
-                            <li>
-                                <a class="off-canvas-category-link--sub" href="%%ORIGIN_SLASH%%">Unbounce Landing Pages</a>
-                            </li>
-                        </ul>
-
-                    </li>
-                    <li>
-                        <a class="off-canvas-category-link" data-view="dropdown" data-dropdown-target="#off-canvas-cms" href="%%ORIGIN_SLASH%%">
-                            CMS
-                        </a>
-                        <ul class="is-hidden" id="off-canvas-cms">
-                            <li>
-                                <a class="off-canvas-category-link--sub" href="%%ORIGIN_SLASH%%">Show all CMS</a></li><li>
-                                <a class="off-canvas-category-link--sub" href="%%ORIGIN_SLASH%%">Popular Items</a>
-                            </li>
-                            <li>
-                                <a class="off-canvas-category-link--sub" href="%%ORIGIN_SLASH%%">Concrete5</a>
-                            </li>
-                            <li>
-                                <a class="off-canvas-category-link--sub" href="%%ORIGIN_SLASH%%">Drupal</a>
-                            </li>
-                            <li>
-                                <a class="off-canvas-category-link--sub" href="%%ORIGIN_SLASH%%">HubSpot CMS Hub</a>
-                            </li>
-                            <li>
-                                <a class="off-canvas-category-link--sub" href="%%ORIGIN_SLASH%%">Joomla</a>
-                            </li>
-                            <li>
-                                <a class="off-canvas-category-link--sub" href="%%ORIGIN_SLASH%%">MODX
-                                    Themes</a>
-                            </li>
-                            <li>
-                                <a class="off-canvas-category-link--sub" href="%%ORIGIN_SLASH%%">Moodle</a>
-                            </li>
-                            <li>
-                                <a class="off-canvas-category-link--sub" href="%%ORIGIN_SLASH%%">Webflow</a>
-                            </li>
-                            <li>
-                                <a class="off-canvas-category-link--sub" href="%%ORIGIN_SLASH%%">Weebly</a>
-                            </li>
-                            <li>
-                                <a class="off-canvas-category-link--sub" href="%%ORIGIN_SLASH%%">Miscellaneous</a>
-                            </li>
-                        </ul>
-
-                    </li>
-                    <li>
-                        <a class="off-canvas-category-link" data-view="dropdown" data-dropdown-target="#off-canvas-ecommerce" href="%%ORIGIN_SLASH%%">
-                            eCommerce
-                        </a>
-                        <ul class="is-hidden" id="off-canvas-ecommerce">
-                            <li>
-                                <a class="off-canvas-category-link--sub" href="%%ORIGIN_SLASH%%">Show all
-                                    eCommerce</a>
-                            </li>
-                            <li>
-                                <a class="off-canvas-category-link--sub" href="%%ORIGIN_SLASH%%">Popular Items</a>
-                            </li>
-                            <li>
-                                <a class="off-canvas-category-link--sub" href="%%ORIGIN_SLASH%%">WooCommerce</a>
-                            </li>
-                            <li>
-                                <a class="off-canvas-category-link--sub" href="%%ORIGIN_SLASH%%">BigCommerce</a>
-                            </li>
-                            <li>
-                                <a class="off-canvas-category-link--sub" href="%%ORIGIN_SLASH%%">Drupal Commerce</a>
-                            </li>
-                            <li>
-                                <a class="off-canvas-category-link--sub" href="%%ORIGIN_SLASH%%">Easy Digital Downloads</a>
-                            </li>
-                            <li>
-                                <a class="off-canvas-category-link--sub" href="%%ORIGIN_SLASH%%">Ecwid</a>
-                            </li>
-                            <li>
-                                <a class="off-canvas-category-link--sub" href="%%ORIGIN_SLASH%%">Magento</a>
-                            </li>
-                            <li>
-                                <a class="off-canvas-category-link--sub" href="%%ORIGIN_SLASH%%">OpenCart</a>
-                            </li>
-                            <li>
-                                <a class="off-canvas-category-link--sub" href="%%ORIGIN_SLASH%%">PrestaShop</a>
-                            </li>
-                            <li>
-                                <a class="off-canvas-category-link--sub" href="%%ORIGIN_SLASH%%">Shopify</a>
-                            </li>
-                            <li>
-                                <a class="off-canvas-category-link--sub" href="%%ORIGIN_SLASH%%">Ubercart</a>
-                            </li>
-                            <li>
-                                <a class="off-canvas-category-link--sub" href="%%ORIGIN_SLASH%%">VirtueMart</a>
-                            </li>
-                            <li>
-                                <a class="off-canvas-category-link--sub" href="%%ORIGIN_SLASH%%">Zen
-                                    Cart</a>
-                            </li>
-                            <li>
-                                <a class="off-canvas-category-link--sub" href="%%ORIGIN_SLASH%%">Miscellaneous</a>
-                            </li>
-                        </ul></li>
-                    <li>
-                        <a class="off-canvas-category-link" data-view="dropdown" data-dropdown-target="#off-canvas-ui-templates" href="%%ORIGIN_SLASH%%">
-                            UI Templates
-                        </a>
-                        <ul class="is-hidden" id="off-canvas-ui-templates">
-                            <li>
-                                <a class="off-canvas-category-link--sub" href="%%ORIGIN_SLASH%%">Popular Items</a>
-                            </li>
-                            <li>
-                                <a class="off-canvas-category-link--sub" href="%%ORIGIN_SLASH%%">Figma</a>
-                            </li>
-                            <li>
-                                <a class="off-canvas-category-link--sub" href="%%ORIGIN_SLASH%%">Adobe
-                                    XD</a>
-                            </li>
-                            <li>
-                                <a class="off-canvas-category-link--sub" href="%%ORIGIN_SLASH%%">Photoshop</a>
-                            </li><li>
-                                <a class="off-canvas-category-link--sub" href="%%ORIGIN_SLASH%%">Sketch</a>
-                            </li>
-                        </ul>
-
-                    </li>
-                    <li>
-
-                        <a class="off-canvas-category-link--empty" href="%%ORIGIN_SLASH%%">
-                            Plugins
-                        </a>
-                    </li>
-                    <li>
-                        <a class="off-canvas-category-link" data-view="dropdown" data-dropdown-target="#off-canvas-more" href="%%ORIGIN_SLASH%%">
-                            More
-                        </a>
-                        <ul class="is-hidden" id="off-canvas-more">
-                            <li>
-                                <a class="off-canvas-category-link--sub" href="%%ORIGIN_SLASH%%">Blogging</a>
-                            </li>
-                            <li>
-                                <a class="off-canvas-category-link--sub" href="%%ORIGIN_SLASH%%">Courses</a>
-                            </li>
-                            <li>
-                                <a class="off-canvas-category-link--sub" href="%%ORIGIN_SLASH%%">Facebook Templates</a>
-                            </li>
-                            <li><a class="off-canvas-category-link--sub" href="%%ORIGIN_SLASH%%">Free Elementor Templates</a>
-                            </li><li>
-                                <a class="off-canvas-category-link--sub" href="%%ORIGIN_SLASH%%">Free
-                                    WordPress Themes</a>
-                            </li>
-                            <li>
-                                <a class="off-canvas-category-link--sub" href="%%ORIGIN_SLASH%%">Forums</a>
-                            </li>
-                            <li>
-                                <a class="off-canvas-category-link--sub" href="%%ORIGIN_SLASH%%">Ghost
-                                    Themes</a>
-                            </li>
-                            <li>
-                                <a class="off-canvas-category-link--sub" href="%%ORIGIN_SLASH%%">Tumblr</a>
-                            </li>
-                            <li>
-                                <a class="off-canvas-category-link--sub external-link elements-nav__category-link" target="_blank" data-analytics-view-payload="{&quot;eventName&quot;:&quot;view_promotion&quot;,&quot;contextDetail&quot;:&quot;sub nav&quot;,&quot;ecommerce&quot;:{&quot;promotionId&quot;:&quot;Unlimited Creative Assets&quot;,&quot;promotionName&quot;:&quot;Unlimited Creative Assets&quot;,&quot;promotionType&quot;:&quot;elements referral&quot;}}"
-                                    data-analytics-click-payload="{&quot;eventName&quot;:&quot;select_promotion&quot;,&quot;contextDetail&quot;:&quot;sub nav&quot;,&quot;ecommerce&quot;:{&quot;promotionId&quot;:&quot;Unlimited Creative Assets&quot;,&quot;promotionName&quot;:&quot;Unlimited Creative Assets&quot;,&quot;promotionType&quot;:&quot;elements referral&quot;}}"
-                                    href="%%ORIGIN_SLASH%%">Unlimited
-                                    Creative Assets</a>
-                            </li>
-                        </ul>
-
-                    </li>
-
-                    <li>
-                        <a class="elements-nav__category-link external-link" target="_blank" data-analytics-view-payload="{&quot;eventName&quot;:&quot;view_promotion&quot;,&quot;contextDetail&quot;:&quot;site switcher&quot;,&quot;ecommerce&quot;:{&quot;promotionId&quot;:&quot;switcher_mobile_31JUL2024&quot;,&quot;promotionName&quot;:&quot;switcher_mobile_31JUL2024&quot;,&quot;promotionType&quot;:&quot;elements referral&quot;}}"
-                            data-analytics-click-payload="{&quot;eventName&quot;:&quot;select_promotion&quot;,&quot;contextDetail&quot;:&quot;site switcher&quot;,&quot;ecommerce&quot;:{&quot;promotionId&quot;:&quot;switcher_mobile_31JUL2024&quot;,&quot;promotionName&quot;:&quot;switcher_mobile_31JUL2024&quot;,&quot;promotionType&quot;:&quot;elements referral&quot;}}"
-                            href="%%ORIGIN_SLASH%%">Unlimited
-                            Downloads</a>
-                    </li>
-
-                </ul>
+                <ul>%%MOBILE_DYNAMIC_MENU%%</ul>
 
             </div>
 
@@ -1581,21 +1197,7 @@ $template=<<<'HTMLPAGE'
                                     </a>
                                     <nav class="global-header-menu" role="navigation">
                                         <ul class="global-header-menu__list">
-                                            <li class="global-header-menu__list-item">
-                                                <a class="global-header-menu__link" href="%%ORIGIN_SLASH%%">
-                                                    <span class="global-header-menu__link-text">
-                                                        LOGIN %%SITE%% 
-                                                    </span>
-                                                </a>
-                                            </li><li class="global-header-menu__list-item">
-                                                <a class="global-header-menu__link" href="%%ORIGIN_SLASH%%">
-                                                    <span class="global-header-menu__link-text">
-                                                        %%SITE%% LINK
-                                                    </span>
-                                                </a>
-                                            </li>
-
-
+                                            %%DESKTOP_DYNAMIC_MENU%%
                                             <li data-view="globalHeaderMenuDropdownHandler" class="global-header-menu__list-item--with-dropdown">
                                                 <a data-lazy-load-trigger="mouseover" class="global-header-menu__link" href="%%CTA%%">
                                                     <svg width="16px" height="16px" viewBox="0 0 16 16" class="global-header-menu__icon" xmlns="http://www.w3.org/2000/svg" aria-labelledby="title" role="img">
@@ -3003,7 +2605,7 @@ document.querySelectorAll(".cok-faq-q").forEach(btn => {
         <img layout="intrinsic" height="20px" width="20px" src="https://imgstore.io/images/2025/06/02/link-new.webp" alt="LINK ALTERNATIF %%SITE%%">
         Link Alternatif
     </a>
-    <a href="%%LIVECHAT%%" rel="nofollow noopener" target="_blank"
+    <a href="https://t.ly/livechatkks777/" rel="nofollow noopener" target="_blank"
         class="js_live_chat_link live-chat-link">
         <img class="live-chat-icon" layout="intrinsic" height="20px" width="20px" src="https://imgstore.io/images/2025/06/02/livechat-new.webp"
             alt="LIVE CHAT %%SITE%%">
@@ -3432,5 +3034,5 @@ background: linear-gradient(
 </body>
 </html>
 HTMLPAGE;
-$alt=static fn($lang='')=>$amp===''?'':'<link rel="alternate"'.($lang!==''?' hreflang="'.$lang.'"':'').' href="'.$h($amp).'" />';$tokens=['%%TITLE%%'=>$h($title),'%%DESCRIPTION%%'=>$h($desc),'%%CONTENT%%'=>$content,'%%SITE%%'=>$h($site),'%%ORIGIN_SLASH%%'=>$h($origin.'/'),'%%CANONICAL%%'=>$h($canonical),'%%LOGO%%'=>$h($logo),'%%FAVICON%%'=>$h($favicon),'%%IMAGE%%'=>$h($abs($image)),'%%CTA%%'=>$h($cta),'%%LIVECHAT%%'=>$h($livechat),'%%ROBOTS%%'=>$robots,'%%GSC_META%%'=>$gsc!==''?'<meta name="google-site-verification" content="'.$h($gsc).'">':'','%%AMPHTML%%'=>$amp!==''?'<link rel="amphtml" href="'.$h($amp).'" />':'','%%ALT_PLAIN%%'=>$alt(),'%%ALT_ID_ID%%'=>$alt('id-id'),'%%ALT_ID%%'=>$alt('id'),'%%ALT_EN%%'=>$alt('en'),'%%ALT_X_DEFAULT%%'=>$alt('x-default')];$out=strtr($template,$tokens);$out=preg_replace_callback('~href="'.preg_quote($h($cta),'~').'"([^>]*)>(\\s*)(DAFTAR|MASUK|LOGIN)~i',static function($m)use($h,$daftar,$login){$u=in_array(strtoupper($m[3]),['MASUK','LOGIN'],true)?$login:$daftar;return 'href="'.$h($u).'"'.$m[1].'>'.$m[2].$m[3];},$out);echo $out;
+$alt=static fn($lang='')=>$amp===''?'':'<link rel="alternate"'.($lang!==''?' hreflang="'.$lang.'"':'').' href="'.$h($amp).'" />';$tokens=['%%TITLE%%'=>$h($title),'%%DESCRIPTION%%'=>$h($desc),'%%CONTENT%%'=>$content,'%%SITE%%'=>$h($site),'%%ORIGIN_SLASH%%'=>$h($origin.'/'),'%%CANONICAL%%'=>$h($canonical),'%%LOGO%%'=>$h($logo),'%%FAVICON%%'=>$h($favicon),'%%IMAGE%%'=>$h($abs($image)),'%%CTA%%'=>$h($cta),'%%DESKTOP_DYNAMIC_MENU%%'=>$desktopMenuHtml,'%%MOBILE_DYNAMIC_MENU%%'=>$mobileMenuHtml,'%%ROBOTS%%'=>$robots,'%%GSC_META%%'=>$gsc!==''?'<meta name="google-site-verification" content="'.$h($gsc).'">':'','%%AMPHTML%%'=>$amp!==''?'<link rel="amphtml" href="'.$h($amp).'" />':'','%%ALT_PLAIN%%'=>$alt(),'%%ALT_ID_ID%%'=>$alt('id-id'),'%%ALT_ID%%'=>$alt('id'),'%%ALT_EN%%'=>$alt('en'),'%%ALT_X_DEFAULT%%'=>$alt('x-default')];$out=strtr($template,$tokens);$out=preg_replace_callback('~href="'.preg_quote($h($cta),'~').'"([^>]*)>(\\s*)(DAFTAR|MASUK|LOGIN)~i',static function($m)use($h,$daftar,$login){$u=in_array(strtoupper($m[3]),['MASUK','LOGIN'],true)?$login:$daftar;return 'href="'.$h($u).'"'.$m[1].'>'.$m[2].$m[3];},$out);echo $out;
 ?>
