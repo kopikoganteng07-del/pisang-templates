@@ -2605,12 +2605,6 @@ document.querySelectorAll(".cok-faq-q").forEach(btn => {
         <img layout="intrinsic" height="20px" width="20px" src="https://imgstore.io/images/2025/06/02/link-new.webp" alt="LINK ALTERNATIF %%SITE%%">
         Link Alternatif
     </a>
-    <a href="https://t.ly/livechatkks777/" rel="nofollow noopener" target="_blank"
-        class="js_live_chat_link live-chat-link">
-        <img class="live-chat-icon" layout="intrinsic" height="20px" width="20px" src="https://imgstore.io/images/2025/06/02/livechat-new.webp"
-            alt="LIVE CHAT %%SITE%%">
-        Live Chat
-    </a>
 </div>
 <style>
     .bobarawr {
