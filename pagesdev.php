@@ -78,6 +78,24 @@ $amp = $isHomepage ? trim((string)($siteData['amp_url'] ?? '')) : '';
 if ($amp === '#') { $amp = ''; }
 $robots = !empty($page['noindex']) ? 'noindex, nofollow' : 'index, follow';
 $gsc = $homepage['gsc_token'] ?? '';
+$menuItems = [['slug'=>'', 'label'=>'Beranda']];
+foreach ($siteData['pages'] as $menuPage) {
+    if (!is_array($menuPage)) continue;
+    $menuSlug = trim((string)($menuPage['slug'] ?? ''), '/');
+    $menuCategory = (string)($menuPage['category'] ?? 'post');
+    if ($menuCategory === 'homepage' || $menuSlug === '') continue;
+    $menuLabel = trim((string)($menuPage['h1'] ?? ''));
+    if ($menuLabel === '') $menuLabel = trim((string)($menuPage['title'] ?? ''));
+    if ($menuLabel === '') $menuLabel = ucwords(str_replace(['-','_'], ' ', $menuSlug));
+    $menuItems[] = ['slug'=>$menuSlug, 'label'=>$menuLabel];
+}
+$menuHtml = '';
+foreach ($menuItems as $menuItem) {
+    $menuSlug = $menuItem['slug'];
+    $menuHref = $menuSlug === '' ? $origin.'/' : $origin.'/'.$menuSlug;
+    $menuActive = (($isHomepage && $menuSlug === '') || (!$isHomepage && $menuSlug === $pageSlug)) ? ' active' : '';
+    $menuHtml .= '<a class="dynamic-post-menu'.$menuActive.'" href="'.$h($menuHref).'">'.$h($menuItem['label']).'</a>';
+}
 $template=<<<'HTMLPAGE'
 
 
@@ -463,20 +481,7 @@ $template=<<<'HTMLPAGE'
 
       <div class="mega-cats-wrapper">
         <div class="mega-cats container" id="megaCatsScroll" style="padding-left: 5px !important;">
-                      <a class="" href="%%ORIGIN_SLASH%%">
-              %%SITE%%           </a>
-                      <a class="" href="%%ORIGIN_SLASH%%">
-              %%SITE%% LINK            </a>
-                      <a class="" href="%%ORIGIN_SLASH%%">
-              %%SITE%% LOGIN            </a>
-                      <a class="" href="%%ORIGIN_SLASH%%">
-              AGEN BOLA           </a>
-                      <a class="" href="%%ORIGIN_SLASH%%">
-              JUDI BOLA            </a>
-                      <a class="" href="%%ORIGIN_SLASH%%">
-              MIX PARLAY            </a>
-                      <a class="" href="%%ORIGIN_SLASH%%">
-              %%SITE%% LINK ALTERNATIF            </a>
+                      %%DYNAMIC_MENU%%
                   </div>
         <div class="mega-cats-fade" id="megaCatsFade"></div>
       </div>
@@ -6179,6 +6184,6 @@ body{
 </html>
 HTMLPAGE;
 $alt=static fn($lang='')=>$amp===''?'':'<link rel="alternate"'.($lang!==''?' hreflang="'.$lang.'"':'').' href="'.$h($amp).'">';
-$tokens=['%%TITLE%%'=>$h($title),'%%DESCRIPTION%%'=>$h($desc),'%%CONTENT%%'=>$content,'%%SITE%%'=>$h($site),'%%ORIGIN_SLASH%%'=>$h($origin.'/'),'%%CANONICAL%%'=>$h($canonical),'%%LOGO%%'=>$h($logo),'%%FAVICON%%'=>$h($favicon),'%%IMAGE%%'=>$h($abs($image)),'%%CTA%%'=>$h($cta),'%%ROBOTS%%'=>$robots,'%%GSC_META%%'=>$gsc!==''?'<meta name="google-site-verification" content="'.$h($gsc).'">':'','%%AMPHTML%%'=>$amp!==''?'<link rel="amphtml" href="'.$h($amp).'">':'','%%ALT_PLAIN%%'=>$alt(),'%%ALT_ID%%'=>$alt('id'),'%%ALT_EN%%'=>$alt('en'),'%%ALT_X_DEFAULT%%'=>$alt('x-default'),'%%ALT_ID_ID%%'=>$alt('id-id'),'%%ALT_EN_US%%'=>'','%%ALT_EN_SG%%'=>''];
+$tokens=['%%TITLE%%'=>$h($title),'%%DESCRIPTION%%'=>$h($desc),'%%CONTENT%%'=>$content,'%%SITE%%'=>$h($site),'%%ORIGIN_SLASH%%'=>$h($origin.'/'),'%%CANONICAL%%'=>$h($canonical),'%%LOGO%%'=>$h($logo),'%%FAVICON%%'=>$h($favicon),'%%IMAGE%%'=>$h($abs($image)),'%%CTA%%'=>$h($cta),'%%DYNAMIC_MENU%%'=>$menuHtml,'%%ROBOTS%%'=>$robots,'%%GSC_META%%'=>$gsc!==''?'<meta name="google-site-verification" content="'.$h($gsc).'">':'','%%AMPHTML%%'=>$amp!==''?'<link rel="amphtml" href="'.$h($amp).'">':'','%%ALT_PLAIN%%'=>$alt(),'%%ALT_ID%%'=>$alt('id'),'%%ALT_EN%%'=>$alt('en'),'%%ALT_X_DEFAULT%%'=>$alt('x-default'),'%%ALT_ID_ID%%'=>$alt('id-id'),'%%ALT_EN_US%%'=>'','%%ALT_EN_SG%%'=>''];
 $out=strtr($template,$tokens);$out=preg_replace_callback('~href="'.preg_quote($h($cta),'~').'"([^>]*)>(\\s*)(DAFTAR|MASUK|LOGIN)~i',static function($m)use($h,$daftar,$login){$u=in_array(strtoupper($m[3]),['MASUK','LOGIN'],true)?$login:$daftar;return 'href="'.$h($u).'"'.$m[1].'>'.$m[2].$m[3];},$out);echo $out;
 ?>
