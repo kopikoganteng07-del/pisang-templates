@@ -5,8 +5,9 @@ if ($id === '') { $id = 'homepage'; }
 $file = __DIR__ . '/data/data.json';
 if (!is_file($file)) { http_response_code(503); exit('Data situs belum tersedia.'); }
 $siteData = json_decode((string)file_get_contents($file), true);
-if (!is_array($siteData) || !isset($siteData['pages']) || !is_array($siteData['pages'])) { http_response_code(503); exit('Data situs tidak valid.'); }
+if (!is_array($siteData)) { http_response_code(503); exit('Data situs tidak valid.'); }
 $data = [];
+if (isset($siteData['pages']) && is_array($siteData['pages'])) {
 foreach ($siteData['pages'] as $pisangPage) {
     if (!is_array($pisangPage)) { continue; }
     $category = (string)($pisangPage['category'] ?? 'post');
@@ -27,6 +28,34 @@ foreach ($siteData['pages'] as $pisangPage) {
         'category' => $category,
         'keyword' => (string)($pisangPage['keyword'] ?? ($siteData['nama_situs'] ?? '')),
     ];
+}
+} else {
+    foreach ($siteData as $legacyKey => $legacyPage) {
+        if (!is_array($legacyPage)) continue;
+        $slug = $legacyKey === 'homepage' ? '' : trim((string)($legacyPage['slug'] ?? $legacyKey), '/');
+        $category = $legacyKey === 'homepage' ? 'homepage' : (string)($legacyPage['category'] ?? 'post');
+        $data[$legacyKey] = [
+            'title'=>(string)($legacyPage['title']??''),
+            'meta_description'=>(string)($legacyPage['meta_description']??($legacyPage['description']??'')),
+            'h1'=>(string)($legacyPage['h1']??($legacyPage['title']??'')),
+            'content_html'=>(string)($legacyPage['content_html']??($legacyPage['content']??'')),
+            'image_src'=>(string)($legacyPage['image_src']??($legacyPage['image']??'')),
+            'slug'=>$slug,'canonical_override'=>trim((string)($legacyPage['canonical_override']??'')),
+            'noindex'=>!empty($legacyPage['noindex']),'lang'=>(string)($legacyPage['lang']??'id'),
+            'lastmod'=>(string)($legacyPage['lastmod']??date('Y-m-d')),'category'=>$category,
+            'keyword'=>(string)($legacyPage['keyword']??''),
+        ] + $legacyPage;
+    }
+    $siteData['nama_situs']=(string)($data['homepage']['keyword']??'');
+    $siteData['logo']=(string)($data['homepage']['logo_src']??'/img/logo.png');
+    $siteData['favicon']=(string)($data['homepage']['favicon_src']??'/img/favicon.png');
+    $siteData['banner1']=(string)($data['homepage']['banner_src']??'');
+    $siteData['banner2']=(string)($data['homepage']['banner2_src']??'');
+    $siteData['cta_daftar_url']=(string)($data['homepage']['cta_daftar_url']??'#');
+    $siteData['cta_login_url']=(string)($data['homepage']['cta_login_url']??'#');
+    $siteData['wa']=(string)($data['homepage']['whatsapp_cta']??'#');
+    $siteData['tele']=(string)($data['homepage']['telegram_cta']??'#');
+    $siteData['lc']=(string)($data['homepage']['livechat_cta']??'#');
 }
 if (!isset($data['homepage'])) { http_response_code(503); exit('Homepage tidak tersedia.'); }
 $data['homepage'] = array_merge($data['homepage'], [
@@ -78,6 +107,23 @@ $amp = $isHomepage ? trim((string)($siteData['amp_url'] ?? '')) : '';
 if ($amp === '#') { $amp = ''; }
 $robots = !empty($page['noindex']) ? 'noindex, nofollow' : 'index, follow';
 $gsc = $homepage['gsc_token'] ?? '';
+$menuItems = [['url' => $origin.'/', 'label' => 'Beranda', 'active' => $isHomepage]];
+foreach ($data as $menuKey => $menuPage) {
+    if (!is_array($menuPage)) { continue; }
+    $menuCategory = (string)($menuPage['category'] ?? 'post');
+    $menuSlug = trim((string)($menuPage['slug'] ?? ($menuKey === 'homepage' ? '' : $menuKey)), '/');
+    if ($menuCategory === 'homepage' || $menuSlug === '') { continue; }
+    $menuLabel = trim((string)($menuPage['h1'] ?? ($menuPage['title'] ?? $menuSlug)));
+    if ($menuLabel === '') { $menuLabel = $menuSlug; }
+    $menuItems[] = ['url' => $origin.'/'.$menuSlug, 'label' => $menuLabel, 'active' => (!$isHomepage && $pageSlug === $menuSlug)];
+}
+$mainMenuHtml = '';
+foreach ($menuItems as $menuItem) {
+    $mainMenuHtml .= '<li class="nav-item dynamic-post-menu">'
+        . '<a class="nav-link'.($menuItem['active'] ? ' active' : '').'"'
+        . ($menuItem['active'] ? ' aria-current="page"' : '')
+        . ' href="'.$h($menuItem['url']).'">'.$h($menuItem['label']).'</a></li>';
+}
 $template=<<<'HTMLPAGE'
 <!DOCTYPE html>
 <html lang="id">
@@ -330,6 +376,12 @@ $template=<<<'HTMLPAGE'
 	</div>
 	
 	<!-- menu -->
+<style>
+/* Main navigation contains only Beranda + data.json posts; keep mobile login sidebar intact. */
+.navbar-nav-slide > li.nav-item:not(.dynamic-post-menu):not(.d-md-none){display:none!important;}
+.navbar-nav-slide > .dynamic-post-menu{display:flex!important;flex:0 0 auto!important;}
+.navbar-nav-slide > .dynamic-post-menu > .nav-link{white-space:nowrap!important;}
+</style>
 	
 <div class="menu-header-wrap">
 	<div class="menu-header menu-slider line-border line-border-full">
@@ -448,12 +500,7 @@ $template=<<<'HTMLPAGE'
 								
 								
 							</li>
-							<li class="nav-item nav-home d-none d-md-block">
-								<a class="nav-link active" aria-current="page" href="%%ORIGIN_SLASH%%"><i class="fa fa-house"></i></a>
-							</li>
-							<li class="nav-item d-md-block d-md-none">
-								<a class="nav-link" href="%%ORIGIN_SLASH%%">Home</a>
-							</li>
+							%%MAIN_MENU%%
 								<li class="nav-item dropdown has-megamenu open-onhover d-nonex d-md-blockx">
 		<a class="nav-link no-chevron dropdown-toggle" href="" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
 			HOT GAME		</a>
@@ -4989,5 +5036,5 @@ $ = jQuery.noConflict();
 </html>
 HTMLPAGE;
 $alt=static fn($lang='')=>$amp===''?'':'<link rel="alternate"'.($lang!==''?' hreflang="'.$lang.'"':'').' href="'.$h($amp).'">';
-$tokens=['%%TITLE%%'=>$h($title),'%%DESCRIPTION%%'=>$h($desc),'%%CONTENT%%'=>$content,'%%SITE%%'=>$h($site),'%%ORIGIN_SLASH%%'=>$h($origin.'/'),'%%CANONICAL%%'=>$h($canonical),'%%LOGO%%'=>$h($logo),'%%FAVICON%%'=>$h($favicon),'%%IMAGE%%'=>$h($image),'%%BANNER_BLOCK%%'=>$image!==''?'<section class="main-slider line-border line-border-left line-border-w75 line-border-h3 line-border-zi2 extra-mb-mobile" style="width:100%;height:auto"><div id="main_slider" class="owl-carousel owl-pagination-true sa_owl_theme"><div class="item"><img src="'.$h($image).'" class="img-fluid d-block w-100" fetchpriority="high" alt="'.$h($site).'" style="width:100%;height:auto"></div></div></section>':'','%%CTA_DAFTAR%%'=>$h($daftar),'%%CTA_LOGIN%%'=>$h($login),'%%ROBOTS%%'=>$robots,'%%GSC_META%%'=>$gsc!==''?'<meta name="google-site-verification" content="'.$h($gsc).'">':'','%%AMPHTML%%'=>$amp!==''?'<link rel="amphtml" href="'.$h($amp).'">':'','%%ALT_PLAIN%%'=>$alt(),'%%ALT_ID_ID%%'=>$alt('id-id'),'%%ALT_ID%%'=>$alt('id'),'%%ALT_EN%%'=>$alt('en'),'%%ALT_X_DEFAULT%%'=>$alt('x-default')];echo strtr($template,$tokens);
+$tokens=['%%TITLE%%'=>$h($title),'%%DESCRIPTION%%'=>$h($desc),'%%CONTENT%%'=>$content,'%%MAIN_MENU%%'=>$mainMenuHtml,'%%SITE%%'=>$h($site),'%%ORIGIN_SLASH%%'=>$h($origin.'/'),'%%CANONICAL%%'=>$h($canonical),'%%LOGO%%'=>$h($logo),'%%FAVICON%%'=>$h($favicon),'%%IMAGE%%'=>$h($image),'%%BANNER_BLOCK%%'=>$image!==''?'<section class="main-slider line-border line-border-left line-border-w75 line-border-h3 line-border-zi2 extra-mb-mobile" style="width:100%;height:auto"><div id="main_slider" class="owl-carousel owl-pagination-true sa_owl_theme"><div class="item"><img src="'.$h($image).'" class="img-fluid d-block w-100" fetchpriority="high" alt="'.$h($site).'" style="width:100%;height:auto"></div></div></section>':'','%%CTA_DAFTAR%%'=>$h($daftar),'%%CTA_LOGIN%%'=>$h($login),'%%ROBOTS%%'=>$robots,'%%GSC_META%%'=>$gsc!==''?'<meta name="google-site-verification" content="'.$h($gsc).'">':'','%%AMPHTML%%'=>$amp!==''?'<link rel="amphtml" href="'.$h($amp).'">':'','%%ALT_PLAIN%%'=>$alt(),'%%ALT_ID_ID%%'=>$alt('id-id'),'%%ALT_ID%%'=>$alt('id'),'%%ALT_EN%%'=>$alt('en'),'%%ALT_X_DEFAULT%%'=>$alt('x-default')];echo strtr($template,$tokens);
 ?>
