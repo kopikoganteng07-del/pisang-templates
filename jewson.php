@@ -78,6 +78,23 @@ $amp = $isHomepage ? trim((string)($siteData['amp_url'] ?? '')) : '';
 if ($amp === '#') { $amp = ''; }
 $robots = !empty($page['noindex']) ? 'noindex, nofollow' : 'index, follow';
 $gsc = $homepage['gsc_token'] ?? '';
+$menuItems = [['slug'=>'', 'label'=>'Beranda']];
+$seenMenuLabels = [];
+foreach ($siteData['pages'] as $menuPage) {
+ if (!is_array($menuPage) || ($menuPage['category'] ?? '') === 'homepage') continue;
+ $menuSlug=trim((string)($menuPage['slug']??''),'/'); if($menuSlug==='') continue;
+ $menuLabel=trim((string)($menuPage['h1']??''));
+ $key=strtolower($menuLabel); $siteKey=strtolower(trim((string)$site));
+ if($menuLabel===''||isset($seenMenuLabels[$key])||$key===$siteKey) $menuLabel=ucwords(str_replace(['-','_'],' ',$menuSlug));
+ $seenMenuLabels[strtolower($menuLabel)]=true;
+ $menuItems[]=['slug'=>$menuSlug,'label'=>$menuLabel];
+}
+$dynamicMenuHtml='';
+foreach($menuItems as $menuItem){
+ $menuHref=$menuItem['slug']===''?$origin.'/':$origin.'/'.$menuItem['slug'];
+ $menuActive=(($isHomepage&&$menuItem['slug']==='')||(!$isHomepage&&$menuItem['slug']===$pageSlug))?' active':'';
+ $dynamicMenuHtml.='<div class="menu-alt__tray-item js-menu-tray-item dynamic-post-menu'.$menuActive.'"><a href="'.$h($menuHref).'" title="'.$h($menuItem['label']).'" class="menu-alt__link menu-alt__link--main js-menu-parent">'.$h($menuItem['label']).'</a></div>';
+}
 $template=<<<'HTMLPAGE'
 <!DOCTYPE html>
 <html lang="en">
@@ -1806,61 +1823,8 @@ $template=<<<'HTMLPAGE'
 
                         <div class="menu-alt__tray">
 
-                            <div class="yCmsComponent d-lg-flex justify-content-between w-100"
-                                data-starname="NavigationBar">
-                                <div class="menu-alt__tray-item js-menu-tray-item">
-                                    <a href="%%ORIGIN_SLASH%%" title="%%SITE%%"
-                                        class="menu-alt__link menu-alt__link--main menu-alt__link--parent js-menu-parent">%%SITE%%</a>
-                                </div>
-
-                                <div class="menu-alt__tray-item js-menu-tray-item">
-                                    <a href="%%ORIGIN_SLASH%%" title="%%SITE%% DAFTAR"
-                                        class="menu-alt__link menu-alt__link--main menu-alt__link--parent js-menu-parent">%%SITE%%
-                                        DAFTAR</a>
-                                </div>
-
-                                <div class="menu-alt__tray-item js-menu-tray-item">
-                                    <a href="%%ORIGIN_SLASH%%" title="%%SITE%% LOGIN"
-                                        class="menu-alt__link menu-alt__link--main menu-alt__link--parent js-menu-parent">%%SITE%%
-                                        LOGIN</a>
-                                </div>
-
-                                <div class="menu-alt__tray-item js-menu-tray-item">
-                                    <a href="%%ORIGIN_SLASH%%"
-                                        title="SITUS SLOT %%SITE%%"
-                                        class="menu-alt__link menu-alt__link--main menu-alt__link--parent js-menu-parent">SITUS
-                                        SLOT %%SITE%%</a>
-                                </div>
-
-                                <div class="menu-alt__tray-item js-menu-tray-item">
-                                    <a href="%%ORIGIN_SLASH%%" title="%%SITE%% RESMI"
-                                        class="menu-alt__link menu-alt__link--main menu-alt__link--parent js-menu-parent">%%SITE%%
-                                        RESMI</a>
-                                </div>
-
-                                <div class="menu-alt__tray-item js-menu-tray-item">
-                                    <a href="%%ORIGIN_SLASH%%"
-                                        title="%%SITE%% SLOT ONLINE"
-                                        class="menu-alt__link menu-alt__link--main menu-alt__link--parent js-menu-parent">%%SITE%%
-                                        SLOT ONLINE</a>
-                                </div>
-
-                                <div class="menu-alt__tray-item js-menu-tray-item">
-                                    <a href="%%ORIGIN_SLASH%%"
-                                        title="SLOT GACOR"
-                                        class="menu-alt__link menu-alt__link--main menu-alt__link--parent js-menu-parent">SLOT
-                                        GACOR</a>
-                                </div>
-
-                                <div class="menu-alt__tray-item js-menu-tray-item">
-                                    <a href="%%CTA%%" title="%%SITE%% INDONESIA"
-                                        class="menu-alt__link menu-alt__link--main menu-alt__link--parent js-menu-parent">%%SITE%% INDONESIA</a>
-                                </div>
-
-                                <div class="menu-alt__tray-item js-menu-tray-item">
-                                    <a href="%%CTA%%" title="%%SITE%% LINK SLOT RESMI"
-                                        class="menu-alt__link menu-alt__link--main menu-alt__link--parent js-menu-parent">%%SITE%% LINK SLOT RESMI</a>
-                                </div>
+                            <div class="yCmsComponent d-lg-flex justify-content-between w-100" data-starname="NavigationBar">
+                                %%DYNAMIC_MENU%%
                             </div>
                             <div class="d-lg-none menu-alt__tray-item">
                                 <span class="menu-alt__title">More from Jewson</span>
@@ -4409,6 +4373,7 @@ $tokens = [
  '%%SITE%%'=>$esc($site), '%%ORIGIN_SLASH%%'=>$esc($origin.'/'), '%%CANONICAL%%'=>$esc($canonical),
  '%%LOGO%%'=>$esc($logo), '%%FAVICON%%'=>$esc($favicon), '%%IMAGE%%'=>$esc($absolute($image)),
  '%%CTA%%'=>$esc($cta), '%%ROBOTS%%'=>$robots,
+ '%%DYNAMIC_MENU%%'=>$dynamicMenuHtml,
  '%%GSC_META%%'=>$gsc !== '' ? '<meta name="google-site-verification" content="'.$esc($gsc).'" />' : '',
  '%%AMPHTML%%'=>$ampTag, '%%ALT_PLAIN%%'=>$alt(''), '%%ALT_ID%%'=>$alt('id'), '%%ALT_ID_ID%%'=>$alt('id-id'),
  '%%ALT_X_DEFAULT%%'=>$alt('x-default'), '%%ALT_EN%%'=>$alt('en')
