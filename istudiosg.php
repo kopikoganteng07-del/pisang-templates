@@ -1381,7 +1381,9 @@ await import("//www.istudiosg.com/cdn/shopifycloud/shop-js/modules/v2/chunk.moda
           class="gradient menu-drawer motion-reduce color-background-1"
           tabindex="-1"
           style="background-color:#ffffff"
-        ></div>
+        >
+<nav class="menu-drawer__navigation"><ul class="menu-drawer__menu list-menu" role="list">%%MOBILE_DYNAMIC_MENU%%</ul></nav>
+</div>
       </details>
     </header-drawer>
   </lazyload-section><script>
@@ -1670,7 +1672,7 @@ await import("//www.istudiosg.com/cdn/shopifycloud/shop-js/modules/v2/chunk.moda
 
 
 <lazyload-section data-selectors='[".js-header-dropdown-menu-list"]'><nav class="header__inline-menu"><ul class="list-menu list-menu--inline">
-%%MOBILE_DYNAMIC_MENU%%
+%%DESKTOP_DYNAMIC_MENU%%
 </ul></nav></lazyload-section></div>
 </sticky-header>
 
