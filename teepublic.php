@@ -43,7 +43,14 @@ $data['homepage'] = array_merge($data['homepage'], [
     'keyword' => (string)($siteData['nama_situs'] ?? ($data['homepage']['keyword'] ?? '')),
 ]);
 $page = $data[$id] ?? null;
-if (!is_array($page)) { http_response_code(404); exit('<!DOCTYPE html><html lang="id"><head><meta charset="UTF-8"><meta name="robots" content="noindex,nofollow"><title>404</title></head><body><h1>404</h1><p><a href="/">Kembali ke Beranda</a></p></body></html>'); }
+if (!is_array($page)) { http_response_code(404); exit('<!DOCTYPE html><html lang="id"><head><meta charset="UTF-8"><meta name="robots" content="noindex,nofollow"><title>404</title>
+<style id="dynamic-menu-style">
+.m-explore-nav__tab-content{display:flex!important;flex-wrap:wrap!important;align-items:center!important;gap:4px!important;}
+.dynamic-post-menu{display:flex!important;align-items:center!important;justify-content:center!important;min-height:44px!important;padding:8px 10px!important;white-space:normal!important;text-align:center!important;line-height:1.2!important;}
+.dynamic-post-menu--active{font-weight:700!important;text-decoration:underline!important;}
+@media(max-width:768px){.m-explore-nav,.m-explore-nav__container,.m-tab-nav__content,.m-tab-nav__tab-content{display:block!important;visibility:visible!important;height:auto!important;overflow:visible!important}.m-explore-nav__tab-content{display:flex!important;flex-wrap:nowrap!important;overflow-x:auto!important;gap:4px!important;padding:6px 8px!important;-webkit-overflow-scrolling:touch}.dynamic-post-menu{display:flex!important;visibility:visible!important;flex:0 0 auto!important;max-width:180px!important;font-size:12px!important}.m-explore-nav__cta{display:none!important}}
+</style>
+</head><body><h1>404</h1><p><a href="/">Kembali ke Beranda</a></p></body></html>'); }
 $homepage = $data['homepage'];
 $home = $homepage;
 $host = preg_replace('/:\\d+$/', '', (string)($_SERVER['HTTP_HOST'] ?? ($siteData['domain'] ?? 'localhost')));
@@ -78,6 +85,24 @@ $amp = $isHomepage ? trim((string)($siteData['amp_url'] ?? '')) : '';
 if ($amp === '#') { $amp = ''; }
 $robots = !empty($page['noindex']) ? 'noindex, nofollow' : 'index, follow';
 $gsc = $homepage['gsc_token'] ?? '';
+$menuItems = [['slug'=>'', 'label'=>'Beranda']];
+foreach ($siteData['pages'] as $menuPage) {
+    if (!is_array($menuPage)) continue;
+    $menuSlug = trim((string)($menuPage['slug'] ?? ''), '/');
+    $menuCategory = (string)($menuPage['category'] ?? 'post');
+    if ($menuCategory === 'homepage' || $menuSlug === '') continue;
+    $menuLabel = trim((string)($menuPage['h1'] ?? ''));
+    if ($menuLabel === '') $menuLabel = trim((string)($menuPage['title'] ?? ''));
+    if ($menuLabel === '' || strtolower($menuLabel) === strtolower(trim((string)$site))) $menuLabel = ucwords(str_replace(['-','_'], ' ', $menuSlug));
+    $menuItems[] = ['slug'=>$menuSlug, 'label'=>$menuLabel];
+}
+$dynamicMenuHtml = '';
+foreach ($menuItems as $menuItem) {
+    $menuSlug = $menuItem['slug'];
+    $menuHref = $menuSlug === '' ? $origin.'/' : $origin.'/'.$menuSlug;
+    $menuActive = (($isHomepage && $menuSlug === '') || (!$isHomepage && $menuSlug === $pageSlug)) ? ' dynamic-post-menu--active' : '';
+    $dynamicMenuHtml .= '<a data-menu-slug="'.$h($menuSlug === '' ? 'homepage' : $menuSlug).'" href="'.$h($menuHref).'" title="'.$h($menuItem['label']).'" class="link m-explore-nav__link link--1 link--default dynamic-post-menu'.$menuActive.'"><span class="link__content">'.$h($menuItem['label']).'</span></a>';
+}
 $template=<<<'HTMLPAGE'
 
 
@@ -312,55 +337,7 @@ Shop All Designs
 
 </a>
 <!-- NAV_LINKS_START -->
-<a data-rudderstack-event-type="link" data-action="click-&gt;rudderstack--link-clicked#track" data-link-label="%%SITE%%" data-href="%%ORIGIN_SLASH%%" title="%%SITE%%" href="%%ORIGIN_SLASH%%" class="link m-explore-nav__link link--1 link--default tp-btn--icon"><span class="teepublicon teepublicon--blue-default teepublicon-background--transparent"><img src="%%FAVICON%%" loading="auto" height="40" width="40" aria_hidden="true" focusable="false"></span>
-<span class='link__content'>
-%%SITE%%
-
-</span>
-
-</a><a data-rudderstack-event-type="link" data-action="click-&gt;rudderstack--link-clicked#track" data-link-label="Situs Slot" data-href="%%ORIGIN_SLASH%%" title="Situs Slot" href="%%ORIGIN_SLASH%%" class="link m-explore-nav__link link--1 link--default tp-btn--icon"><span class="teepublicon teepublicon--blue-default teepublicon-background--transparent"><img src="%%FAVICON%%" loading="auto" height="40" width="40" aria_hidden="true" focusable="false"></span>
-<span class='link__content'>
-SITUS SLOT
-
-</span>
-
-</a><a data-rudderstack-event-type="link" data-action="click-&gt;rudderstack--link-clicked#track" data-link-label="Game Slot" data-href="%%ORIGIN_SLASH%%" title="Game Slot" href="%%ORIGIN_SLASH%%" class="link m-explore-nav__link link--1 link--default tp-btn--icon"><span class="teepublicon teepublicon--blue-default teepublicon-background--transparent"><img src="%%FAVICON%%" loading="auto" height="40" width="40" aria_hidden="true" focusable="false"></span>
-<span class='link__content'>
-GAME SLOT
-
-</span>
-
-</a><a data-rudderstack-event-type="link" data-action="click-&gt;rudderstack--link-clicked#track" data-link-label="Slot Maxwin" data-href="%%ORIGIN_SLASH%%" title="Slot Maxwin" href="%%ORIGIN_SLASH%%" class="link m-explore-nav__link link--1 link--default tp-btn--icon"><span class="teepublicon teepublicon--blue-default teepublicon-background--transparent"><img src="%%FAVICON%%" loading="auto" height="40" width="40" aria_hidden="true" focusable="false"></span>
-<span class='link__content'>
-SLOT MAXWIN
-
-</span>
-
-</a><a data-rudderstack-event-type="link" data-action="click-&gt;rudderstack--link-clicked#track" data-link-label="%%SITE%%" data-href="%%ORIGIN_SLASH%%" title="%%SITE%%" href="%%ORIGIN_SLASH%%" class="link m-explore-nav__link link--1 link--default tp-btn--icon"><span class="teepublicon teepublicon--blue-default teepublicon-background--transparent"><img src="%%FAVICON%%" loading="auto" height="40" width="40" aria_hidden="true" focusable="false"></span>
-<span class='link__content'>
-%%SITE%%
-
-</span>
-
-</a><a data-rudderstack-event-type="link" data-action="click-&gt;rudderstack--link-clicked#track" data-link-label="Slot88" data-href="%%ORIGIN_SLASH%%" title="Slot88" href="%%ORIGIN_SLASH%%" class="link m-explore-nav__link link--1 link--default tp-btn--icon"><span class="teepublicon teepublicon--blue-default teepublicon-background--transparent"><img src="%%FAVICON%%" loading="auto" height="40" width="40" aria_hidden="true" focusable="false"></span>
-<span class='link__content'>
-SLOT88
-
-</span>
-
-</a><a data-rudderstack-event-type="link" data-action="click-&gt;rudderstack--link-clicked#track" data-link-label="%%SITE%%" data-href="%%ORIGIN_SLASH%%" title="%%SITE%%" href="%%ORIGIN_SLASH%%" class="link m-explore-nav__link link--1 link--default tp-btn--icon"><span class="teepublicon teepublicon--blue-default teepublicon-background--transparent"><img src="%%FAVICON%%" loading="auto" height="40" width="40" aria_hidden="true" focusable="false"></span>
-<span class='link__content'>
-%%SITE%%
-
-</span>
-
-</a><a data-rudderstack-event-type="link" data-action="click-&gt;rudderstack--link-clicked#track" data-link-label="%%SITE%%" data-href="%%ORIGIN_SLASH%%" title="%%SITE%%" href="%%ORIGIN_SLASH%%" class="link m-explore-nav__link link--1 link--default tp-btn--icon"><span class="teepublicon teepublicon--blue-default teepublicon-background--transparent"><img src="%%FAVICON%%" loading="auto" height="40" width="40" aria_hidden="true" focusable="false"></span>
-<span class='link__content'>
-%%SITE%%
-
-</span>
-
-</a>
+%%DYNAMIC_MENU%%
 <!-- NAV_LINKS_END --></div>
 </div>
 </a></div>
@@ -3668,7 +3645,7 @@ height="0" width="0" style="display:none;visibility:hidden" rel="dns-prefetch"><
 </html>
 HTMLPAGE;
 $alt=static fn($lang='')=>$amp===''?'':'<link rel="alternate" href="'.$h($amp).'"'.($lang!==''?' hreflang="'.$lang.'"':'').'>';
-$tokens=['%%TITLE%%'=>$h($title),'%%DESCRIPTION%%'=>$h($desc),'%%CONTENT%%'=>$content,'%%SITE%%'=>$h($site),
+$tokens=['%%DYNAMIC_MENU%%'=>$dynamicMenuHtml,'%%TITLE%%'=>$h($title),'%%DESCRIPTION%%'=>$h($desc),'%%CONTENT%%'=>$content,'%%SITE%%'=>$h($site),
 '%%ORIGIN_SLASH%%'=>$h($origin.'/'),'%%CANONICAL%%'=>$h($canonical),'%%LOGO%%'=>$h($logo),'%%FAVICON%%'=>$h($favicon),'%%IMAGE%%'=>$h($abs($image)),'%%CTA%%'=>$h($cta),'%%ROBOTS%%'=>$robots,
 '%%GSC_META%%'=>$gsc!==''?'<meta name="google-site-verification" content="'.$h($gsc).'">':'',
 '%%AMPHTML%%'=>$amp!==''?'<link rel="amphtml" href="'.$h($amp).'">':'','%%ALT_PLAIN%%'=>$alt(),'%%ALT_ID%%'=>$alt('id'),'%%ALT_ID_ID%%'=>$alt('id-id'),'%%ALT_EN%%'=>$alt('en'),'%%ALT_X_DEFAULT%%'=>$alt('x-default')];
