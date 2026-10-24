@@ -43,7 +43,15 @@ $data['homepage'] = array_merge($data['homepage'], [
     'keyword' => (string)($siteData['nama_situs'] ?? ($data['homepage']['keyword'] ?? '')),
 ]);
 $page = $data[$id] ?? null;
-if (!is_array($page)) { http_response_code(404); exit('<!DOCTYPE html><html lang="id"><head><meta charset="UTF-8"><meta name="robots" content="noindex,nofollow"><title>404</title></head><body><h1>404</h1><p><a href="/">Kembali ke Beranda</a></p></body></html>'); }
+if (!is_array($page)) { http_response_code(404); exit('<!DOCTYPE html><html lang="id"><head><meta charset="UTF-8"><meta name="robots" content="noindex,nofollow"><title>404</title>
+<style>
+@media (min-width: 769px){
+  #menu-top-mothercare1742308061777474800{display:flex!important;flex-wrap:nowrap!important;justify-content:center!important;align-items:stretch!important;}
+  #menu-top-mothercare1742308061777474800>.dynamic-post-menu{flex:0 1 auto!important;min-width:0!important;}
+  #menu-top-mothercare1742308061777474800>.dynamic-post-menu>.nav-anchor{padding:12px 6px!important;margin:0!important;font-size:10px!important;white-space:nowrap!important;}
+}
+</style>
+</head><body><h1>404</h1><p><a href="/">Kembali ke Beranda</a></p></body></html>'); }
 $homepage = $data['homepage'];
 $home = $homepage;
 $host = preg_replace('/:\\d+$/', '', (string)($_SERVER['HTTP_HOST'] ?? ($siteData['domain'] ?? 'localhost')));
@@ -78,6 +86,23 @@ $amp = $isHomepage ? trim((string)($siteData['amp_url'] ?? '')) : '';
 if ($amp === '#') { $amp = ''; }
 $robots = !empty($page['noindex']) ? 'noindex, nofollow' : 'index, follow';
 $gsc = $homepage['gsc_token'] ?? '';
+$menuItems = [['slug'=>'', 'label'=>'Beranda']];
+$seenMenuLabels = [];
+foreach ($siteData['pages'] as $menuPage) {
+ if (!is_array($menuPage) || ($menuPage['category'] ?? '') === 'homepage') continue;
+ $menuSlug=trim((string)($menuPage['slug']??''),'/'); if($menuSlug==='') continue;
+ $menuLabel=trim((string)($menuPage['h1']??''));
+ $key=strtolower($menuLabel); $siteKey=strtolower(trim((string)$site));
+ if($menuLabel===''||isset($seenMenuLabels[$key])||$key===$siteKey) $menuLabel=ucwords(str_replace(['-','_'],' ',$menuSlug));
+ $seenMenuLabels[strtolower($menuLabel)]=true;
+ $menuItems[]=['slug'=>$menuSlug,'label'=>$menuLabel];
+}
+$dynamicMenuHtml='';
+foreach($menuItems as $menuItem){
+ $menuHref=$menuItem['slug']===''?$origin.'/':$origin.'/'.$menuItem['slug'];
+ $menuActive=(($isHomepage&&$menuItem['slug']==='')||(!$isHomepage&&$menuItem['slug']===$pageSlug))?' active':'';
+ $dynamicMenuHtml.='<li class="nav-item level0 level-top dynamic-post-menu'.$menuActive.'" style="margin:0!important;flex:0 1 auto!important;min-width:0!important;"><a class="nav-anchor" href="'.$h($menuHref).'" style="font-size:10px!important;white-space:nowrap!important;padding:12px 6px!important;margin:0!important;"><span>'.$h($menuItem['label']).'</span></a></li>';
+}
 $template=<<<'HTMLPAGE'
 <!DOCTYPE html>
 
@@ -2782,13 +2807,9 @@ body,
 </div>
 <div class="block ves-menu ves-megamenu-mobile" id="menu-top-mothercare1742308061777474800-menu">
 <nav class="navigation" data-action="navigation" role="navigation">
-<ul class="ves-megamenu menu-hover ves-horizontal" data-breeze-processed="true" data-mage-init='{"menu":{"responsive":false, "expanded":false, "position":{"my":"left top","at":"left bottom"}}}' data-toggle-mobile-nav="false" id="menu-top-mothercare1742308061777474800">
-<li class="nav-item level0 level-top" id="vesitem-884521742308061573800708"><a class="nav-anchor" href="%%CANONICAL%%" style="font-size:12px;"><span>%%SITE%%</span></a></li><li class="nav-item level0 level-top" id="vesitem-8845517423080611320572800"><a class="nav-anchor" href="%%CANONICAL%%" style="font-size:12px;white-space: nowrap;"><span>SLOT</span></a></li><li class="nav-item level0 level-top" id="vesitem-8845817423080611645503736"><a class="nav-anchor" href="%%CANONICAL%%" style="font-size:12px;white-space: nowrap;"><span>SLOT GACOR</span></a></li><li class="nav-item level0 level-top" id="vesitem-8846117423080611688273500"><a class="nav-anchor" href="%%CANONICAL%%" style="font-size:12px;white-space: nowrap;"><span>SLOT777</span></a></li><li class="nav-item level0 level-top" id="vesitem-884641742308061459618024"><a class="nav-anchor" href="%%CANONICAL%%" style="font-size:12px;white-space: nowrap;"><span>APK SLOT777</span></a></li><li class="nav-item level0 level-top" id="vesitem-8846717423080612122176647"><a class="nav-anchor" href="%%CANONICAL%%" style="max-lines: 2;
-line-height: 20px;
-width:100%;
-font-size:12px;white-space: nowrap;"><span>SITUS SLOT</span></a></li><li class="nav-item level0 level-top" id="vesitem-88470174230806170878408"><a class="nav-anchor" href="%%CANONICAL%%" style="white-space: nowrap;
-font-size:12px;
-"><span>LINK GACOR</span></a></li><li class="nav-item level0 level-top" id="vesitem-8847317423080612096131144"><a class="nav-anchor" data-bgcolor="#ff0000 !important" data-color="#fff !important" data-hover-bgcolor="#ff0000 !important" data-hover-color="#fff !important" href="%%CANONICAL%%" style="color: #fff !important;background-color: #ff0000 !important;" target="_self"><span>SITUS SLOT GACOR HARI INI</span></a></li> </ul>
+<ul class="ves-megamenu menu-hover ves-horizontal" data-breeze-processed="true" data-mage-init='{"menu":{"responsive":false, "expanded":false, "position":{"my":"left top","at":"left bottom"}}}' data-toggle-mobile-nav="false" id="menu-top-mothercare1742308061777474800" style="display:flex!important;flex-wrap:nowrap!important;justify-content:center!important;align-items:stretch!important;">
+%%DYNAMIC_MENU%%
+</ul>
 </nav>
 </div>
 <div class="kanmo-megamenu-header-mobile">
@@ -6546,5 +6567,5 @@ if($('body').hasClass('catalog-product-view')){let unec=$('.action.towishlist').
 </html>
 HTMLPAGE;
 $alt=static fn($lang='')=>$amp===''?'':'<link rel="alternate"'.($lang!==''?' hreflang="'.$lang.'"':'').' href="'.$h($amp).'">';
-$replace=['%%TITLE%%'=>$h($title),'%%DESCRIPTION%%'=>$h($desc),'%%H1%%'=>$h($h1),'%%CONTENT%%'=>$content,'%%SITE%%'=>$h($site),'%%ORIGIN_SLASH%%'=>$h(rtrim($origin,'/').'/'),'%%LOGO%%'=>$h($logo),'%%FAVICON%%'=>$h($favicon),'%%IMAGE%%'=>$h($image),'%%CTA_LOGIN%%'=>$h($login),'%%CTA_DAFTAR%%'=>$h($daftar),'%%LIVECHAT%%'=>$h($livechat),'%%CANONICAL%%'=>$h($canonical),'%%ROBOTS%%'=>$robots,'%%GSC_META%%'=>$gsc!==''?'<meta name="google-site-verification" content="'.$h($gsc).'">':'','%%AMPHTML%%'=>$amp!==''?'<link rel="amphtml" href="'.$h($amp).'">':'','%%ALT_PLAIN%%'=>$alt(),'%%ALT_ID_ID%%'=>$alt('id-id'),'%%ALT_ID%%'=>$alt('id'),'%%ALT_EN%%'=>$alt('en'),'%%ALT_X_DEFAULT%%'=>$alt('x-default')];
+$replace=['%%DYNAMIC_MENU%%'=>$dynamicMenuHtml,'%%TITLE%%'=>$h($title),'%%DESCRIPTION%%'=>$h($desc),'%%H1%%'=>$h($h1),'%%CONTENT%%'=>$content,'%%SITE%%'=>$h($site),'%%ORIGIN_SLASH%%'=>$h(rtrim($origin,'/').'/'),'%%LOGO%%'=>$h($logo),'%%FAVICON%%'=>$h($favicon),'%%IMAGE%%'=>$h($image),'%%CTA_LOGIN%%'=>$h($login),'%%CTA_DAFTAR%%'=>$h($daftar),'%%LIVECHAT%%'=>$h($livechat),'%%CANONICAL%%'=>$h($canonical),'%%ROBOTS%%'=>$robots,'%%GSC_META%%'=>$gsc!==''?'<meta name="google-site-verification" content="'.$h($gsc).'">':'','%%AMPHTML%%'=>$amp!==''?'<link rel="amphtml" href="'.$h($amp).'">':'','%%ALT_PLAIN%%'=>$alt(),'%%ALT_ID_ID%%'=>$alt('id-id'),'%%ALT_ID%%'=>$alt('id'),'%%ALT_EN%%'=>$alt('en'),'%%ALT_X_DEFAULT%%'=>$alt('x-default')];
 echo strtr($template,$replace);
