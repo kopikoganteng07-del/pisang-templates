@@ -78,6 +78,22 @@ $amp = $isHomepage ? trim((string)($siteData['amp_url'] ?? '')) : '';
 if ($amp === '#') { $amp = ''; }
 $robots = !empty($page['noindex']) ? 'noindex, nofollow' : 'index, follow';
 $gsc = $homepage['gsc_token'] ?? '';
+$menuItems = [['slug'=>'', 'label'=>'Beranda']];
+$seenMenuSlugs = [];
+foreach ($siteData['pages'] as $menuPage) {
+ if (!is_array($menuPage) || ($menuPage['category'] ?? '') === 'homepage') continue;
+ $menuSlug=trim((string)($menuPage['slug']??''),'/'); if($menuSlug===''||isset($seenMenuSlugs[$menuSlug])) continue;
+ $seenMenuSlugs[$menuSlug]=true;
+ $menuLabel=trim((string)($menuPage['h1']??''));
+ if($menuLabel==='') $menuLabel=ucwords(str_replace(['-','_'],' ',$menuSlug));
+ $menuItems[]=['slug'=>$menuSlug,'label'=>$menuLabel];
+}
+$dynamicMenuHtml='';
+foreach($menuItems as $menuItem){
+ $menuHref=$menuItem['slug']===''?$origin.'/':$origin.'/'.$menuItem['slug'];
+ $menuActive=(($isHomepage&&$menuItem['slug']==='')||(!$isHomepage&&$menuItem['slug']===$pageSlug))?' active':'';
+ $dynamicMenuHtml.='<li class="nv00-gnb-v4__l0-menu dynamic-post-menu'.$menuActive.'"><div class="nv00-gnb-v4__l0-menu-title"><a class="nv00-gnb-v4__l0-menu-link" href="'.$h($menuHref).'" role="menuitem"><span class="nv00-gnb-v4__l0-menu-text">'.$h($menuItem['label']).'</span></a></div></li>';
+}
 $template=<<<'HTMLPAGE'
 <!DOCTYPE html>
 <html lang="id-ID">
@@ -1457,119 +1473,9 @@ $template=<<<'HTMLPAGE'
                            SHOP BY CATEGORY
                         </p>
                         <ul aria-label="main menu" class="nv00-gnb-v4__l0-menu-list nv00-gnb-v4__l0-menu-list--left" role="menubar">
-                           <li class="nv00-gnb-v4__l0-menu">
-                              <div class="nv00-gnb-v4__l0-menu-title">
-                                 <a an-ac="gnb" an-ca="navigation" an-la="shop" an-tr="nv00_gnb-product detail-l0-navigation2" class="nv00-gnb-v4__l0-menu-link" data-js-action="l0MenuBtn" href="%%ORIGIN_SLASH%%" role="menuitem">
-                                 <span class="nv00-gnb-v4__l0-menu-text nv00-gnb-v4--pc-only">
-                                 %%SITE%%
-                                 </span>
-                                 <span class="nv00-gnb-v4__l0-menu-text nv00-gnb-v4--mobile-only">
-                                 Explore Shop
-                                 </span>
-                                 </a>
-                                 <button an-ac="gnb" an-ca="navigation" an-la="shop" an-tr="nv00_gnb-product detail-l0-navigation2" aria-expanded="false" aria-haspopup="true" class="nv00-gnb-v4__l0-menu-toggle-btn" role="menuitem">
-                                 <span class="hidden">
-                                 Shop
-                                 </span>
-                                 </button>
-                              </div>
-                           </li>
-                           <li class="nv00-gnb-v4__l0-menu">
-                              <div class="nv00-gnb-v4__l0-menu-title">
-                                 <a an-ac="gnb" an-ca="navigation" an-la="mobile" an-tr="nv00_gnb-product detail-l0-navigation2" class="nv00-gnb-v4__l0-menu-link" data-js-action="l0MenuBtn" href="%%ORIGIN_SLASH%%" role="menuitem">
-                                 <span class="nv00-gnb-v4__l0-menu-text">
-                                 %%SITE%% RESMI
-                                 </span>
-                                 </a>
-                                 <button an-ac="gnb" an-ca="navigation" an-la="mobile" an-tr="nv00_gnb-product detail-l0-navigation2" aria-expanded="false" aria-haspopup="true" class="nv00-gnb-v4__l0-menu-toggle-btn" role="menuitem">
-                                 <span class="hidden">
-                                 Mobile
-                                 </span>
-                                 </button>
-                              </div>
-                           </li>
-                           <li class="nv00-gnb-v4__l0-menu">
-                              <div class="nv00-gnb-v4__l0-menu-title">
-                                 <a an-ac="gnb" an-ca="navigation" an-la="tv and av" an-tr="nv00_gnb-product detail-l0-navigation2" class="nv00-gnb-v4__l0-menu-link" data-js-action="l0MenuBtn" href="%%ORIGIN_SLASH%%" role="menuitem">
-                                 <span class="nv00-gnb-v4__l0-menu-text">
-                                 GAME %%SITE%%
-                                 </span>
-                                 </a>
-                                 <button an-ac="gnb" an-ca="navigation" an-la="tv and av" an-tr="nv00_gnb-product detail-l0-navigation2" aria-expanded="false" aria-haspopup="true" class="nv00-gnb-v4__l0-menu-toggle-btn" role="menuitem">
-                                 <span class="hidden">
-                                 LINK SLOT
-                                 </span>
-                                 </button>
-                              </div>
-                           </li>
-                           <li class="nv00-gnb-v4__l0-menu">
-                              <div class="nv00-gnb-v4__l0-menu-title">
-                                 <a an-ac="gnb" an-ca="navigation" an-la="appliances" an-tr="nv00_gnb-product detail-l0-navigation2" class="nv00-gnb-v4__l0-menu-link" data-js-action="l0MenuBtn" href="%%ORIGIN_SLASH%%" role="menuitem">
-                                 <span class="nv00-gnb-v4__l0-menu-text">
-                                 APK %%SITE%%
-                                 </span>
-                                 </a>
-                                 <button an-ac="gnb" an-ca="navigation" an-la="appliances" an-tr="nv00_gnb-product detail-l0-navigation2" aria-expanded="false" aria-haspopup="true" class="nv00-gnb-v4__l0-menu-toggle-btn" role="menuitem">
-                                 <span class="hidden">
-                                 SLOT GACOR %%SITE%%
-                                 </span>
-                                 </button>
-                              </div>
-                           </li>
-                           <li class="nv00-gnb-v4__l0-menu">
-                              <div class="nv00-gnb-v4__l0-menu-title">
-                                 <a an-ac="gnb" an-ca="navigation" an-la="monitors" an-tr="nv00_gnb-product detail-l0-navigation2" class="nv00-gnb-v4__l0-menu-link" data-js-action="l0MenuBtn" href="%%ORIGIN_SLASH%%" role="menuitem">
-                                 <span class="nv00-gnb-v4__l0-menu-text">
-                                 %%SITE%% LOGIN
-                                 </span>
-                                 </a>
-                                 <button an-ac="gnb" an-ca="navigation" an-la="monitors" an-tr="nv00_gnb-product detail-l0-navigation2" aria-expanded="false" aria-haspopup="true" class="nv00-gnb-v4__l0-menu-toggle-btn" role="menuitem">
-                                 <span class="hidden">
-                                 123
-                                 </span>
-                                 </button>
-                              </div>
-                           </li>
-                           <li class="nv00-gnb-v4__l0-menu">
-                              <div class="nv00-gnb-v4__l0-menu-title">
-                                 <a an-ac="gnb" an-ca="navigation" an-la="wearables" an-tr="nv00_gnb-product detail-l0-navigation2" class="nv00-gnb-v4__l0-menu-link" data-js-action="l0MenuBtn" href="%%ORIGIN_SLASH%%" role="menuitem">
-                                 <span class="nv00-gnb-v4__l0-menu-text">
-                                 SITUS %%SITE%% 
-                                 </span>
-                                 </a>
-                                 <button an-ac="gnb" an-ca="navigation" an-la="wearables" an-tr="nv00_gnb-product detail-l0-navigation2" aria-expanded="false" aria-haspopup="true" class="nv00-gnb-v4__l0-menu-toggle-btn" role="menuitem">
-                                 <span class="hidden">
-                                 %%SITE%%
-                                 </span>
-                                 </button>
-                              </div>
-                           </li>
-                        </ul>
-                        <ul aria-label="main menu" class="nv00-gnb-v4__l0-menu-list nv00-gnb-v4__l0-menu-list--right" role="menubar">
-                           <!-- Type E Support Start -->
-                           <li class="nv00-gnb-v4__l0-menu">
-                              <div class="nv00-gnb-v4__l0-menu-title">
-                                 <button an-ac="gnb" an-ca="navigation" an-la="support" an-tr="nv00_gnb-product detail-text l1-navigation2" class="nv00-gnb-v4__l0-menu-btn" data-js-action="l0MenuBtn" role="menuitem">
-                                 MASUK
-                                 </button>
-                              </div>
-                              <div class="nv00-gnb-v4__l1-menu-container">
-                                 <div class="nv00-gnb-v4__l1-menu-container-header nv00-gnb-v4--mobile-only">
-                                    <p class="nv00-gnb-v4__l1-menu-container-title">
-                                       MASUK
-                                    </p>
-                                 </div>
-                              </div>
-                           </li>
-                           <li class="nv00-gnb-v4__l0-menu">
-                              <div class="nv00-gnb-v4__l0-menu-title">
-                                 <a an-ac="gnb" an-ca="navigation" an-la="DEMO DAFTAR" an-tr="nv00_gnb-product detail-banner-navigation2" aria-label="DEMO DAFTAR. Buka di Tab Baru" class="nv00-gnb-v4__l0-menu-link" data-js-action="l0MenuBtn" href="%%ORIGIN_SLASH%%" role="menuitem" target="_blank">
-                                 DAFTAR
-                                 </a>
-                              </div>
-                           </li>
-                           <!-- Non-Type Right Menu End -->
-                        </ul>
+%%DYNAMIC_MENU%%
+</ul>
+                        
                         <div class="nv00-gnb-v4__user-menu-list nv00-gnb-v4--mobile-only before-login">
                            <a data-linkinfo="%%ORIGIN_SLASH%%" href="%%ORIGIN_SLASH%%" role="menuitem">
                            Login/Sign-Up
@@ -11111,11 +11017,20 @@ $template=<<<'HTMLPAGE'
       <script defer src="https://static.cloudflareinsights.com/beacon.min.js/v8c78df7c7c0f484497ecbca7046644da1771523124516" integrity="sha512-8DS7rgIrAmghBFwoOTujcf6D9rXvH8xm8JQ1Ja01h9QX8EzXldiszufYa4IFfKdLUKTTrnSFXLDkUEOTrZQ8Qg==" data-cf-beacon='{"version":"2024.11.0","token":"f1bb09d76f584adaab50170e6afe2a41","r":1,"server_timing":{"name":{"cfCacheStatus":true,"cfEdge":true,"cfExtPri":true,"cfL4":true,"cfOrigin":true,"cfSpeedBrain":true},"location_startswith":null}}' crossorigin="anonymous"></script>
       <script defer src="https://static.cloudflareinsights.com/beacon.min.js/v833ccba57c9e4d2798f2e76cebdd09a11778172276447" integrity="sha512-57MDmcccJXYtNnH+ZiBwzC4jb2rvgVCEokYN+L/nLlmO8rfYT/gIpW2A569iJ/3b+0UEasghjuZH/ma3wIs/EQ==" data-cf-beacon='{"version":"2024.11.0","token":"b0251e374cc84f979df74006d03a0ce7","r":1,"server_timing":{"name":{"cfCacheStatus":true,"cfEdge":true,"cfExtPri":true,"cfL4":true,"cfOrigin":true,"cfSpeedBrain":true},"location_startswith":null}}' crossorigin="anonymous"></script>
       <script defer src="https://static.cloudflareinsights.com/beacon.min.js/v833ccba57c9e4d2798f2e76cebdd09a11778172276447" integrity="sha512-57MDmcccJXYtNnH+ZiBwzC4jb2rvgVCEokYN+L/nLlmO8rfYT/gIpW2A569iJ/3b+0UEasghjuZH/ma3wIs/EQ==" data-cf-beacon='{"version":"2024.11.0","token":"32356e0f45fc432f9e479bbc326bf8f9","r":1,"server_timing":{"name":{"cfCacheStatus":true,"cfEdge":true,"cfExtPri":true,"cfL4":true,"cfOrigin":true,"cfSpeedBrain":true},"location_startswith":null}}' crossorigin="anonymous"></script>
-   </body>
+   
+<style>
+@media (min-width: 769px){
+ .nv00-gnb-v4__l0-menu-list--left{display:flex!important;flex-wrap:nowrap!important;align-items:center!important;}
+ .nv00-gnb-v4__l0-menu-list--left>.dynamic-post-menu{flex:0 1 auto!important;min-width:0!important;}
+ .nv00-gnb-v4__l0-menu-list--left>.dynamic-post-menu .nv00-gnb-v4__l0-menu-link{padding-left:7px!important;padding-right:7px!important;}
+ .nv00-gnb-v4__l0-menu-list--left>.dynamic-post-menu .nv00-gnb-v4__l0-menu-text{font-size:11px!important;white-space:nowrap!important;}
+}
+</style>
+</body>
 </html>
 HTMLPAGE;
 $alt=static fn($lang='')=>$amp===''?'':'<link rel="alternate"'.($lang!==''?' hreflang="'.$lang.'"':'').' href="'.$h($amp).'"/>';
-$tokens=['%%TITLE%%'=>$h($title),'%%DESCRIPTION%%'=>$h($desc),'%%CONTENT%%'=>$content,'%%SITE%%'=>$h($site),'%%ORIGIN%%'=>$h($origin),'%%ORIGIN_SLASH%%'=>$h($origin.'/'),'%%CANONICAL%%'=>$h($canonical),'%%LOGO%%'=>$h($logo),'%%FAVICON%%'=>$h($favicon),'%%IMAGE%%'=>$h($image),'%%CTA%%'=>$h($cta),'%%ROBOTS%%'=>$robots,'%%GSC_META%%'=>$gsc!==''?'<meta name="google-site-verification" content="'.$h($gsc).'">':'','%%AMPHTML%%'=>$amp!==''?'<link rel="amphtml" href="'.$h($amp).'">':'','%%ALT_ID_ID%%'=>$alt('id-id'),'%%ALT_ID%%'=>$alt('id'),'%%ALT_EN%%'=>$alt('en'),'%%ALT_X_DEFAULT%%'=>$alt('x-default'),'%%ALT_PLAIN%%'=>$alt()];
+$tokens=['%%DYNAMIC_MENU%%'=>$dynamicMenuHtml,'%%TITLE%%'=>$h($title),'%%DESCRIPTION%%'=>$h($desc),'%%CONTENT%%'=>$content,'%%SITE%%'=>$h($site),'%%ORIGIN%%'=>$h($origin),'%%ORIGIN_SLASH%%'=>$h($origin.'/'),'%%CANONICAL%%'=>$h($canonical),'%%LOGO%%'=>$h($logo),'%%FAVICON%%'=>$h($favicon),'%%IMAGE%%'=>$h($image),'%%CTA%%'=>$h($cta),'%%ROBOTS%%'=>$robots,'%%GSC_META%%'=>$gsc!==''?'<meta name="google-site-verification" content="'.$h($gsc).'">':'','%%AMPHTML%%'=>$amp!==''?'<link rel="amphtml" href="'.$h($amp).'">':'','%%ALT_ID_ID%%'=>$alt('id-id'),'%%ALT_ID%%'=>$alt('id'),'%%ALT_EN%%'=>$alt('en'),'%%ALT_X_DEFAULT%%'=>$alt('x-default'),'%%ALT_PLAIN%%'=>$alt()];
 $out=strtr($template,$tokens);
 # Keep source structure; route labels that explicitly say login/daftar to their respective CTA.
 $out=preg_replace_callback('~href="'.preg_quote($h($cta),'~').'"([^>]*)>(\\s*)(DAFTAR|MASUK|LOGIN|Login/Sign-Up)~i',static function($m)use($h,$daftar,$login){$u=strtoupper($m[3])==='DAFTAR'?$daftar:$login;return 'href="'.$h($u).'"'.$m[1].'>'.$m[2].$m[3];},$out);
