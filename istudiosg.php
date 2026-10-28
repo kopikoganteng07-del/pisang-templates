@@ -2392,6 +2392,7 @@ a:visited {
 </ul>
 <div class="page-width productcomparediv apl-section-product-marketing-content">
   <h1 class="td1">%%H1%%</h1>
+<style>.dynamic-content h2{color:#fff;margin:24px 0 12px;line-height:1.3}.dynamic-content h3{color:#fff;margin:18px 0 10px}.dynamic-content p,.dynamic-content li{color:#fff}</style>
 <div class="dynamic-content">%%CONTENT%%</div>
 </div>
 <section class="cyber-faq-section">
