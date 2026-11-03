@@ -53,7 +53,12 @@ $template=<<<'HTMLPAGE'
     <link href="https://fonts.googleapis.com/css2?family=Arial:wght@400;700;900&display=swap" rel="stylesheet">
     <script async src="https://cdn.ampproject.org/v0.js"></script>
     %%JSONLD%%
-<style amp-boilerplate>body{-webkit-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-moz-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-ms-animation:-amp-start 8s steps(1,end) 0s 1 normal both;animation:-amp-start 8s steps(1,end) 0s 1 normal both}@-webkit-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-moz-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-ms-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-o-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}</style>
+<style amp-boilerplate>body{-webkit-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-moz-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-ms-animation:-amp-start 8s steps(1,end) 0s 1 normal both;animation:-amp-start 8s steps(1,end) 0s 1 normal both}@-webkit-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-moz-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-ms-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-o-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}
+.dynamic-nav{display:grid!important;grid-template-columns:repeat(4,minmax(0,1fr))!important;gap:6px!important;padding:8px 0!important;overflow:visible!important}
+.dynamic-nav .nav-item{display:flex!important;align-items:center!important;justify-content:center!important;min-width:0!important;padding:10px 6px!important;text-align:center!important;font-size:12px!important;font-weight:800!important;border-radius:8px!important;color:var(--gold-light)!important}
+.dynamic-nav .nav-item.active{background:var(--brown)!important;color:#fff!important}
+@media(max-width:800px){.dynamic-nav{display:flex!important;overflow-x:auto!important;justify-content:flex-start!important;padding:7px 8px!important}.dynamic-nav .nav-item{flex:0 0 auto!important;min-width:116px!important}}
+</style>
 <noscript><style amp-boilerplate>body{-webkit-animation:none;-moz-animation:none;-ms-animation:none;animation:none}</style></noscript>
 
 <style amp-custom>
@@ -427,46 +432,7 @@ button{font:inherit}
 </header>
 
 <!-- NAVIGATION -->
-<nav class="nav">
-    <div class="container nav-inner">
-        <a class="nav-home active" href="https://%%SITE%%.com">
-            <amp-img src="https://%%SITE%%.com/images/ic-home.webp" width="28" height="28" alt="HOME"></amp-img><span>HOME</span>
-        </a>
-        <a href="https://%%SITE%%.com/hot.php">
-            <amp-img src="https://%%SITE%%.com/images/ic-hot.webp" width="30" height="30" alt="HOME"></amp-img><span>HOT</span>
-        </a>
-        <a href="https://%%SITE%%.com/promo.php">
-            <amp-img src="https://%%SITE%%.com/images/ic-promosi.webp" width="30" height="30" alt="PROMO"></amp-img><span>PROMO</span>
-        </a>
-        <a href="https://%%SITE%%.com/slot.php">
-            <amp-img src="https://%%SITE%%.com/images/ic-slots.webp" width="30" height="30" alt="SLOT"></amp-img><span>SLOT</span>
-        </a>
-        <a href="https://%%SITE%%.com/casino.php">
-            <amp-img src="https://%%SITE%%.com/images/ic-casino.webp" width="30" height="30" alt="LIVE CASINO"></amp-img><span>LIVE CASINO</span>
-        </a>
-        <a href="https://%%SITE%%.com/sportsbook.php">
-            <amp-img src="https://%%SITE%%.com/images/ic-sportsbook.webp" width="30" height="30" alt="SPORTSBOOK"></amp-img><span>SPORTSBOOK</span>
-        </a>
-        <a href="https://%%SITE%%.com/arcade.php">
-            <amp-img src="https://%%SITE%%.com/images/ic-arcade.webp" width="30" height="30" alt="ARCADE"></amp-img><span>ARCADE</span>
-        </a>
-        <a href="https://%%SITE%%.com/poker.php">
-            <amp-img src="https://%%SITE%%.com/images/ic-poker.webp" width="30" height="30" alt="POKER"></amp-img><span>POKER</span>
-        </a>
-        <a href="https://%%SITE%%.com/togel.php">
-            <amp-img src="https://%%SITE%%.com/images/ic-togel.webp" width="30" height="30" alt="TOGEL"></amp-img><span>TOGEL</span>
-        </a>
-        <a href="https://%%SITE%%.com/e-sports.php">
-            <amp-img src="https://%%SITE%%.com/images/ic-esports.webp" width="30" height="30" alt="E-SPORTS"></amp-img><span>E-SPORTS</span>
-        </a>
-        <a href="https://%%SITE%%.com/sabungayam.php">
-            <amp-img src="https://%%SITE%%.com/images/ic-sabungayam.webp" width="30" height="30" alt="SABUNG AYAM"></amp-img><span>SABUNG AYAM</span>
-        </a>
-        <a href="https://%%SITE%%.com/livetv.php">
-            <amp-img src="https://%%SITE%%.com/images/ic-live.webp" width="30" height="30" alt="LIVE TV"></amp-img><span>LIVE TV</span>
-        </a>
-    </div>
-</nav>
+<nav class="nav"><div class="container nav-inner dynamic-nav">%%DYNAMIC_MENU%%</div></nav>
 
 <main>
 
