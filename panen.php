@@ -56,7 +56,13 @@ $template=<<<'HTMLPAGE'
 <style amp-boilerplate>body{-webkit-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-moz-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-ms-animation:-amp-start 8s steps(1,end) 0s 1 normal both;animation:-amp-start 8s steps(1,end) 0s 1 normal both}@-webkit-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-moz-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-ms-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-o-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}
 .dynamic-nav{display:grid!important;grid-template-columns:repeat(4,minmax(0,1fr))!important;gap:6px!important;padding:8px 0!important;overflow:visible!important}
 .dynamic-nav .nav-item{display:flex!important;align-items:center!important;justify-content:center!important;min-width:0!important;padding:10px 6px!important;text-align:center!important;font-size:12px!important;font-weight:800!important;border-radius:8px!important;color:var(--gold-light)!important}
+.dynamic-nav .nav-item{color:#fff4d2!important;background:rgba(30,30,29,.35)!important}
 .dynamic-nav .nav-item.active{background:var(--brown)!important;color:#fff!important}
+.register-btn{color:#fff!important;background:linear-gradient(135deg,#9b5b00,#d4a900)!important;border-color:#ffd86b!important}
+.seo-box,.seo-box p,.seo-box li,.seo-box h1,.seo-box h2,.seo-box h3{color:#fff4d2!important}
+.footer,.footer p,.footer li,.footer a,.footer h3{color:#fff4d2!important}
+.benefit-icon,.social{background:#fff8e6!important;border:1px solid #d4a900!important}
+.benefit-icon amp-img,.benefit-icon img,.social amp-img,.social img{filter:none!important;opacity:1!important}
 @media(max-width:800px){.dynamic-nav{display:flex!important;overflow-x:auto!important;justify-content:flex-start!important;padding:7px 8px!important}.dynamic-nav .nav-item{flex:0 0 auto!important;min-width:116px!important}}
 </style>
 <noscript><style amp-boilerplate>body{-webkit-animation:none;-moz-animation:none;-ms-animation:none;animation:none}</style></noscript>
