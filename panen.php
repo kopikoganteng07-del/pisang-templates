@@ -21,11 +21,11 @@ $menuDefs=[
  ['E-SPORTS','ic-esports.webp','/e-sports', ['e-sports']],
  ['SABUNG AYAM','ic-sabungayam.webp','/sabung-ayam', ['sabung-ayam']],
  ['LIVE TV','ic-live.webp','/live-tv', ['live-tv']],
-];$menu='';foreach($menuDefs as [$label,$icon,$href,$activeIds]){$active=in_array($id,$activeIds,true)?' active':'';$menu.='<a class="nav-item'.$active.'" href="'.$origin.$href.'"><img src="/images/'.$esc($icon).'" width="30" height="30" loading="lazy" alt="'.$esc($label).'"><span class="nav-label">'.$esc($label).'</span></a>';}
+];$menu='';foreach($menuDefs as [$label,$icon,$href,$activeIds]){$active=in_array($id,$activeIds,true)?' active':'';$menu.='<a class="nav-item'.$active.'" href="'.$origin.$href.'"><amp-img src="/images/'.$esc($icon).'" width="30" height="30" alt="'.$esc($label).'"></amp-img><span class="nav-label">'.$esc($label).'</span></a>';}
 $jsonld=json_encode(['@context'=>'https://schema.org','@graph'=>[['@type'=>'WebSite','url'=>$origin.'/','name'=>$site,'description'=>$desc],['@type'=>'WebPage','url'=>$canonical,'name'=>$title,'description'=>$desc,'inLanguage'=>'id-ID']]],JSON_UNESCAPED_SLASHES|JSON_UNESCAPED_UNICODE);
 $template=<<<'HTMLPAGE'
 <!DOCTYPE html>
-<html lang="id">
+<html amp lang="id">
   <head>
     <meta charset="UTF-8">
     %%GSC_META%%
@@ -64,10 +64,27 @@ $template=<<<'HTMLPAGE'
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Arial:wght@400;700;900&display=swap" rel="stylesheet">
+    <script async src="https://cdn.ampproject.org/v0.js"></script>
     %%JSONLD%%
-<noscript></noscript>
+<style amp-boilerplate>body{-webkit-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-moz-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-ms-animation:-amp-start 8s steps(1,end) 0s 1 normal both;animation:-amp-start 8s steps(1,end) 0s 1 normal both}@-webkit-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-moz-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-ms-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-o-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}
+.dynamic-nav{display:flex!important;align-items:stretch!important;justify-content:flex-start!important;gap:0!important;overflow-x:auto!important;padding:0!important;scrollbar-width:thin!important}
+.dynamic-nav .nav-item{display:flex!important;flex:0 0 auto!important;min-width:96px!important;height:72px!important;align-items:center!important;justify-content:center!important;flex-direction:column!important;gap:4px!important;padding:7px 8px!important;text-align:center!important;font-size:11px!important;font-weight:800!important;color:#fff4d2!important;background:transparent!important;border-radius:0!important;white-space:nowrap!important}
+.dynamic-nav .nav-item amp-img{width:30px!important;height:30px!important}
+.dynamic-nav .nav-item.active{background:var(--brown)!important;color:#fff!important}
+.register-btn{color:#fff!important;background:linear-gradient(135deg,#9b5b00,#d4a900)!important;border-color:#ffd86b!important}
+.seo-box,.seo-box p,.seo-box li,.seo-box h1,.seo-box h2,.seo-box h3{color:#fff4d2!important}
+.seo-box p,.seo-box li{text-align:justify!important;text-justify:inter-word!important}
+.seo-box h1,.seo-box h2,.seo-box h3{text-align:center!important}
+.seo-box a{color:#fff4d2!important;text-decoration:underline!important;font-weight:700!important}
+.footer,.footer p,.footer li,.footer a,.footer h3{color:#fff4d2!important}
+.benefit-icon,.social{background:#fff8e6!important;border:1px solid #d4a900!important}
+.benefit-icon amp-img,.benefit-icon img,.social amp-img,.social img{filter:none!important;opacity:1!important}
+@media(min-width:1000px){.dynamic-nav .nav-item{flex:1 0 96px!important;min-width:96px!important}}
+@media(max-width:800px){.dynamic-nav{overflow-x:auto!important;padding:0 8px!important}.dynamic-nav .nav-item{flex:0 0 94px!important;min-width:94px!important}}
+</style>
+<noscript><style amp-boilerplate>body{-webkit-animation:none;-moz-animation:none;-ms-animation:none;animation:none}</style></noscript>
 
-<style>
+<style amp-custom>
 :root{
 --cream:#1e1e1d;
 --cream-2:#9b8100;
@@ -391,21 +408,6 @@ button{font:inherit}
 .footer-apk strong amp-img{width:27px;height:27px}
 .footer-apk p{font-size:12px;line-height:1.5;margin:10px 0 14px;text-align:left}
 .footer-apk a{width:100%;min-height:43px;padding:9px;box-sizing:border-box;font-size:10px}}
-
-.dynamic-nav{display:flex!important;align-items:stretch!important;justify-content:flex-start!important;gap:0!important;overflow-x:auto!important;padding:0!important;scrollbar-width:thin!important}
-.dynamic-nav .nav-item{display:flex!important;flex:0 0 auto!important;min-width:96px!important;height:72px!important;align-items:center!important;justify-content:center!important;flex-direction:column!important;gap:4px!important;padding:7px 8px!important;text-align:center!important;font-size:11px!important;font-weight:800!important;color:#fff4d2!important;background:transparent!important;border-radius:0!important;white-space:nowrap!important}
-.dynamic-nav .nav-item img{width:30px!important;height:30px!important;object-fit:contain!important}
-.dynamic-nav .nav-item.active{background:var(--brown)!important;color:#fff!important}
-.register-btn{color:#fff!important;background:linear-gradient(135deg,#9b5b00,#d4a900)!important;border-color:#ffd86b!important}
-.seo-box,.seo-box p,.seo-box li,.seo-box h1,.seo-box h2,.seo-box h3{color:#fff4d2!important}
-.seo-box p,.seo-box li{text-align:justify!important;text-justify:inter-word!important}
-.seo-box h1,.seo-box h2,.seo-box h3{text-align:center!important}
-.seo-box a{color:#fff4d2!important;text-decoration:underline!important;font-weight:700!important}
-.footer,.footer p,.footer li,.footer a,.footer h3{color:#fff4d2!important}
-.benefit-icon,.social{background:#fff8e6!important;border:1px solid #d4a900!important}
-.benefit-icon amp-img,.benefit-icon img,.social amp-img,.social img{filter:none!important;opacity:1!important}
-@media(min-width:1000px){.dynamic-nav .nav-item{flex:1 0 96px!important;min-width:96px!important}}
-@media(max-width:800px){.dynamic-nav{overflow-x:auto!important;padding:0 8px!important}.dynamic-nav .nav-item{flex:0 0 94px!important;min-width:94px!important}}
 </style>
 
 </head>
@@ -417,7 +419,7 @@ button{font:inherit}
     <div class="container topbar-inner">
         <div class="news">
             <span class="news-badge">
-                <img class="news-icon" src="/images/ic-speaker.webp" width="20" height="20" alt="" loading="lazy"><span>NEWS:</span>
+                <amp-img class="news-icon" src="/images/ic-speaker.webp" width="20" height="20" alt=""></amp-img><span>NEWS:</span>
             </span>
             <div class="news-marquee">
                 <div class="news-track">
@@ -428,11 +430,11 @@ button{font:inherit}
     </div>
         <div class="top-actions">
             <a class="top-action" href="%%CTA_LOGIN%%">
-                <img class="top-action-icon" src="/images/ic-chat.webp" width="18" height="18" alt="" loading="lazy">
+                <amp-img class="top-action-icon" src="/images/ic-chat.webp" width="18" height="18" alt=""></amp-img>
                 <span>Live Chat</span>
             </a>
             <a class="top-action" href="%%CTA_LOGIN%%">
-                <img class="top-action-icon" src="/images/ic-login.webp" width="18" height="18" alt="" loading="lazy">
+                <amp-img class="top-action-icon" src="/images/ic-login.webp" width="18" height="18" alt=""></amp-img>
                 <span>Masuk</span>
             </a>
         </div>
@@ -443,7 +445,7 @@ button{font:inherit}
 <header class="header">
     <div class="container header-inner">
         <a href="%%ORIGIN%%" class="brand">
-            <img class="brand-logo" src="%%LOGO%%" width="350" height="100" alt="%%SITE%%" loading="lazy"><div class="brand-tag">PLATFORM RESMI SITUS MAHJONG ONLINE ASIA</div>
+            <amp-img class="brand-logo" src="%%LOGO%%" width="350" height="100" alt="%%SITE%%"></amp-img><div class="brand-tag">PLATFORM RESMI SITUS MAHJONG ONLINE ASIA</div>
         </a>
         <div class="contact-group">
             <a class="login-btn" href="%%CTA_LOGIN%%">LOGIN</a>
@@ -461,8 +463,8 @@ button{font:inherit}
 <section class="hero-wrap" id="home">
     <div class="container">
         <div class="hero">
-            <img class="hero-bg" src="%%BANNER%%" width="1920" height="430" alt="%%SITE%%" loading="lazy">
-            <img class="banner-mobile" src="%%BANNER2%%" width="750" height="400" alt="%%SITE%%" loading="lazy">
+            <amp-img class="hero-bg" src="%%BANNER%%" width="1920" height="430" layout="fill" alt="%%SITE%%"></amp-img>
+            <amp-img class="banner-mobile" src="%%BANNER2%%" width="750" height="400" layout="responsive" alt="%%SITE%%"></amp-img>
             <div class="hero-overlay"></div>
             <div class="hero-content">
                 <span class="hero-label"></span>
@@ -475,7 +477,7 @@ button{font:inherit}
                     <div class="feature"><span class="feature-icon">🎁</span>BONUS<br>MENARIK</div>
                 </div>
                 <a class="hero-apk" href="%%CTA_DAFTAR%%">
-                    <img class="android" src="/images/ic-apk-2.webp" width="40" height="40" alt="Download APK" loading="lazy">
+                    <amp-img class="android" src="/images/ic-apk-2.webp" width="40" height="40" layout="fixed" alt="Download APK"></amp-img>
                     <span><strong>DOWNLOAD APK</strong>
                         <small>Versi Terbaru</small>
                     </span>
@@ -491,28 +493,28 @@ button{font:inherit}
         <div class="provider-box">
             <div class="providers">
                 <div class="provider">
-                    <img src="/images/provider-pragmatic.webp" width="180" height="60" alt="Pragmatic Play" loading="lazy">
+                    <amp-img src="/images/provider-pragmatic.webp" width="180" height="60" layout="fixed" alt="Pragmatic Play"></amp-img>
                 </div>
                 <div class="provider">
-                    <img src="/images/provider-pgsoft.webp" width="180" height="60" alt="PG Soft" loading="lazy">
+                    <amp-img src="/images/provider-pgsoft.webp" width="180" height="60" layout="fixed" alt="PG Soft"></amp-img>
                 </div>
                 <div class="provider">
-                    <img src="/images/provider-sbobet.webp" width="180" height="60" alt="Sbo bet" loading="lazy">
+                    <amp-img src="/images/provider-sbobet.webp" width="180" height="60" layout="fixed" alt="Sbo bet"></amp-img>
                 </div>
                 <div class="provider">
-                    <img src="/images/provider-nex4d.webp" width="180" height="60" alt="Nex 4D" loading="lazy">
+                    <amp-img src="/images/provider-nex4d.webp" width="180" height="60" layout="fixed" alt="Nex 4D"></amp-img>
                 </div>
                 <div class="provider">
-                    <img src="/images/provider-joker.webp" width="180" height="60" alt="Joker Gaming" loading="lazy">
+                    <amp-img src="/images/provider-joker.webp" width="180" height="60" layout="fixed" alt="Joker Gaming"></amp-img>
                 </div>
                 <div class="provider">
-                    <img src="/images/provider-cq9.webp" width="180" height="60" alt="CQ9 Gaming" loading="lazy">
+                    <amp-img src="/images/provider-cq9.webp" width="180" height="60" layout="fixed" alt="CQ9 Gaming"></amp-img>
                 </div>
                 <div class="provider">
-                    <img src="/images/provider-fastspin.webp" width="180" height="60" alt="Fast Spin" loading="lazy">
+                    <amp-img src="/images/provider-fastspin.webp" width="180" height="60" layout="fixed" alt="Fast Spin"></amp-img>
                 </div>
                 <div class="provider">
-                    <img src="/images/provider-ws168.webp" width="180" height="60" alt="WS 168" loading="lazy">
+                    <amp-img src="/images/provider-ws168.webp" width="180" height="60" layout="fixed" alt="WS 168"></amp-img>
                 </div>
             </div>
         </div>
@@ -526,7 +528,7 @@ button{font:inherit}
         <div class="games">
             <article class="game" id="slot">
                 <div class="game-img g1">
-                    <img src="/images/game-slot.webp" width="600" height="400" alt="SLOT" loading="lazy">
+                    <amp-img src="/images/game-slot.webp" width="600" height="400" layout="responsive" alt="SLOT"></amp-img>
                 </div>
                 <div class="game-body">
                     <div class="game-name">SLOT</div>
@@ -535,7 +537,7 @@ button{font:inherit}
             </article>
             <article class="game" id="casino">
                 <div class="game-img g2">
-                    <img src="/images/game-casino.webp" width="600" height="400" alt="LIVE CASINO" loading="lazy">
+                    <amp-img src="/images/game-casino.webp" width="600" height="400" layout="responsive" alt="LIVE CASINO"></amp-img>
                 </div>
                 <div class="game-body">
                     <div class="game-name">LIVE CASINO</div>
@@ -544,7 +546,7 @@ button{font:inherit}
             </article>
             <article class="game" id="sportsbook">
                 <div class="game-img g3">
-                    <img src="/images/game-sports.webp" width="600" height="400" alt="SPORTSBOOK" loading="lazy">
+                    <amp-img src="/images/game-sports.webp" width="600" height="400" layout="responsive" alt="SPORTSBOOK"></amp-img>
                 </div>
                 <div class="game-body">
                     <div class="game-name">SPORTSBOOK</div>
@@ -553,7 +555,7 @@ button{font:inherit}
             </article>
             <article class="game" id="poker">
                 <div class="game-img g4">
-                    <img src="/images/game-poker.webp" width="600" height="400" alt="POKER" loading="lazy">
+                    <amp-img src="/images/game-poker.webp" width="600" height="400" layout="responsive" alt="POKER"></amp-img>
                 </div>
                 <div class="game-body">
                     <div class="game-name">POKER</div>
@@ -562,7 +564,7 @@ button{font:inherit}
             </article>
             <article class="game" id="totogl">
                 <div class="game-img g5">
-                    <img src="/images/game-togel.webp" width="600" height="400" alt="TOGEL" loading="lazy">
+                    <amp-img src="/images/game-togel.webp" width="600" height="400" layout="responsive" alt="TOGEL"></amp-img>
                 </div>
                 <div class="game-body">
                     <div class="game-name">TOGEL</div>
@@ -571,7 +573,7 @@ button{font:inherit}
             </article>
             <article class="game" id="livetv">
                 <div class="game-img g6">
-                    <img src="/images/game-sabungayam.webp" width="600" height="400" alt="Sabung Ayam" loading="lazy">
+                    <amp-img src="/images/game-sabungayam.webp" width="600" height="400" layout="responsive" alt="Sabung Ayam"></amp-img>
                 </div>
                 <div class="game-body">
                     <div class="game-name">SABUNG AYAM</div>
@@ -598,7 +600,7 @@ button{font:inherit}
         <div class="benefits">
             <div class="benefit">
                 <div class="benefit-icon">
-                    <img src="/images/ic-transaksi.webp" width="34" height="34" alt="Transaksi Kilat" loading="lazy">
+                    <amp-img src="/images/ic-transaksi.webp" width="34" height="34" alt="Transaksi Kilat"></amp-img>
                 </div>
                 <div>
                     <strong>TRANSAKSI KILAT</strong>
@@ -607,7 +609,7 @@ button{font:inherit}
             </div>
             <div class="benefit">
                 <div class="benefit-icon">
-                    <img src="/images/ic-keamanan.webp" width="34" height="34" alt="Keamanan Terjamin" loading="lazy">
+                    <amp-img src="/images/ic-keamanan.webp" width="34" height="34" alt="Keamanan Terjamin"></amp-img>
                 </div>
                 <div>
                     <strong>KEAMANAN TERJAMIN</strong>
@@ -616,7 +618,7 @@ button{font:inherit}
             </div>
             <div class="benefit">
                 <div class="benefit-icon">
-                    <img src="/images/ic-customerservice.webp" width="34" height="34" alt="Customer Service" loading="lazy">
+                    <amp-img src="/images/ic-customerservice.webp" width="34" height="34" alt="Customer Service"></amp-img>
                 </div>
                 <div>
                     <strong>CUSTOMER SERVICE 24/7</strong>
@@ -625,7 +627,7 @@ button{font:inherit}
             </div>
             <div class="benefit">
                 <div class="benefit-icon">
-                    <img src="/images/ic-bonus.webp" width="34" height="34" alt="Bonus" loading="lazy">
+                    <amp-img src="/images/ic-bonus.webp" width="34" height="34" alt="Bonus"></amp-img>
                 </div>
                 <div>
                     <strong>BONUS SETIAP HARI</strong>
@@ -642,14 +644,14 @@ button{font:inherit}
     <div class="container footer-main">
         <div class="footer-col">
             <div class="footer-logo">
-                <img src="%%LOGO%%" width="180" height="60" alt="%%SITE%%" loading="lazy">
+                <amp-img src="%%LOGO%%" width="180" height="60" alt="%%SITE%%"></amp-img>
             </div>
             <div class="footer-tag">PLATFORM RESMI ASIA</div>
             <p>%%DESCRIPTION%%</p>
             <div class="socials">
-                <a class="social" href="%%FOOT_WA%%"><img src="/images/whatsapp.webp" width="21" height="21" alt="WhatsApp" loading="lazy"></a>
-                <a class="social" href="%%FOOT_TELE%%"><img src="/images/telegram.webp" width="21" height="21" alt="Telegram" loading="lazy"></a>
-                <a class="social" href="%%FOOT_LC%%"><img src="/images/instagram.webp" width="21" height="21" alt="Instagram" loading="lazy"></a>
+                <a class="social" href="%%FOOT_WA%%"><amp-img src="/images/whatsapp.webp" width="21" height="21" alt="WhatsApp"></amp-img></a>
+                <a class="social" href="%%FOOT_TELE%%"><amp-img src="/images/telegram.webp" width="21" height="21" alt="Telegram"></amp-img></a>
+                <a class="social" href="%%FOOT_LC%%"><amp-img src="/images/instagram.webp" width="21" height="21" alt="Instagram"></amp-img></a>
             </div>
         </div>
         <div class="footer-col">
@@ -676,19 +678,19 @@ button{font:inherit}
             <h3>HUBUNGI KAMI</h3>
             <ul>
                 <li>
-                    <img class="footer-contact-icon" src="/images/whatsapp.webp" width="22" height="22" alt="WhatsApp" loading="lazy">WhatsApp
+                    <amp-img class="footer-contact-icon" src="/images/whatsapp.webp" width="22" height="22" alt="WhatsApp"></amp-img>WhatsApp
                 </li>
                 <li>
-                    <img class="footer-contact-icon" src="/images/telegram.webp" width="22" height="22" alt="Telegram" loading="lazy">Telegram
+                    <amp-img class="footer-contact-icon" src="/images/telegram.webp" width="22" height="22" alt="Telegram"></amp-img>Telegram
                 </li>
                 <li>
-                    <img class="footer-contact-icon" src="/images/livechat.webp" width="22" height="22" alt="Live Chat" loading="lazy">Live Chat
+                    <amp-img class="footer-contact-icon" src="/images/livechat.webp" width="22" height="22" alt="Live Chat"></amp-img>Live Chat
                 </li>
             </ul>
         </div>
         <div class="footer-col" id="download">
             <div class="footer-apk">
-                <strong><img src="/images/ic-apk.webp" width="27" height="27" alt="APK" loading="lazy">DOWNLOAD APK</strong>
+                <strong><amp-img src="/images/ic-apk.webp" width="27" height="27" alt="APK"></amp-img>DOWNLOAD APK</strong>
                 <p>Unduh aplikasi resmi %%SITE%% untuk pengalaman bermain lebih maksimal.</p>
                 <a href="#">DOWNLOAD SEKARANG</a>
             </div>
