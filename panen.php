@@ -8,7 +8,20 @@ $host=preg_replace('/:\\d+$/','',(string)($_SERVER['HTTP_HOST']??($siteData['dom
 $isHome=$id==='homepage';$title=(string)($page['title']??'');$desc=(string)($page['description']??'');$h1=(string)($page['h1']??$title);$content=(string)($page['content_html']??$desc);$site=(string)($siteData['nama_situs']??preg_replace('/\\..*$/','',$host));$canonicalOverride=trim((string)($page['canonical_override']??''));$canonical=$canonicalOverride!==''?$canonicalOverride:($origin.($isHome?'/':'/'.$id));$robots=!empty($page['noindex'])?'noindex, nofollow':'index, follow';
 $logo=$abs($siteData['logo']??'/img/logo.png');$favicon=$abs($siteData['favicon']??'/img/favicon.png');$banner=$abs($siteData['banner1']??'/img/banner1.jpg');$banner2=$abs($siteData['banner2']??($siteData['banner1']??'/img/banner1.jpg'));$daftar=trim((string)($siteData['cta_daftar_url']??''))?:'#';$login=trim((string)($siteData['cta_login_url']??''))?:'#';$wa=trim((string)($siteData['wa']??''))?:'#';$tele=trim((string)($siteData['tele']??''))?:'#';$lc=trim((string)($siteData['lc']??''))?:'#';
 $gsc=trim((string)($siteData['gsc']??''));$gscMeta=$gsc!==''?'<meta name="google-site-verification" content="'.$esc($gsc).'">':'';$amp=trim((string)($siteData['amp_url']??''));$ampMeta=($amp!==''&&$amp!=='#')?'<link rel="amphtml" href="'.$esc($amp).'"><link rel="alternate" href="'.$esc($amp).'"><link rel="alternate" hreflang="id-id" href="'.$esc($amp).'"><link rel="alternate" hreflang="id" href="'.$esc($amp).'"><link rel="alternate" hreflang="en" href="'.$esc($amp).'"><link rel="alternate" hreflang="x-default" href="'.$esc($amp).'">':'';
-$menu='<a class="nav-item'.($isHome?' active':'').'" href="'.$origin.'/"><span class="nav-label">HOME</span></a>';foreach($pages as $slug=>$mp){if($slug==='homepage')continue;$label=trim((string)($mp['menu_label']??$mp['h1']??ucwords(str_replace('-',' ',$slug))));$menu.='<a class="nav-item'.($id===$slug?' active':'').'" href="'.$origin.'/'.$esc($slug).'"><span class="nav-label">'.$esc($label).'</span></a>';}
+$menuDefs=[
+ ['HOME','ic-home.webp','/', ['homepage']],
+ ['HOT','ic-hot.webp','/#game', []],
+ ['PROMO','ic-promosi.webp','/#benefit', []],
+ ['SLOT','ic-slots.webp','/slot', ['slot']],
+ ['LIVE CASINO','ic-casino.webp','/casino', ['casino']],
+ ['SPORTSBOOK','ic-sportsbook.webp','/sportsbook', ['sportsbook']],
+ ['ARCADE','ic-arcade.webp','/#game', []],
+ ['POKER','ic-poker.webp','/#game', []],
+ ['TOGEL','ic-togel.webp','/togel', ['togel']],
+ ['E-SPORTS','ic-esports.webp','/#game', []],
+ ['SABUNG AYAM','ic-sabungayam.webp','/#game', []],
+ ['LIVE TV','ic-live.webp','/#game', []],
+];$menu='';foreach($menuDefs as [$label,$icon,$href,$activeIds]){$active=in_array($id,$activeIds,true)?' active':'';$menu.='<a class="nav-item'.$active.'" href="'.$origin.$href.'"><amp-img src="/images/'.$esc($icon).'" width="30" height="30" alt="'.$esc($label).'"></amp-img><span class="nav-label">'.$esc($label).'</span></a>';}
 $jsonld=json_encode(['@context'=>'https://schema.org','@graph'=>[['@type'=>'WebSite','url'=>$origin.'/','name'=>$site,'description'=>$desc],['@type'=>'WebPage','url'=>$canonical,'name'=>$title,'description'=>$desc,'inLanguage'=>'id-ID']]],JSON_UNESCAPED_SLASHES|JSON_UNESCAPED_UNICODE);
 $template=<<<'HTMLPAGE'
 <!DOCTYPE html>
@@ -54,16 +67,17 @@ $template=<<<'HTMLPAGE'
     <script async src="https://cdn.ampproject.org/v0.js"></script>
     %%JSONLD%%
 <style amp-boilerplate>body{-webkit-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-moz-animation:-amp-start 8s steps(1,end) 0s 1 normal both;-ms-animation:-amp-start 8s steps(1,end) 0s 1 normal both;animation:-amp-start 8s steps(1,end) 0s 1 normal both}@-webkit-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-moz-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-ms-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@-o-keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}@keyframes -amp-start{from{visibility:hidden}to{visibility:visible}}
-.dynamic-nav{display:grid!important;grid-template-columns:repeat(4,minmax(0,1fr))!important;gap:6px!important;padding:8px 0!important;overflow:visible!important}
-.dynamic-nav .nav-item{display:flex!important;align-items:center!important;justify-content:center!important;min-width:0!important;padding:10px 6px!important;text-align:center!important;font-size:12px!important;font-weight:800!important;border-radius:8px!important;color:var(--gold-light)!important}
-.dynamic-nav .nav-item{color:#fff4d2!important;background:rgba(30,30,29,.35)!important}
+.dynamic-nav{display:flex!important;align-items:stretch!important;justify-content:flex-start!important;gap:0!important;overflow-x:auto!important;padding:0!important;scrollbar-width:thin!important}
+.dynamic-nav .nav-item{display:flex!important;flex:0 0 auto!important;min-width:96px!important;height:72px!important;align-items:center!important;justify-content:center!important;flex-direction:column!important;gap:4px!important;padding:7px 8px!important;text-align:center!important;font-size:11px!important;font-weight:800!important;color:#fff4d2!important;background:transparent!important;border-radius:0!important;white-space:nowrap!important}
+.dynamic-nav .nav-item amp-img{width:30px!important;height:30px!important}
 .dynamic-nav .nav-item.active{background:var(--brown)!important;color:#fff!important}
 .register-btn{color:#fff!important;background:linear-gradient(135deg,#9b5b00,#d4a900)!important;border-color:#ffd86b!important}
 .seo-box,.seo-box p,.seo-box li,.seo-box h1,.seo-box h2,.seo-box h3{color:#fff4d2!important}
 .footer,.footer p,.footer li,.footer a,.footer h3{color:#fff4d2!important}
 .benefit-icon,.social{background:#fff8e6!important;border:1px solid #d4a900!important}
 .benefit-icon amp-img,.benefit-icon img,.social amp-img,.social img{filter:none!important;opacity:1!important}
-@media(max-width:800px){.dynamic-nav{display:flex!important;overflow-x:auto!important;justify-content:flex-start!important;padding:7px 8px!important}.dynamic-nav .nav-item{flex:0 0 auto!important;min-width:116px!important}}
+@media(min-width:1000px){.dynamic-nav .nav-item{flex:1 0 96px!important;min-width:96px!important}}
+@media(max-width:800px){.dynamic-nav{overflow-x:auto!important;padding:0 8px!important}.dynamic-nav .nav-item{flex:0 0 94px!important;min-width:94px!important}}
 </style>
 <noscript><style amp-boilerplate>body{-webkit-animation:none;-moz-animation:none;-ms-animation:none;animation:none}</style></noscript>
 
