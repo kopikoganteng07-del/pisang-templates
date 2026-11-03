@@ -10,17 +10,17 @@ $logo=$abs($siteData['logo']??'/img/logo.png');$favicon=$abs($siteData['favicon'
 $gsc=trim((string)($siteData['gsc']??''));$gscMeta=$gsc!==''?'<meta name="google-site-verification" content="'.$esc($gsc).'">':'';$amp=trim((string)($siteData['amp_url']??''));$ampMeta=($amp!==''&&$amp!=='#')?'<link rel="amphtml" href="'.$esc($amp).'"><link rel="alternate" href="'.$esc($amp).'"><link rel="alternate" hreflang="id-id" href="'.$esc($amp).'"><link rel="alternate" hreflang="id" href="'.$esc($amp).'"><link rel="alternate" hreflang="en" href="'.$esc($amp).'"><link rel="alternate" hreflang="x-default" href="'.$esc($amp).'">':'';
 $menuDefs=[
  ['HOME','ic-home.webp','/', ['homepage']],
- ['HOT','ic-hot.webp','/#game', []],
- ['PROMO','ic-promosi.webp','/#benefit', []],
+ ['HOT','ic-hot.webp','/hot', ['hot']],
+ ['PROMO','ic-promosi.webp','/promo', ['promo']],
  ['SLOT','ic-slots.webp','/slot', ['slot']],
  ['LIVE CASINO','ic-casino.webp','/casino', ['casino']],
  ['SPORTSBOOK','ic-sportsbook.webp','/sportsbook', ['sportsbook']],
- ['ARCADE','ic-arcade.webp','/#game', []],
- ['POKER','ic-poker.webp','/#game', []],
+ ['ARCADE','ic-arcade.webp','/arcade', ['arcade']],
+ ['POKER','ic-poker.webp','/poker', ['poker']],
  ['TOGEL','ic-togel.webp','/togel', ['togel']],
- ['E-SPORTS','ic-esports.webp','/#game', []],
- ['SABUNG AYAM','ic-sabungayam.webp','/#game', []],
- ['LIVE TV','ic-live.webp','/#game', []],
+ ['E-SPORTS','ic-esports.webp','/e-sports', ['e-sports']],
+ ['SABUNG AYAM','ic-sabungayam.webp','/sabung-ayam', ['sabung-ayam']],
+ ['LIVE TV','ic-live.webp','/live-tv', ['live-tv']],
 ];$menu='';foreach($menuDefs as [$label,$icon,$href,$activeIds]){$active=in_array($id,$activeIds,true)?' active':'';$menu.='<a class="nav-item'.$active.'" href="'.$origin.$href.'"><amp-img src="/images/'.$esc($icon).'" width="30" height="30" alt="'.$esc($label).'"></amp-img><span class="nav-label">'.$esc($label).'</span></a>';}
 $jsonld=json_encode(['@context'=>'https://schema.org','@graph'=>[['@type'=>'WebSite','url'=>$origin.'/','name'=>$site,'description'=>$desc],['@type'=>'WebPage','url'=>$canonical,'name'=>$title,'description'=>$desc,'inLanguage'=>'id-ID']]],JSON_UNESCAPED_SLASHES|JSON_UNESCAPED_UNICODE);
 $template=<<<'HTMLPAGE'
